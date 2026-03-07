@@ -218,14 +218,6 @@ def render_sidebar():
         st.markdown("### 🏛️ Rome Places Chatbot")
         st.markdown("---")
         
-        # Session info
-        st.markdown("#### Current Session")
-        session_id_short = st.session_state.current_session.session_id[:8]
-        st.text(f"ID: {session_id_short}...")
-        st.text(f"Messages: {len(st.session_state.messages)}")
-        
-        st.markdown("---")
-        
         # Session management buttons
         st.markdown("#### Session Management")
         
@@ -476,6 +468,14 @@ def render_sidebar():
             - Follow-up questions: "What's nearby?"
             - The chatbot remembers your conversation!
             """)
+        
+        st.markdown("---")
+        
+        # Session info at bottom
+        st.markdown("#### Current Session")
+        session_id_short = st.session_state.current_session.session_id[:8]
+        st.text(f"ID: {session_id_short}...")
+        st.text(f"Messages: {len(st.session_state.messages)}")
 
 
 def render_chat_interface():
