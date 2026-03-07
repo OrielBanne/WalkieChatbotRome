@@ -217,13 +217,13 @@ def initialize_session_state():
 
 def render_sidebar():
     """Render the sidebar with session management controls."""
-    
+
     with st.sidebar:
         # Session management buttons
         st.markdown("#### Session Management")
-        
+
         col1, col2 = st.columns(2)
-        
+
         with col1:
             if st.button("🔄 Start Fresh", use_container_width=True):
                 # Clear current session history
@@ -234,61 +234,64 @@ def render_sidebar():
                 st.session_state.last_places = []
                 logger.info(f"Cleared history for session: {st.session_state.current_session.session_id}")
                 st.rerun()
-        
+
         with col2:
-            if st.button("� Export History", use_container_width=True):
-                # Export conversation history
-                history_text = st.session_state.session_manager.export_history(
-                    st.session_state.current_session.session_id
-                )
-                
-                # Create download button
-                st.download_button(
-                    label="Download History",
-                    data=history_text,
-                    file_name=f"chat_history_{st.session_state.current_session.session_id[:8]}.txt",
-                    mime="text/plain",
-                    use_container_width=True
-                )
-        
+            # Export conversation history
+            history_text = st.session_state.session_manager.export_history(
+                st.session_state.current_session.session_id
+            )
+
+            st.download_button(
+                label="💾 Download Chat",
+                data=history_text,
+                file_name=f"chat_{st.session_state.current_session.session_id[:8]}.txt",
+                mime="text/plain",
+                use_container_width=True,
+                disabled=len(st.session_state.messages) == 0
+            )
+
         # Previous Sessions
         with st.expander("📜 Previous Sessions"):
             sessions = st.session_state.session_manager.list_sessions(st.session_state.user_id)
-            
+
+            # Filter out empty sessions and current session
+            non_empty_sessions = []
+            for session in sessions:
+                if session.session_id == st.session_state.current_session.session_id:
+                    continue
+                if session.message_count > 0:
+                    non_empty_sessions.append(session)
+
             # Sort by last interaction (most recent first)
-            sessions.sort(key=lambda s: s.last_interaction, reverse=True)
-            
-            if len(sessions) > 1:
+            non_empty_sessions.sort(key=lambda s: s.last_interaction, reverse=True)
+
+            if len(non_empty_sessions) > 0:
                 st.markdown("**Switch to a previous session:**")
-                
-                for session in sessions:
-                    # Skip current session
-                    if session.session_id == st.session_state.current_session.session_id:
-                        continue
-                    
+
+                for session in non_empty_sessions:
                     # Get session name from first message
                     history = st.session_state.session_manager.load_conversation_history(session.session_id)
-                    
+
                     if history and len(history) > 0:
                         # Find first user message
                         first_user_msg = next((msg for msg in history if msg.role == "user"), None)
-                        
+
                         if first_user_msg:
                             # Create short summary (first 30 chars)
                             summary = first_user_msg.content[:30].strip()
                             if len(first_user_msg.content) > 30:
                                 summary += "..."
                         else:
-                            summary = "Empty session"
+                            continue  # Skip if no user message
                     else:
-                        summary = "Empty session"
-                    
+                        continue  # Skip empty sessions
+
                     # Format date
                     date_str = session.last_interaction.strftime("%b %d")
                     session_name = f"{summary} ({date_str})"
-                    
+
                     col1, col2 = st.columns([3, 1])
-                    
+
                     with col1:
                         if st.button(
                             f"📅 {session_name}",
@@ -303,7 +306,7 @@ def render_sidebar():
                                 last_interaction=session.last_interaction,
                                 message_count=session.message_count
                             )
-                            
+
                             # Load conversation history
                             history = st.session_state.session_manager.load_conversation_history(
                                 session.session_id
@@ -312,11 +315,11 @@ def render_sidebar():
                                 {"role": msg.role, "content": msg.content} for msg in history
                             ]
                             st.session_state.last_places = []
-                            
+
                             set_session_id(session.session_id)
                             logger.info(f"Switched to session: {session.session_id}")
                             st.rerun()
-                    
+
                     with col2:
                         if st.button("🗑️", key=f"delete_session_{session.session_id}"):
                             # Delete the session
@@ -324,26 +327,26 @@ def render_sidebar():
                             logger.info(f"Deleted session: {session.session_id}")
                             st.rerun()
             else:
-                st.info("No previous sessions yet. Click 'New Session' to create more.")
-        
+                st.info("No previous sessions yet.")
+
         st.markdown("---")
-        
+
         # Data Management section
         st.markdown("#### 📚 Knowledge Base")
-        
+
         # Show current sources
         sources_file = "data/sample_sources.txt"
         if os.path.exists(sources_file):
             with open(sources_file, 'r') as f:
                 all_lines = [line.strip() for line in f if line.strip() and not line.startswith('#')]
-            
+
             # Separate by type
             youtube_sources = [line for line in all_lines if 'youtube.com' in line or 'youtu.be' in line]
             web_sources = [line for line in all_lines if line.startswith('http') and 'youtube' not in line and 'youtu.be' not in line]
             pdf_sources = [line for line in all_lines if line.endswith('.pdf') or 'pdf:' in line.lower()]
-            
+
             st.text(f"Videos: {len(youtube_sources)} | Websites: {len(web_sources)} | PDFs: {len(pdf_sources)}")
-            
+
             # Manage Videos
             with st.expander("📹 Manage Videos"):
                 # Display current videos
@@ -362,7 +365,7 @@ def render_sidebar():
                                 info = ydl.extract_info(url, download=False)
                                 title = info.get('title', 'Unknown Title')
                                 duration = info.get('duration', 0)
-                                
+
                                 # Format duration
                                 if duration:
                                     minutes = duration // 60
@@ -370,12 +373,12 @@ def render_sidebar():
                                     duration_str = f"{minutes}:{seconds:02d}"
                                 else:
                                     duration_str = "Unknown"
-                                
+
                                 display_text = f"{i}. {title} ({duration_str})"
                         except Exception as e:
                             # Fallback to URL if fetching fails
                             display_text = f"{i}. {url[:50]}..."
-                        
+
                         col1, col2 = st.columns([4, 1])
                         with col1:
                             st.text(display_text)
@@ -389,9 +392,9 @@ def render_sidebar():
                                 st.rerun()
                 else:
                     st.info("No videos added yet")
-                
+
                 st.markdown("---")
-                
+
                 # Add new video
                 st.markdown("**Add New Video:**")
                 new_video_url = st.text_input("YouTube URL", key="new_video_url")
@@ -408,7 +411,7 @@ def render_sidebar():
                             st.error("Please enter a valid YouTube URL")
                     else:
                         st.error("Please enter a URL")
-            
+
             # Manage Websites
             with st.expander("🌐 Manage Websites"):
                 # Display current websites
@@ -428,9 +431,9 @@ def render_sidebar():
                                 st.rerun()
                 else:
                     st.info("No websites added yet")
-                
+
                 st.markdown("---")
-                
+
                 # Add new website
                 st.markdown("**Add New Website:**")
                 new_web_url = st.text_input("Website URL", key="new_web_url", placeholder="https://example.com/rome-guide")
@@ -450,7 +453,7 @@ def render_sidebar():
                             st.error("Please enter a valid URL starting with http:// or https://")
                     else:
                         st.error("Please enter a URL")
-            
+
             # Manage PDFs
             with st.expander("📄 Manage PDFs"):
                 # Display current PDFs
@@ -478,9 +481,9 @@ def render_sidebar():
                                 st.rerun()
                 else:
                     st.info("No PDFs added yet")
-                
+
                 st.markdown("---")
-                
+
                 # Upload new PDF
                 st.markdown("**Upload New PDF:**")
                 uploaded_file = st.file_uploader("Choose a PDF file", type=['pdf'], key="pdf_uploader")
@@ -488,27 +491,27 @@ def render_sidebar():
                     # Save uploaded file to data directory
                     pdf_dir = Path("data/pdfs")
                     pdf_dir.mkdir(exist_ok=True)
-                    
+
                     pdf_path = pdf_dir / uploaded_file.name
-                    
+
                     if st.button("➕ Add PDF", use_container_width=True):
                         try:
                             # Save the uploaded file
                             with open(pdf_path, 'wb') as f:
                                 f.write(uploaded_file.getbuffer())
-                            
+
                             # Add to sources list
                             all_lines.append(str(pdf_path))
                             with open(sources_file, 'w') as f:
                                 f.write('\n'.join(all_lines) + '\n')
-                            
+
                             st.session_state.sources_modified = True
                             st.success(f"PDF '{uploaded_file.name}' added! Click 'Rebuild' to update knowledge base.")
                             st.rerun()
                         except Exception as e:
                             st.error(f"Failed to save PDF: {str(e)}")
                             logger.error(f"PDF upload error: {e}", exc_info=True)
-            
+
             # Rebuild vector store
             button_type = "primary" if st.session_state.sources_modified else "secondary"
             if st.button("🔄 Rebuild Knowledge Base", use_container_width=True, type=button_type, disabled=not st.session_state.sources_modified):
@@ -521,17 +524,17 @@ def render_sidebar():
                             text=True,
                             cwd=str(project_root)
                         )
-                        
+
                         if result.returncode == 0:
                             # Reload vector store
                             st.session_state.vector_store = VectorStore()
                             st.session_state.vector_store.load("data/vector_store")
-                            
+
                             # Update retriever
                             retriever = VectorStoreRetriever(vector_store=st.session_state.vector_store, k=5)
                             llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7, streaming=True)
                             st.session_state.rag_chain = RAGChain(llm, retriever)
-                            
+
                             st.session_state.sources_modified = False
                             st.success("✅ Knowledge base rebuilt successfully!")
                             logger.info("Knowledge base rebuilt from UI")
@@ -543,28 +546,28 @@ def render_sidebar():
                         logger.error(f"Rebuild error: {e}", exc_info=True)
         else:
             st.warning("No sources file found")
-        
+
         st.markdown("---")
-        
+
         # About button
         with st.expander("ℹ️ About"):
             st.markdown("""
             **Rome Places Chatbot**
-            
+
             Discover the Eternal City through natural conversation with AI-powered recommendations and interactive maps.
-            
+
             **Features:**
             - 💬 Natural conversation
             - 🗺️ Interactive maps
             - 📚 Curated knowledge base
-            
+
             **Created by:**
             - Oriel Banne
             - GitHub: [OrielBanne/WalkieChatbotRome](https://github.com/OrielBanne/WalkieChatbotRome)
-            
+
             Built with OpenAI, LangChain, and Streamlit.
             """)
-        
+
         # Tips
         with st.expander("💡 Tips"):
             st.markdown("""
@@ -573,12 +576,13 @@ def render_sidebar():
             - Follow-up questions: "What's nearby?"
             - The chatbot remembers your conversation!
             """)
-        
+
         st.markdown("---")
-        
+
         # Session info at bottom
         st.markdown("#### Current Session")
         st.text(f"Messages: {len(st.session_state.messages)}")
+
 
 
 def render_chat_interface():
