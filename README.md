@@ -10,7 +10,7 @@ An interactive conversational AI system that helps users discover and learn abou
 - **RAG Architecture**: Retrieval-Augmented Generation using curated content from YouTube, web sources, and PDFs
 - **Session Persistence**: Conversation history saved across sessions for continuous user experience
 - **Interactive Maps**: Visual place discovery with Folium maps integrated into the chat interface
-- **Place Extraction**: Automatic identification of Rome landmarks using spaCy NER
+- **Place Extraction**: Automatic identification of Rome landmarks using regex-based gazetteer matching
 - **Geocoding**: Accurate location mapping with fallback to manual coordinates for major landmarks
 - **Context-Aware**: Maintains conversation context and references previous discussions
 
@@ -20,7 +20,7 @@ The system uses a pipeline architecture with the following components:
 
 - **Session Manager**: File-based conversation history persistence
 - **Context Manager**: Token-aware conversation context building
-- **Place Extractor**: spaCy-based named entity recognition for places
+- **Place Extractor**: Regex-based place name extraction with Rome landmarks gazetteer
 - **RAG Chain**: LangChain-powered retrieval and generation pipeline
 - **Vector Store**: FAISS-based document embedding storage
 - **Geocoder**: Geopy-based place name to coordinate conversion
@@ -60,13 +60,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Download spaCy Model
-
-```bash
-python -m spacy download en_core_web_sm
-```
-
-### 5. Configure Environment Variables
+### 4. Configure Environment Variables
 
 **IMPORTANT: Your OpenAI API key should be set as a system environment variable, NOT in the `.env` file.**
 
@@ -364,9 +358,6 @@ python scripts/ingest_data.py --youtube "URL" --web "URL"
 ```bash
 # Reinstall dependencies
 pip install -r requirements.txt
-
-# Download spaCy model
-python -m spacy download en_core_web_sm
 ```
 
 ### Port Already in Use
@@ -442,7 +433,6 @@ Contributions are welcome! Please follow these guidelines:
 
 - OpenAI for GPT and embedding models
 - LangChain for RAG framework
-- spaCy for NLP capabilities
 - Streamlit for the web interface
 - Folium for map visualization
 - Geopy for geocoding services
