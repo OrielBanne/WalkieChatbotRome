@@ -357,9 +357,35 @@ def render_sidebar():
                 st.markdown("**Current Videos:**")
                 if youtube_sources:
                     for i, url in enumerate(youtube_sources, 1):
+                        # Try to get video info
+                        try:
+                            from yt_dlp import YoutubeDL
+                            ydl_opts = {
+                                'quiet': True,
+                                'no_warnings': True,
+                                'extract_flat': True,
+                            }
+                            with YoutubeDL(ydl_opts) as ydl:
+                                info = ydl.extract_info(url, download=False)
+                                title = info.get('title', 'Unknown Title')
+                                duration = info.get('duration', 0)
+                                
+                                # Format duration
+                                if duration:
+                                    minutes = duration // 60
+                                    seconds = duration % 60
+                                    duration_str = f"{minutes}:{seconds:02d}"
+                                else:
+                                    duration_str = "Unknown"
+                                
+                                display_text = f"{i}. {title} ({duration_str})"
+                        except Exception as e:
+                            # Fallback to URL if fetching fails
+                            display_text = f"{i}. {url[:50]}..."
+                        
                         col1, col2 = st.columns([4, 1])
                         with col1:
-                            st.text(f"{i}. {url[:50]}...")
+                            st.text(display_text)
                         with col2:
                             if st.button("🗑️", key=f"remove_video_{i}"):
                                 all_lines.remove(url)
