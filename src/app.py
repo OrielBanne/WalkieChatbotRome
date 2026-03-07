@@ -38,7 +38,7 @@ from src.rag_chain import RAGChain
 from src.geocoder import Geocoder
 from src.map_builder import MapBuilder
 from src.vector_store import VectorStore
-from src.models import Message, PlaceMarker
+from src.models import Message, PlaceMarker, Session
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.retrievers import BaseRetriever
@@ -349,57 +349,23 @@ def render_sidebar():
 
             # Manage Videos
             with st.expander("📹 Manage Videos"):
+                # Initialize video info cache
+                if "video_info_cache" not in st.session_state:
+                    st.session_state.video_info_cache = {}
+                
                 # Display current videos
                 st.markdown("**Current Videos:**")
                 if youtube_sources:
-                    # Show videos immediately with URLs, fetch titles in background
+                    # Show videos immediately (with cached info or placeholders)
                     for i, url in enumerate(youtube_sources, 1):
                         col1, col2 = st.columns([4, 1])
                         
                         with col1:
-                            # Show URL immediately as placeholder
-                            video_placeholder = st.empty()
-                            
-                            # Try to get cached or fetch video info
-                            if "video_info_cache" not in st.session_state:
-                                st.session_state.video_info_cache = {}
-                            
+                            # Show cached info or placeholder
                             if url in st.session_state.video_info_cache:
-                                # Use cached info
-                                video_placeholder.text(st.session_state.video_info_cache[url])
+                                st.text(f"{i}. {st.session_state.video_info_cache[url]}")
                             else:
-                                # Show URL as placeholder
-                                video_placeholder.text(f"{i}. {url[:50]}...")
-                                
-                                # Try to fetch in background (non-blocking)
-                                try:
-                                    from yt_dlp import YoutubeDL
-                                    ydl_opts = {
-                                        'quiet': True,
-                                        'no_warnings': True,
-                                        'extract_flat': False,
-                                        'skip_download': True,
-                                    }
-                                    with YoutubeDL(ydl_opts) as ydl:
-                                        info = ydl.extract_info(url, download=False)
-                                        title = info.get('title', 'Unknown Title')
-                                        duration = info.get('duration', 0)
-                                        
-                                        # Format duration
-                                        if duration:
-                                            minutes = duration // 60
-                                            seconds = duration % 60
-                                            duration_str = f"{minutes}:{seconds:02d}"
-                                        else:
-                                            duration_str = "Unknown"
-                                        
-                                        display_text = f"{i}. {title} ({duration_str})"
-                                        # Cache and update
-                                        st.session_state.video_info_cache[url] = display_text
-                                        video_placeholder.text(display_text)
-                                except Exception as e:
-                                    # Keep showing URL on error
-                                    logger.warning(f"Failed to fetch video info: {str(e)}")
+                                st.text(f"{i}. {url[:60]}...")
                         
                         with col2:
                             if st.button("🗑️", key=f"remove_video_{i}"):
@@ -674,19 +640,6 @@ def render_chat_interface():
                 # Add assistant message to session state
                 st.session_state.messages.append({"role": "assistant", "content": full_response})
                 
-                # Extract places from response for map visualization
-                try:
-                    places = st.session_state.place_extractor.extract_places(full_response)
-                    rome_places = st.session_state.place_extractor.filter_rome_places(places)
-                    st.session_state.last_places = rome_places
-                    logger.info(f"Generated response with {len(rome_places)} places extracted")
-                except Exception as e:
-                    log_error_with_context(
-                        logger, e, "Failed to extract places",
-                        st.session_state.current_session.session_id
-                    )
-                    st.session_state.last_places = []
-                
             except Exception as e:
                 log_error_with_context(
                     logger, e, "Error generating response",
@@ -698,19 +651,36 @@ def render_chat_interface():
 
 
 def render_map_visualization():
-    """Render the map visualization for extracted places."""
+    """Render the map visualization for extracted places from entire conversation."""
     
-    if not st.session_state.last_places:
-        return
-    
+    # Always show the map section
     st.markdown("---")
     st.markdown("### 🗺️ Places on Map")
     
+    # Extract places from ALL messages in the conversation
+    all_places = []
+    
     try:
+        for message in st.session_state.messages:
+            # Extract places from both user and assistant messages
+            places = st.session_state.place_extractor.extract_places(message["content"])
+            rome_places = st.session_state.place_extractor.filter_rome_places(places)
+            all_places.extend(rome_places)
+        
+        if not all_places:
+            st.info("💡 Ask about places in Rome to see them on the map!")
+            return
+        
+        # Remove duplicate places (by name)
+        unique_places = {}
+        for place in all_places:
+            if place.name not in unique_places:
+                unique_places[place.name] = place
+        
         # Geocode extracted places
         place_markers = []
         
-        for place_mention in st.session_state.last_places:
+        for place_mention in unique_places.values():
             try:
                 coords = st.session_state.geocoder.geocode_place(
                     place_mention.name,
@@ -740,7 +710,7 @@ def render_map_visualization():
             # Render map using st-folium
             st_folium(map_obj, width=700, height=500)
             
-            logger.info(f"Rendered map with {len(place_markers)} markers")
+            logger.info(f"Rendered map with {len(place_markers)} markers from conversation")
         else:
             st.info("ℹ️ No places could be mapped from the conversation.")
     
@@ -750,6 +720,66 @@ def render_map_visualization():
             st.session_state.current_session.session_id
         )
         st.warning(get_user_friendly_error("geocoding_unavailable"))
+
+
+def fetch_video_info_deferred():
+    """Fetch video info after page has rendered (deferred loading)."""
+    
+    # Only fetch if we haven't already
+    if "video_info_fetched" not in st.session_state:
+        st.session_state.video_info_fetched = False
+    
+    if st.session_state.video_info_fetched:
+        return
+    
+    # Check if there are videos to fetch
+    sources_file = "data/sample_sources.txt"
+    if not os.path.exists(sources_file):
+        return
+    
+    with open(sources_file, 'r') as f:
+        all_lines = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+    
+    youtube_sources = [line for line in all_lines if 'youtube.com' in line or 'youtu.be' in line]
+    
+    if not youtube_sources:
+        return
+    
+    # Check if we have uncached videos
+    uncached_urls = [url for url in youtube_sources if url not in st.session_state.video_info_cache]
+    
+    if uncached_urls:
+        from yt_dlp import YoutubeDL
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'extract_flat': False,
+            'skip_download': True,
+        }
+        
+        for url in uncached_urls:
+            try:
+                with YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                    title = info.get('title', 'Unknown Title')
+                    duration = info.get('duration', 0)
+                    
+                    # Format duration
+                    if duration:
+                        minutes = duration // 60
+                        seconds = duration % 60
+                        duration_str = f"{minutes}:{seconds:02d}"
+                    else:
+                        duration_str = "Unknown"
+                    
+                    st.session_state.video_info_cache[url] = f"{title} ({duration_str})"
+            except Exception as e:
+                logger.warning(f"Failed to fetch video info for {url}: {str(e)}")
+                st.session_state.video_info_cache[url] = url[:60] + "..."
+        
+        # Mark as fetched and rerun to update display
+        st.session_state.video_info_fetched = True
+        st.rerun()
 
 
 def main():
@@ -769,6 +799,9 @@ def main():
     
     # Render map visualization
     render_map_visualization()
+    
+    # Fetch video info AFTER everything else is rendered (deferred)
+    fetch_video_info_deferred()
 
 
 if __name__ == "__main__":

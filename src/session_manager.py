@@ -305,9 +305,21 @@ class SessionManager:
         if not messages:
             return "No conversation history found."
         
+        # Find first user message for the title
+        first_user_msg = next((msg for msg in messages if msg.role == "user"), None)
+        
+        if first_user_msg:
+            # Create summary from first message (max 50 chars)
+            summary = first_user_msg.content[:50].strip()
+            if len(first_user_msg.content) > 50:
+                summary += "..."
+            title = f"Rome Chat - {summary}"
+        else:
+            title = "Rome Chat"
+        
         lines = []
         lines.append("=" * 60)
-        lines.append(f"Conversation History - Session: {session_id}")
+        lines.append(title)
         lines.append("=" * 60)
         lines.append("")
         
