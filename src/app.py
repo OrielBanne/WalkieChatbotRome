@@ -173,6 +173,10 @@ def initialize_session_state():
     if "user_id" not in st.session_state:
         st.session_state.user_id = "default_user"
     
+    # Track if sources were modified
+    if "sources_modified" not in st.session_state:
+        st.session_state.sources_modified = False
+    
     # Current session
     if "current_session" not in st.session_state:
         try:
@@ -221,19 +225,7 @@ def render_sidebar():
         col1, col2 = st.columns(2)
         
         with col1:
-            if st.button("🆕 New Session", use_container_width=True):
-                # Create new session
-                new_session = st.session_state.session_manager.get_or_create_session(
-                    st.session_state.user_id
-                )
-                st.session_state.current_session = new_session
-                st.session_state.messages = []
-                st.session_state.last_places = []
-                logger.info(f"Started new session: {new_session.session_id}")
-                st.rerun()
-        
-        with col2:
-            if st.button("🗑️ Clear History", use_container_width=True):
+            if st.button("🔄 Start Fresh", use_container_width=True):
                 # Clear current session history
                 st.session_state.session_manager.clear_history(
                     st.session_state.current_session.session_id
@@ -243,20 +235,21 @@ def render_sidebar():
                 logger.info(f"Cleared history for session: {st.session_state.current_session.session_id}")
                 st.rerun()
         
-        if st.button("📥 Export History", use_container_width=True):
-            # Export conversation history
-            history_text = st.session_state.session_manager.export_history(
-                st.session_state.current_session.session_id
-            )
-            
-            # Create download button
-            st.download_button(
-                label="Download History",
-                data=history_text,
-                file_name=f"chat_history_{st.session_state.current_session.session_id[:8]}.txt",
-                mime="text/plain",
-                use_container_width=True
-            )
+        with col2:
+            if st.button("� Export History", use_container_width=True):
+                # Export conversation history
+                history_text = st.session_state.session_manager.export_history(
+                    st.session_state.current_session.session_id
+                )
+                
+                # Create download button
+                st.download_button(
+                    label="Download History",
+                    data=history_text,
+                    file_name=f"chat_history_{st.session_state.current_session.session_id[:8]}.txt",
+                    mime="text/plain",
+                    use_container_width=True
+                )
         
         # Previous Sessions
         with st.expander("📜 Previous Sessions"):
@@ -391,6 +384,7 @@ def render_sidebar():
                                 all_lines.remove(url)
                                 with open(sources_file, 'w') as f:
                                     f.write('\n'.join(all_lines) + '\n')
+                                st.session_state.sources_modified = True
                                 st.success(f"Removed video {i}")
                                 st.rerun()
                 else:
@@ -407,6 +401,7 @@ def render_sidebar():
                             all_lines.append(new_video_url.strip())
                             with open(sources_file, 'w') as f:
                                 f.write('\n'.join(all_lines) + '\n')
+                            st.session_state.sources_modified = True
                             st.success("Video added! Click 'Rebuild' to update knowledge base.")
                             st.rerun()
                         else:
@@ -428,6 +423,7 @@ def render_sidebar():
                                 all_lines.remove(url)
                                 with open(sources_file, 'w') as f:
                                     f.write('\n'.join(all_lines) + '\n')
+                                st.session_state.sources_modified = True
                                 st.success(f"Removed website {i}")
                                 st.rerun()
                 else:
@@ -445,6 +441,7 @@ def render_sidebar():
                                 all_lines.append(new_web_url.strip())
                                 with open(sources_file, 'w') as f:
                                     f.write('\n'.join(all_lines) + '\n')
+                                st.session_state.sources_modified = True
                                 st.success("Website added! Click 'Rebuild' to update knowledge base.")
                                 st.rerun()
                             else:
@@ -476,6 +473,7 @@ def render_sidebar():
                                         os.remove(path)
                                 except Exception as e:
                                     logger.warning(f"Could not delete PDF file: {e}")
+                                st.session_state.sources_modified = True
                                 st.success(f"Removed PDF {i}")
                                 st.rerun()
                 else:
@@ -504,16 +502,16 @@ def render_sidebar():
                             with open(sources_file, 'w') as f:
                                 f.write('\n'.join(all_lines) + '\n')
                             
+                            st.session_state.sources_modified = True
                             st.success(f"PDF '{uploaded_file.name}' added! Click 'Rebuild' to update knowledge base.")
                             st.rerun()
                         except Exception as e:
                             st.error(f"Failed to save PDF: {str(e)}")
                             logger.error(f"PDF upload error: {e}", exc_info=True)
             
-            st.markdown("---")
-            
             # Rebuild vector store
-            if st.button("🔄 Rebuild Knowledge Base", use_container_width=True, type="primary"):
+            button_type = "primary" if st.session_state.sources_modified else "secondary"
+            if st.button("🔄 Rebuild Knowledge Base", use_container_width=True, type=button_type, disabled=not st.session_state.sources_modified):
                 with st.spinner("Rebuilding knowledge base... This may take a few minutes."):
                     try:
                         import subprocess
@@ -534,6 +532,7 @@ def render_sidebar():
                             llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7, streaming=True)
                             st.session_state.rag_chain = RAGChain(llm, retriever)
                             
+                            st.session_state.sources_modified = False
                             st.success("✅ Knowledge base rebuilt successfully!")
                             logger.info("Knowledge base rebuilt from UI")
                         else:
@@ -547,16 +546,24 @@ def render_sidebar():
         
         st.markdown("---")
         
-        # About section
-        st.markdown("#### About")
-        st.markdown("""
-        This chatbot helps you discover places in Rome using:
-        - 💬 Natural conversation
-        - 🗺️ Interactive maps
-        - 📚 Curated knowledge base
-        
-        Ask about landmarks, restaurants, attractions, and more!
-        """)
+        # About button
+        with st.expander("ℹ️ About"):
+            st.markdown("""
+            **Rome Places Chatbot**
+            
+            Discover the Eternal City through natural conversation with AI-powered recommendations and interactive maps.
+            
+            **Features:**
+            - 💬 Natural conversation
+            - 🗺️ Interactive maps
+            - 📚 Curated knowledge base
+            
+            **Created by:**
+            - Oriel Banne
+            - GitHub: [OrielBanne/WalkieChatbotRome](https://github.com/OrielBanne/WalkieChatbotRome)
+            
+            Built with OpenAI, LangChain, and Streamlit.
+            """)
         
         # Tips
         with st.expander("💡 Tips"):
@@ -571,8 +578,6 @@ def render_sidebar():
         
         # Session info at bottom
         st.markdown("#### Current Session")
-        session_id_short = st.session_state.current_session.session_id[:8]
-        st.text(f"ID: {session_id_short}...")
         st.text(f"Messages: {len(st.session_state.messages)}")
 
 
