@@ -352,43 +352,63 @@ def render_sidebar():
                 # Display current videos
                 st.markdown("**Current Videos:**")
                 if youtube_sources:
+                    # Show videos immediately with URLs, fetch titles in background
                     for i, url in enumerate(youtube_sources, 1):
-                        # Try to get video info
-                        try:
-                            from yt_dlp import YoutubeDL
-                            ydl_opts = {
-                                'quiet': True,
-                                'no_warnings': True,
-                                'extract_flat': False,
-                                'skip_download': True,
-                            }
-                            with YoutubeDL(ydl_opts) as ydl:
-                                info = ydl.extract_info(url, download=False)
-                                title = info.get('title', 'Unknown Title')
-                                duration = info.get('duration', 0)
-
-                                # Format duration
-                                if duration:
-                                    minutes = duration // 60
-                                    seconds = duration % 60
-                                    duration_str = f"{minutes}:{seconds:02d}"
-                                else:
-                                    duration_str = "Unknown"
-
-                                display_text = f"{i}. {title} ({duration_str})"
-                        except Exception as e:
-                            # Fallback to URL if fetching fails
-                            logger.warning(f"Failed to fetch video info: {str(e)}")
-                            display_text = f"{i}. {url[:50]}..."
-
                         col1, col2 = st.columns([4, 1])
+                        
                         with col1:
-                            st.text(display_text)
+                            # Show URL immediately as placeholder
+                            video_placeholder = st.empty()
+                            
+                            # Try to get cached or fetch video info
+                            if "video_info_cache" not in st.session_state:
+                                st.session_state.video_info_cache = {}
+                            
+                            if url in st.session_state.video_info_cache:
+                                # Use cached info
+                                video_placeholder.text(st.session_state.video_info_cache[url])
+                            else:
+                                # Show URL as placeholder
+                                video_placeholder.text(f"{i}. {url[:50]}...")
+                                
+                                # Try to fetch in background (non-blocking)
+                                try:
+                                    from yt_dlp import YoutubeDL
+                                    ydl_opts = {
+                                        'quiet': True,
+                                        'no_warnings': True,
+                                        'extract_flat': False,
+                                        'skip_download': True,
+                                    }
+                                    with YoutubeDL(ydl_opts) as ydl:
+                                        info = ydl.extract_info(url, download=False)
+                                        title = info.get('title', 'Unknown Title')
+                                        duration = info.get('duration', 0)
+                                        
+                                        # Format duration
+                                        if duration:
+                                            minutes = duration // 60
+                                            seconds = duration % 60
+                                            duration_str = f"{minutes}:{seconds:02d}"
+                                        else:
+                                            duration_str = "Unknown"
+                                        
+                                        display_text = f"{i}. {title} ({duration_str})"
+                                        # Cache and update
+                                        st.session_state.video_info_cache[url] = display_text
+                                        video_placeholder.text(display_text)
+                                except Exception as e:
+                                    # Keep showing URL on error
+                                    logger.warning(f"Failed to fetch video info: {str(e)}")
+                        
                         with col2:
                             if st.button("🗑️", key=f"remove_video_{i}"):
                                 all_lines.remove(url)
                                 with open(sources_file, 'w') as f:
                                     f.write('\n'.join(all_lines) + '\n')
+                                # Remove from cache
+                                if url in st.session_state.video_info_cache:
+                                    del st.session_state.video_info_cache[url]
                                 st.session_state.sources_modified = True
                                 st.success(f"Removed video {i}")
                                 st.rerun()

@@ -182,7 +182,8 @@ class MapBuilder:
         places: List[PlaceMarker],
         center: Optional[Tuple[float, float]] = None,
         zoom: int = None,
-        add_route: bool = False
+        add_route: bool = False,
+        show_center_marker: bool = True
     ) -> folium.Map:
         """
         Convenience method to create a complete map with places and optional route.
@@ -192,6 +193,7 @@ class MapBuilder:
             center: Optional map center (defaults to Rome or first place)
             zoom: Zoom level (uses config default if None)
             add_route: Whether to add a route connecting all places (default: False)
+            show_center_marker: Whether to show a marker at the map center (default: True)
         
         Returns:
             A Folium Map object with markers and optional route
@@ -203,17 +205,34 @@ class MapBuilder:
             logger.warning("No places provided to create_map_with_places")
             return self.create_base_map(center, zoom)
         
-        # If no center provided, use first place's coordinates
+        # Determine map center
         if center is None:
-            center = places[0].coordinates
+            # Calculate center from places
+            if len(places) == 1:
+                map_center = places[0].coordinates
+            else:
+                # Use Rome center as default
+                map_center = ROME_CENTER
+        else:
+            map_center = center
         
         # Create base map
-        map_obj = self.create_base_map(center, zoom)
+        map_obj = self.create_base_map(map_center, zoom)
         
-        # Add markers
+        # Add center marker if requested and center is Rome center
+        if show_center_marker and map_center == ROME_CENTER:
+            folium.Marker(
+                location=map_center,
+                popup=Popup("<b>Rome City Center</b>", max_width=200),
+                tooltip="Rome Center",
+                icon=Icon(color="lightblue", icon="info-sign", prefix="fa")
+            ).add_to(map_obj)
+        
+        # Add place markers
         self.add_markers(map_obj, places)
         
         # Add route if requested and multiple places exist
+        # Route only connects the actual places, not the center marker
         if add_route and len(places) > 1:
             coordinates = [place.coordinates for place in places]
             self.add_route(map_obj, coordinates)
