@@ -701,10 +701,37 @@ def render_map_visualization():
                 continue
         
         if place_markers:
+            # Add transport mode selector if multiple places
+            transport_mode = None
+            if len(place_markers) > 1:
+                col1, col2 = st.columns([3, 1])
+                with col1:
+                    mode_option = st.radio(
+                        "Route Type:",
+                        options=["Auto (Smart)", "🚶 Walking", "🚗 Driving", "🚌 Public Transport"],
+                        horizontal=True,
+                        index=0,
+                        key="transport_mode"
+                    )
+                    
+                    # Map display option to actual mode
+                    mode_map = {
+                        "Auto (Smart)": None,  # None triggers auto-selection
+                        "🚶 Walking": "pedestrian",
+                        "🚗 Driving": "car",
+                        "🚌 Public Transport": "public_transport"
+                    }
+                    transport_mode = mode_map[mode_option]
+                
+                with col2:
+                    if transport_mode is None:
+                        st.caption("_Auto: Walking <30min, else transit_")
+            
             # Create map with places
             map_obj = st.session_state.map_builder.create_map_with_places(
                 places=place_markers,
-                add_route=len(place_markers) > 1
+                add_route=len(place_markers) > 1,
+                transport_mode=transport_mode
             )
             
             # Render map using st-folium

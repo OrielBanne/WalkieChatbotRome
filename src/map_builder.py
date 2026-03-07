@@ -12,6 +12,7 @@ import logging
 
 from src.models import PlaceMarker
 from src.config import ROME_CENTER, DEFAULT_MAP_ZOOM
+from src.router import Router, ROUTE_COLORS
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +51,8 @@ class MapBuilder:
     
     def __init__(self):
         """Initialize the MapBuilder."""
-        logger.info("MapBuilder initialized")
+        self.router = Router()
+        logger.info("MapBuilder initialized with Router")
     
     def create_base_map(
         self, 
@@ -183,6 +185,7 @@ class MapBuilder:
         center: Optional[Tuple[float, float]] = None,
         zoom: int = None,
         add_route: bool = False,
+        transport_mode: Optional[str] = None,
         show_center_marker: bool = True
     ) -> folium.Map:
         """
@@ -193,6 +196,7 @@ class MapBuilder:
             center: Optional map center (defaults to Rome or first place)
             zoom: Zoom level (uses config default if None)
             add_route: Whether to add a route connecting all places (default: False)
+            transport_mode: Transportation mode - "pedestrian", "car", "public_transport", or None for auto (default: None)
             show_center_marker: Whether to show a marker at the map center (default: True)
         
         Returns:
@@ -234,8 +238,24 @@ class MapBuilder:
         # Add route if requested and multiple places exist
         # Route only connects the actual places, not the center marker
         if add_route and len(places) > 1:
-            coordinates = [place.coordinates for place in places]
-            self.add_route(map_obj, coordinates)
+            waypoints = [place.coordinates for place in places]
+            
+            # Get route for the specified transport mode (or auto-select)
+            logger.info(f"Calculating route through places (mode: {transport_mode or 'auto'})")
+            route_coords = self.router.get_multi_point_route(waypoints, mode=transport_mode)
+            
+            # Determine actual mode used (for color)
+            actual_mode = transport_mode if transport_mode else "pedestrian"
+            route_color = ROUTE_COLORS.get(actual_mode, "blue")
+            
+            if route_coords and len(route_coords) > 1:
+                # Use the calculated route
+                self.add_route(map_obj, route_coords, color=route_color, weight=4, opacity=0.8)
+                logger.info(f"Added route with {len(route_coords)} points")
+            else:
+                # Fallback to straight lines if routing fails
+                logger.warning("Route calculation failed, using straight lines")
+                self.add_route(map_obj, waypoints, color=route_color, weight=3, opacity=0.7)
         
         logger.info("Created map with %d places", len(places))
         
