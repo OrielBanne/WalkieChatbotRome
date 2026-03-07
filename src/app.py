@@ -271,6 +271,87 @@ def render_sidebar():
         
         st.markdown("---")
         
+        # Data Management section
+        st.markdown("#### 📚 Knowledge Base")
+        
+        # Show current sources
+        sources_file = "data/sample_sources.txt"
+        if os.path.exists(sources_file):
+            with open(sources_file, 'r') as f:
+                current_sources = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+            
+            st.text(f"Videos: {len(current_sources)}")
+            
+            with st.expander("📹 Manage Videos"):
+                # Display current videos
+                st.markdown("**Current Videos:**")
+                for i, url in enumerate(current_sources, 1):
+                    col1, col2 = st.columns([4, 1])
+                    with col1:
+                        st.text(f"{i}. {url[:50]}...")
+                    with col2:
+                        if st.button("🗑️", key=f"remove_{i}"):
+                            current_sources.remove(url)
+                            with open(sources_file, 'w') as f:
+                                f.write('\n'.join(current_sources) + '\n')
+                            st.success(f"Removed video {i}")
+                            st.rerun()
+                
+                st.markdown("---")
+                
+                # Add new video
+                st.markdown("**Add New Video:**")
+                new_url = st.text_input("YouTube URL", key="new_video_url")
+                if st.button("➕ Add Video", use_container_width=True):
+                    if new_url and new_url.strip():
+                        if "youtube.com" in new_url or "youtu.be" in new_url:
+                            current_sources.append(new_url.strip())
+                            with open(sources_file, 'w') as f:
+                                f.write('\n'.join(current_sources) + '\n')
+                            st.success("Video added! Click 'Rebuild' to update knowledge base.")
+                            st.rerun()
+                        else:
+                            st.error("Please enter a valid YouTube URL")
+                    else:
+                        st.error("Please enter a URL")
+                
+                st.markdown("---")
+                
+                # Rebuild vector store
+                if st.button("🔄 Rebuild Knowledge Base", use_container_width=True, type="primary"):
+                    with st.spinner("Rebuilding knowledge base... This may take a few minutes."):
+                        try:
+                            import subprocess
+                            result = subprocess.run(
+                                [sys.executable, "scripts/ingest_data.py", "--sources", sources_file],
+                                capture_output=True,
+                                text=True,
+                                cwd=str(project_root)
+                            )
+                            
+                            if result.returncode == 0:
+                                # Reload vector store
+                                st.session_state.vector_store = VectorStore()
+                                st.session_state.vector_store.load("data/vector_store")
+                                
+                                # Update retriever
+                                retriever = VectorStoreRetriever(vector_store=st.session_state.vector_store, k=5)
+                                llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7, streaming=True)
+                                st.session_state.rag_chain = RAGChain(llm, retriever)
+                                
+                                st.success("✅ Knowledge base rebuilt successfully!")
+                                logger.info("Knowledge base rebuilt from UI")
+                            else:
+                                st.error(f"Failed to rebuild: {result.stderr}")
+                                logger.error(f"Rebuild failed: {result.stderr}")
+                        except Exception as e:
+                            st.error(f"Error: {str(e)}")
+                            logger.error(f"Rebuild error: {e}", exc_info=True)
+        else:
+            st.warning("No sources file found")
+        
+        st.markdown("---")
+        
         # About section
         st.markdown("#### About")
         st.markdown("""

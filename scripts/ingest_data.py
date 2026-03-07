@@ -43,6 +43,10 @@ def load_sources_from_file(file_path: str) -> dict:
         youtube: URL
         web: URL
         pdf: /path/to/file.pdf
+        
+    Or simple format (auto-detect YouTube URLs):
+        https://youtube.com/...
+        https://youtu.be/...
     
     Args:
         file_path: Path to sources file
@@ -59,13 +63,22 @@ def load_sources_from_file(file_path: str) -> dict:
                 if not line or line.startswith('#'):
                     continue
                 
-                if ':' in line:
+                # Check if line has explicit type prefix
+                if ':' in line and line.split(':', 1)[0].strip().lower() in ['youtube', 'web', 'pdf']:
                     source_type, source_value = line.split(':', 1)
                     source_type = source_type.strip().lower()
                     source_value = source_value.strip()
                     
                     if source_type in sources:
                         sources[source_type].append(source_value)
+                else:
+                    # Auto-detect type from URL
+                    if 'youtube.com' in line or 'youtu.be' in line:
+                        sources['youtube'].append(line)
+                    elif line.endswith('.pdf'):
+                        sources['pdf'].append(line)
+                    elif line.startswith('http'):
+                        sources['web'].append(line)
     except Exception as e:
         logger.error(f"Failed to load sources from file {file_path}: {e}")
         raise
