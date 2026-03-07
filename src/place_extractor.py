@@ -103,22 +103,28 @@ class PlaceExtractor:
         
         places = []
         seen = set()
+        text_lower = text.lower()
         
-        # Find all matches
-        for match in self.pattern.finditer(text):
-            place_name = match.group(0)
-            place_lower = place_name.lower()
-            
-            # Avoid duplicates
-            if place_lower not in seen:
-                seen.add(place_lower)
-                places.append(PlaceMention(
-                    name=place_name,
-                    entity_type="GPE",
-                    confidence=1.0,
-                    start_char=match.start(),
-                    end_char=match.end()
-                ))
+        # Check each place in gazetteer
+        for place in self.ROME_GAZETTEER:
+            # Simple substring search (case-insensitive)
+            if place in text_lower:
+                # Find the actual text (preserving case)
+                start = text_lower.find(place)
+                if start != -1:
+                    actual_text = text[start:start + len(place)]
+                    place_lower = place.lower()
+                    
+                    # Avoid duplicates
+                    if place_lower not in seen:
+                        seen.add(place_lower)
+                        places.append(PlaceMention(
+                            name=actual_text.title(),  # Capitalize properly
+                            entity_type="GPE",
+                            confidence=1.0,
+                            start_char=start,
+                            end_char=start + len(place)
+                        ))
         
         return places
     
