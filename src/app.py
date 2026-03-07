@@ -278,75 +278,180 @@ def render_sidebar():
         sources_file = "data/sample_sources.txt"
         if os.path.exists(sources_file):
             with open(sources_file, 'r') as f:
-                current_sources = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+                all_lines = [line.strip() for line in f if line.strip() and not line.startswith('#')]
             
-            st.text(f"Videos: {len(current_sources)}")
+            # Separate by type
+            youtube_sources = [line for line in all_lines if 'youtube.com' in line or 'youtu.be' in line]
+            web_sources = [line for line in all_lines if line.startswith('http') and 'youtube' not in line and 'youtu.be' not in line]
+            pdf_sources = [line for line in all_lines if line.endswith('.pdf') or 'pdf:' in line.lower()]
             
+            st.text(f"Videos: {len(youtube_sources)} | Websites: {len(web_sources)} | PDFs: {len(pdf_sources)}")
+            
+            # Manage Videos
             with st.expander("📹 Manage Videos"):
                 # Display current videos
                 st.markdown("**Current Videos:**")
-                for i, url in enumerate(current_sources, 1):
-                    col1, col2 = st.columns([4, 1])
-                    with col1:
-                        st.text(f"{i}. {url[:50]}...")
-                    with col2:
-                        if st.button("🗑️", key=f"remove_{i}"):
-                            current_sources.remove(url)
-                            with open(sources_file, 'w') as f:
-                                f.write('\n'.join(current_sources) + '\n')
-                            st.success(f"Removed video {i}")
-                            st.rerun()
+                if youtube_sources:
+                    for i, url in enumerate(youtube_sources, 1):
+                        col1, col2 = st.columns([4, 1])
+                        with col1:
+                            st.text(f"{i}. {url[:50]}...")
+                        with col2:
+                            if st.button("🗑️", key=f"remove_video_{i}"):
+                                all_lines.remove(url)
+                                with open(sources_file, 'w') as f:
+                                    f.write('\n'.join(all_lines) + '\n')
+                                st.success(f"Removed video {i}")
+                                st.rerun()
+                else:
+                    st.info("No videos added yet")
                 
                 st.markdown("---")
                 
                 # Add new video
                 st.markdown("**Add New Video:**")
-                new_url = st.text_input("YouTube URL", key="new_video_url")
+                new_video_url = st.text_input("YouTube URL", key="new_video_url")
                 if st.button("➕ Add Video", use_container_width=True):
-                    if new_url and new_url.strip():
-                        if "youtube.com" in new_url or "youtu.be" in new_url:
-                            current_sources.append(new_url.strip())
+                    if new_video_url and new_video_url.strip():
+                        if "youtube.com" in new_video_url or "youtu.be" in new_video_url:
+                            all_lines.append(new_video_url.strip())
                             with open(sources_file, 'w') as f:
-                                f.write('\n'.join(current_sources) + '\n')
+                                f.write('\n'.join(all_lines) + '\n')
                             st.success("Video added! Click 'Rebuild' to update knowledge base.")
                             st.rerun()
                         else:
                             st.error("Please enter a valid YouTube URL")
                     else:
                         st.error("Please enter a URL")
+            
+            # Manage Websites
+            with st.expander("🌐 Manage Websites"):
+                # Display current websites
+                st.markdown("**Current Websites:**")
+                if web_sources:
+                    for i, url in enumerate(web_sources, 1):
+                        col1, col2 = st.columns([4, 1])
+                        with col1:
+                            st.text(f"{i}. {url[:50]}...")
+                        with col2:
+                            if st.button("🗑️", key=f"remove_web_{i}"):
+                                all_lines.remove(url)
+                                with open(sources_file, 'w') as f:
+                                    f.write('\n'.join(all_lines) + '\n')
+                                st.success(f"Removed website {i}")
+                                st.rerun()
+                else:
+                    st.info("No websites added yet")
                 
                 st.markdown("---")
                 
-                # Rebuild vector store
-                if st.button("🔄 Rebuild Knowledge Base", use_container_width=True, type="primary"):
-                    with st.spinner("Rebuilding knowledge base... This may take a few minutes."):
-                        try:
-                            import subprocess
-                            result = subprocess.run(
-                                [sys.executable, "scripts/ingest_data.py", "--sources", sources_file],
-                                capture_output=True,
-                                text=True,
-                                cwd=str(project_root)
-                            )
-                            
-                            if result.returncode == 0:
-                                # Reload vector store
-                                st.session_state.vector_store = VectorStore()
-                                st.session_state.vector_store.load("data/vector_store")
-                                
-                                # Update retriever
-                                retriever = VectorStoreRetriever(vector_store=st.session_state.vector_store, k=5)
-                                llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7, streaming=True)
-                                st.session_state.rag_chain = RAGChain(llm, retriever)
-                                
-                                st.success("✅ Knowledge base rebuilt successfully!")
-                                logger.info("Knowledge base rebuilt from UI")
+                # Add new website
+                st.markdown("**Add New Website:**")
+                new_web_url = st.text_input("Website URL", key="new_web_url", placeholder="https://example.com/rome-guide")
+                if st.button("➕ Add Website", use_container_width=True):
+                    if new_web_url and new_web_url.strip():
+                        if new_web_url.startswith('http'):
+                            if 'youtube.com' not in new_web_url and 'youtu.be' not in new_web_url:
+                                all_lines.append(new_web_url.strip())
+                                with open(sources_file, 'w') as f:
+                                    f.write('\n'.join(all_lines) + '\n')
+                                st.success("Website added! Click 'Rebuild' to update knowledge base.")
+                                st.rerun()
                             else:
-                                st.error(f"Failed to rebuild: {result.stderr}")
-                                logger.error(f"Rebuild failed: {result.stderr}")
+                                st.error("YouTube URLs should be added in the Videos section")
+                        else:
+                            st.error("Please enter a valid URL starting with http:// or https://")
+                    else:
+                        st.error("Please enter a URL")
+            
+            # Manage PDFs
+            with st.expander("📄 Manage PDFs"):
+                # Display current PDFs
+                st.markdown("**Current PDFs:**")
+                if pdf_sources:
+                    for i, path in enumerate(pdf_sources, 1):
+                        col1, col2 = st.columns([4, 1])
+                        with col1:
+                            # Extract filename from path
+                            filename = path.split('/')[-1] if '/' in path else path
+                            st.text(f"{i}. {filename}")
+                        with col2:
+                            if st.button("🗑️", key=f"remove_pdf_{i}"):
+                                all_lines.remove(path)
+                                with open(sources_file, 'w') as f:
+                                    f.write('\n'.join(all_lines) + '\n')
+                                # Also try to delete the actual file
+                                try:
+                                    if os.path.exists(path):
+                                        os.remove(path)
+                                except Exception as e:
+                                    logger.warning(f"Could not delete PDF file: {e}")
+                                st.success(f"Removed PDF {i}")
+                                st.rerun()
+                else:
+                    st.info("No PDFs added yet")
+                
+                st.markdown("---")
+                
+                # Upload new PDF
+                st.markdown("**Upload New PDF:**")
+                uploaded_file = st.file_uploader("Choose a PDF file", type=['pdf'], key="pdf_uploader")
+                if uploaded_file is not None:
+                    # Save uploaded file to data directory
+                    pdf_dir = Path("data/pdfs")
+                    pdf_dir.mkdir(exist_ok=True)
+                    
+                    pdf_path = pdf_dir / uploaded_file.name
+                    
+                    if st.button("➕ Add PDF", use_container_width=True):
+                        try:
+                            # Save the uploaded file
+                            with open(pdf_path, 'wb') as f:
+                                f.write(uploaded_file.getbuffer())
+                            
+                            # Add to sources list
+                            all_lines.append(str(pdf_path))
+                            with open(sources_file, 'w') as f:
+                                f.write('\n'.join(all_lines) + '\n')
+                            
+                            st.success(f"PDF '{uploaded_file.name}' added! Click 'Rebuild' to update knowledge base.")
+                            st.rerun()
                         except Exception as e:
-                            st.error(f"Error: {str(e)}")
-                            logger.error(f"Rebuild error: {e}", exc_info=True)
+                            st.error(f"Failed to save PDF: {str(e)}")
+                            logger.error(f"PDF upload error: {e}", exc_info=True)
+            
+            st.markdown("---")
+            
+            # Rebuild vector store
+            if st.button("🔄 Rebuild Knowledge Base", use_container_width=True, type="primary"):
+                with st.spinner("Rebuilding knowledge base... This may take a few minutes."):
+                    try:
+                        import subprocess
+                        result = subprocess.run(
+                            [sys.executable, "scripts/ingest_data.py", "--sources", sources_file],
+                            capture_output=True,
+                            text=True,
+                            cwd=str(project_root)
+                        )
+                        
+                        if result.returncode == 0:
+                            # Reload vector store
+                            st.session_state.vector_store = VectorStore()
+                            st.session_state.vector_store.load("data/vector_store")
+                            
+                            # Update retriever
+                            retriever = VectorStoreRetriever(vector_store=st.session_state.vector_store, k=5)
+                            llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7, streaming=True)
+                            st.session_state.rag_chain = RAGChain(llm, retriever)
+                            
+                            st.success("✅ Knowledge base rebuilt successfully!")
+                            logger.info("Knowledge base rebuilt from UI")
+                        else:
+                            st.error(f"Failed to rebuild: {result.stderr}")
+                            logger.error(f"Rebuild failed: {result.stderr}")
+                    except Exception as e:
+                        st.error(f"Error: {str(e)}")
+                        logger.error(f"Rebuild error: {e}", exc_info=True)
         else:
             st.warning("No sources file found")
         

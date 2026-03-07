@@ -146,6 +146,26 @@ rm -rf data/vector_store
 python scripts/ingest_data.py --youtube "URL"
 ```
 
+### Managing Videos Through the UI
+
+You can also manage your knowledge base directly from the Streamlit app without using command-line scripts:
+
+1. **Start the app**: `streamlit run src/app.py`
+2. **Open the sidebar**: Look for the "📚 Knowledge Base" section
+3. **Manage Videos**: Click "📹 Manage Videos" to expand the panel
+4. **View current videos**: See all YouTube URLs currently in your knowledge base
+5. **Remove videos**: Click the 🗑️ button next to any video to remove it
+6. **Add new videos**: Paste a YouTube URL in the text input and click "➕ Add Video"
+7. **Rebuild**: Click "🔄 Rebuild Knowledge Base" to process all changes
+
+The rebuild process will:
+- Load transcripts from all videos in your list
+- Generate text chunks and embeddings
+- Update the vector store
+- Reload the knowledge base automatically
+
+![Managing Videos in the UI](rebuilding%20the%20knowledge%20base%20when%20adding%20youtube%20videos.jpg)
+
 ## Running the Application
 
 ### Start the Chatbot
