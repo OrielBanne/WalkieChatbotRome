@@ -101,14 +101,24 @@ class PlaceExtractor:
         Initialize the PlaceExtractor with spaCy model.
         
         Loads the en_core_web_sm model for named entity recognition.
+        Downloads the model automatically if not found.
         """
         try:
             self.nlp = spacy.load("en_core_web_sm")
         except OSError:
-            raise RuntimeError(
-                "spaCy model 'en_core_web_sm' not found. "
-                "Please install it with: python -m spacy download en_core_web_sm"
-            )
+            # Try to download the model automatically
+            import subprocess
+            import sys
+            try:
+                subprocess.check_call([
+                    sys.executable, "-m", "spacy", "download", "en_core_web_sm"
+                ])
+                self.nlp = spacy.load("en_core_web_sm")
+            except Exception as e:
+                raise RuntimeError(
+                    f"Failed to load or download spaCy model 'en_core_web_sm': {e}. "
+                    "Please install it manually with: python -m spacy download en_core_web_sm"
+                )
     
     def extract_places(self, text: str) -> List[PlaceMention]:
         """

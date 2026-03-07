@@ -327,3 +327,477 @@ src.rag_chain.RAGChainError: I'm having trouble connecting to my knowledge base.
 2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Adding route with 6 points
 2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Created map with 6 places
 2026-03-06 09:02:38 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-07 12:30:24 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:30:24 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:30:27 - INFO - [no-session] - __main__ - Loaded vector store with 40 documents
+2026-03-07 12:30:27 - INFO - [no-session] - __main__ - Loaded vector store with 40 documents
+2026-03-07 12:30:28 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-07 12:30:28 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-07 12:30:28 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-07 12:30:28 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-07 12:30:28 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-07 12:30:28 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-07 12:30:28 - INFO - [no-session] - __main__ - Created new session: 0415d2f5-93a2-4fe8-854f-776da9a36e32
+2026-03-07 12:30:28 - INFO - [no-session] - __main__ - Created new session: 345b2dc4-1794-46ee-84b4-1c425a81af6b
+2026-03-07 12:30:28 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-07 12:30:28 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-07 12:31:12 - INFO - [0415d2f5-93a2-4fe8-854f-776da9a36e32] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:31:13 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-07 12:31:15 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 12:31:18 - INFO - [no-session] - __main__ - Generated response with 5 places extracted
+2026-03-07 12:31:18 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Vatican'
+2026-03-07 12:31:19 - INFO - [no-session] - src.geocoder - Geocoded 'Rome' to (41.893320, 12.482932)
+2026-03-07 12:31:19 - INFO - [no-session] - src.geocoder - Geocoded 'the Kingdom of Italy' to (41.900960, 12.464392)
+2026-03-07 12:31:19 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:31:19 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 12:31:19 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 12:31:19 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 12:33:52 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:33:53 - INFO - [no-session] - __main__ - Loaded vector store with 40 documents
+2026-03-07 12:33:53 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-07 12:33:53 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-07 12:33:53 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-07 12:33:53 - INFO - [no-session] - __main__ - Created new session: 62936fdc-ef76-4aa2-84dc-032ba67af101
+2026-03-07 12:33:53 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-07 12:34:25 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:34:28 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-07 12:34:30 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 12:34:31 - INFO - [no-session] - __main__ - Generated response with 10 places extracted
+2026-03-07 12:34:31 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Vatican'
+2026-03-07 12:34:31 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Vatican City'
+2026-03-07 12:34:31 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Sistine Chapel'
+2026-03-07 12:34:31 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Castel Sant'Angelo'
+2026-03-07 12:34:32 - INFO - [no-session] - src.geocoder - Geocoded 'Rome' to (41.893320, 12.482932)
+2026-03-07 12:34:32 - WARNING - [no-session] - src.geocoder - No geocoding result for: the Tiber River
+2026-03-07 12:34:32 - INFO - [no-session] - src.geocoder - Geocoding failed for 'the Tiber River', cached as None
+2026-03-07 12:34:32 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Piazza Navona'
+2026-03-07 12:34:32 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Campo de' Fiori'
+2026-03-07 12:34:32 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:34:32 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:34:32 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:34:32 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:34:32 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:34:34 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:34:34 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:34:34 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:34:34 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:34:34 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:34:34 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:24 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:24 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:24 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:24 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:24 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:24 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:25 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:25 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:25 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:25 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:25 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:26 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:26 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:26 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:26 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:26 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:26 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:30 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:30 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:30 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:30 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:30 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:30 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:31 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:31 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:31 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:31 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:31 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:31 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:32 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:32 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:32 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:32 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:32 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:32 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:32 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:33 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:33 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:33 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:33 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:33 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:34 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:34 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:34 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:34 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:34 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:34 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:38 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:38 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:38 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:38 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:38 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:38 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:39 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:39 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:39 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:39 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:39 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:39 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:40 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:40 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:40 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:40 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:40 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:40 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:36:46 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:36:46 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:36:46 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:36:46 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:36:46 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:36:46 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:52:07 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:52:07 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 12:52:07 - INFO - [no-session] - src.map_builder - Adding 9 markers to map
+2026-03-07 12:52:07 - INFO - [no-session] - src.map_builder - Adding route with 9 points
+2026-03-07 12:52:07 - INFO - [no-session] - src.map_builder - Created map with 9 places
+2026-03-07 12:52:07 - INFO - [no-session] - __main__ - Rendered map with 9 markers
+2026-03-07 12:52:16 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:52:16 - INFO - [no-session] - __main__ - Cleared history for session: 62936fdc-ef76-4aa2-84dc-032ba67af101
+2026-03-07 12:52:16 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:52:19 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:52:19 - INFO - [no-session] - __main__ - Started new session: fadde4a2-53d2-4134-8035-25c98b54a43d
+2026-03-07 12:52:19 - INFO - [62936fdc-ef76-4aa2-84dc-032ba67af101] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:53:48 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:53:49 - INFO - [no-session] - __main__ - Loaded vector store with 40 documents
+2026-03-07 12:53:50 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-07 12:53:50 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-07 12:53:50 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-07 12:53:50 - INFO - [no-session] - __main__ - Created new session: 263ca689-14aa-4717-b1ce-64f8d33fc47f
+2026-03-07 12:53:50 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-07 12:56:07 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:56:07 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:56:07 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:57:37 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:57:37 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:57:37 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:58:31 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:58:31 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:58:31 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:59:06 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:59:06 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:59:07 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:59:10 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 12:59:33 - INFO - [no-session] - __main__ - Knowledge base rebuilt from UI
+2026-03-07 13:01:05 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:01:05 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:01:05 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:01:14 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:02:16 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:02:16 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:02:16 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:02:19 - INFO - [263ca689-14aa-4717-b1ce-64f8d33fc47f] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:02:46 - INFO - [no-session] - __main__ - Knowledge base rebuilt from UI
+2026-03-07 13:08:26 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:08:27 - INFO - [no-session] - __main__ - Loaded vector store with 114 documents
+2026-03-07 13:08:27 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-07 13:08:27 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-07 13:08:27 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-07 13:08:27 - INFO - [no-session] - __main__ - Created new session: f0e0fa83-feec-4482-a9e0-28370890b425
+2026-03-07 13:08:27 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-07 13:09:33 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:09:36 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:09:36 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:09:40 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:10:04 - INFO - [no-session] - __main__ - Knowledge base rebuilt from UI
+2026-03-07 13:10:41 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:10:41 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-07 13:10:43 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 13:10:44 - INFO - [no-session] - __main__ - Generated response with 5 places extracted
+2026-03-07 13:10:45 - INFO - [no-session] - src.geocoder - Geocoded 'Rome' to (41.893320, 12.482932)
+2026-03-07 13:10:45 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Colosseum'
+2026-03-07 13:10:45 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Vatican City'
+2026-03-07 13:10:45 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Trevi Fountain'
+2026-03-07 13:10:45 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:10:45 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:10:45 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:10:45 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:10:45 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:10:46 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:10:46 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:10:46 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:10:46 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:10:46 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:10:46 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:11:28 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:11:28 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:11:28 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:11:28 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:11:28 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:11:28 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:11:34 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:11:34 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:11:34 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:11:34 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:11:34 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:11:34 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:12:06 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:12:06 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:12:06 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:12:06 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:12:06 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:12:06 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:13:16 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:13:16 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:13:16 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:13:16 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:13:16 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:13:16 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:13:20 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:13:20 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:13:20 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:13:20 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:13:20 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:13:20 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:13:20 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:13:29 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:13:29 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:13:29 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:13:29 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:13:29 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:13:29 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:14:12 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:14:12 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:14:12 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:14:12 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:14:12 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:14:12 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:14:14 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:14:15 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:14:15 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:14:15 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:14:15 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:14:15 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:14:15 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:14:33 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:14:34 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:14:34 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:14:34 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:14:34 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:14:34 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:15:28 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:15:28 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:15:28 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:15:28 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:15:28 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:15:28 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:15:28 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:15:28 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:15:29 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:15:29 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:15:29 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:15:29 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:15:29 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:15:38 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:15:38 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:15:38 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:15:38 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:15:38 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:15:38 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:16:16 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:16:16 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:16:16 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:16:16 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:16:16 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:16:16 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:17:19 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:17:19 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:17:19 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:17:19 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:17:19 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:17:19 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:17:23 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:17:23 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:17:23 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:17:23 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:17:23 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:17:23 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:17:23 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:18:24 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:18:24 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:18:24 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:18:24 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:18:24 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:18:27 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:18:27 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:18:28 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:18:28 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:18:28 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:18:28 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:18:28 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:20:40 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:20:40 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:20:40 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:20:40 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:20:40 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:20:44 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:44 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:44 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:20:44 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:20:44 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:20:44 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:20:44 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:20:50 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:20:50 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:20:50 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:20:50 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:20:50 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:20:53 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:53 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:20:53 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:20:53 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:20:53 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:20:53 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:20:53 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:21:04 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:21:04 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:21:04 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:21:04 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:21:04 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:21:04 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:21:09 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:00 - INFO - [no-session] - __main__ - Knowledge base rebuilt from UI
+2026-03-07 13:22:00 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-07 13:22:00 - INFO - [no-session] - src.map_builder - Adding 5 markers to map
+2026-03-07 13:22:00 - INFO - [no-session] - src.map_builder - Adding route with 5 points
+2026-03-07 13:22:00 - INFO - [no-session] - src.map_builder - Created map with 5 places
+2026-03-07 13:22:00 - INFO - [no-session] - __main__ - Rendered map with 5 markers
+2026-03-07 13:22:23 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:23 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-07 13:22:24 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 13:22:25 - INFO - [no-session] - __main__ - Generated response with 2 places extracted
+2026-03-07 13:22:25 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Vatican'
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Adding 2 markers to map
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Adding route with 2 points
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Created map with 2 places
+2026-03-07 13:22:25 - INFO - [no-session] - __main__ - Rendered map with 2 markers
+2026-03-07 13:22:25 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Adding 2 markers to map
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Adding route with 2 points
+2026-03-07 13:22:25 - INFO - [no-session] - src.map_builder - Created map with 2 places
+2026-03-07 13:22:25 - INFO - [no-session] - __main__ - Rendered map with 2 markers
+2026-03-07 13:22:39 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:39 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:39 - INFO - [no-session] - src.map_builder - Adding 2 markers to map
+2026-03-07 13:22:39 - INFO - [no-session] - src.map_builder - Adding route with 2 points
+2026-03-07 13:22:39 - INFO - [no-session] - src.map_builder - Created map with 2 places
+2026-03-07 13:22:39 - INFO - [no-session] - __main__ - Rendered map with 2 markers
+2026-03-07 13:22:40 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:40 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:40 - INFO - [no-session] - src.map_builder - Adding 2 markers to map
+2026-03-07 13:22:40 - INFO - [no-session] - src.map_builder - Adding route with 2 points
+2026-03-07 13:22:40 - INFO - [no-session] - src.map_builder - Created map with 2 places
+2026-03-07 13:22:40 - INFO - [no-session] - __main__ - Rendered map with 2 markers
+2026-03-07 13:22:41 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:41 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:41 - INFO - [no-session] - src.map_builder - Adding 2 markers to map
+2026-03-07 13:22:41 - INFO - [no-session] - src.map_builder - Adding route with 2 points
+2026-03-07 13:22:41 - INFO - [no-session] - src.map_builder - Created map with 2 places
+2026-03-07 13:22:41 - INFO - [no-session] - __main__ - Rendered map with 2 markers
+2026-03-07 13:22:42 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:42 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:42 - INFO - [no-session] - src.map_builder - Adding 2 markers to map
+2026-03-07 13:22:42 - INFO - [no-session] - src.map_builder - Adding route with 2 points
+2026-03-07 13:22:42 - INFO - [no-session] - src.map_builder - Created map with 2 places
+2026-03-07 13:22:42 - INFO - [no-session] - __main__ - Rendered map with 2 markers
+2026-03-07 13:22:55 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:56 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-07 13:22:57 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-07 13:22:58 - INFO - [no-session] - __main__ - Generated response with 1 places extracted
+2026-03-07 13:22:58 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:58 - INFO - [no-session] - src.map_builder - Adding 1 markers to map
+2026-03-07 13:22:58 - INFO - [no-session] - src.map_builder - Created map with 1 places
+2026-03-07 13:22:58 - INFO - [no-session] - __main__ - Rendered map with 1 markers
+2026-03-07 13:22:58 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:22:58 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:22:58 - INFO - [no-session] - src.map_builder - Adding 1 markers to map
+2026-03-07 13:22:58 - INFO - [no-session] - src.map_builder - Created map with 1 places
+2026-03-07 13:22:58 - INFO - [no-session] - __main__ - Rendered map with 1 markers
+2026-03-07 13:23:08 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:23:08 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:23:08 - INFO - [no-session] - src.map_builder - Adding 1 markers to map
+2026-03-07 13:23:08 - INFO - [no-session] - src.map_builder - Created map with 1 places
+2026-03-07 13:23:08 - INFO - [no-session] - __main__ - Rendered map with 1 markers
+2026-03-07 13:23:09 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:23:09 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:23:09 - INFO - [no-session] - src.map_builder - Adding 1 markers to map
+2026-03-07 13:23:09 - INFO - [no-session] - src.map_builder - Created map with 1 places
+2026-03-07 13:23:09 - INFO - [no-session] - __main__ - Rendered map with 1 markers
+2026-03-07 13:23:13 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:23:13 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:23:13 - INFO - [no-session] - src.map_builder - Adding 1 markers to map
+2026-03-07 13:23:13 - INFO - [no-session] - src.map_builder - Created map with 1 places
+2026-03-07 13:23:13 - INFO - [no-session] - __main__ - Rendered map with 1 markers
+2026-03-07 13:23:19 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:23:19 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:23:19 - INFO - [no-session] - src.map_builder - Adding 1 markers to map
+2026-03-07 13:23:19 - INFO - [no-session] - src.map_builder - Created map with 1 places
+2026-03-07 13:23:19 - INFO - [no-session] - __main__ - Rendered map with 1 markers
+2026-03-07 13:23:21 - INFO - [f0e0fa83-feec-4482-a9e0-28370890b425] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-07 13:23:21 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9029, 12.4534) with zoom 13
+2026-03-07 13:23:21 - INFO - [no-session] - src.map_builder - Adding 1 markers to map
+2026-03-07 13:23:21 - INFO - [no-session] - src.map_builder - Created map with 1 places
+2026-03-07 13:23:21 - INFO - [no-session] - __main__ - Rendered map with 1 markers
