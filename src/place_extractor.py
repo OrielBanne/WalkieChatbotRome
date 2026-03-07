@@ -24,15 +24,17 @@ class PlaceExtractor:
         "colosseum", "colosseo", "roman colosseum",
         "trevi fountain", "fontana di trevi",
         "pantheon",
-        "vatican", "vatican city", "st peter's basilica", "sistine chapel",
+        "vatican", "vatican city", "vatican museums",
+        "st peter's basilica", "st. peter's basilica", "saint peter's basilica",
+        "sistine chapel",
         "spanish steps", "piazza di spagna",
         "roman forum", "foro romano",
         "palatine hill", "palatino",
-        "castel sant'angelo", "castle of the holy angel",
+        "castel sant'angelo", "castel sant angelo", "castle of the holy angel",
         "piazza navona",
         "villa borghese", "borghese gallery",
         "trastevere",
-        "campo de' fiori",
+        "campo de' fiori", "campo de fiori",
         "piazza del popolo",
         "circus maximus", "circo massimo",
         "capitoline hill", "campidoglio",
@@ -40,7 +42,7 @@ class PlaceExtractor:
         "baths of caracalla", "terme di caracalla",
         "appian way", "via appia antica",
         "catacombs",
-        "mouth of truth", "bocca della verità",
+        "mouth of truth", "bocca della verità", "bocca della verita",
         "piazza venezia",
         "vittoriano", "altare della patria",
         "tiber river", "fiume tevere",
@@ -112,8 +114,14 @@ class PlaceExtractor:
                 # Find the actual text (preserving case)
                 start = text_lower.find(place)
                 if start != -1:
-                    actual_text = text[start:start + len(place)]
+                    end = start + len(place)
+                    actual_text = text[start:end]
                     place_lower = place.lower()
+                    
+                    # Get context (50 chars before and after)
+                    context_start = max(0, start - 50)
+                    context_end = min(len(text), end + 50)
+                    context = text[context_start:context_end]
                     
                     # Avoid duplicates
                     if place_lower not in seen:
@@ -122,8 +130,8 @@ class PlaceExtractor:
                             name=actual_text.title(),  # Capitalize properly
                             entity_type="GPE",
                             confidence=1.0,
-                            start_char=start,
-                            end_char=start + len(place)
+                            span=(start, end),
+                            context=context
                         ))
         
         return places
