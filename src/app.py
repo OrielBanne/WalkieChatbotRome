@@ -215,9 +215,6 @@ def render_sidebar():
     """Render the sidebar with session management controls."""
     
     with st.sidebar:
-        st.markdown("### 🏛️ Rome Places Chatbot")
-        st.markdown("---")
-        
         # Session management buttons
         st.markdown("#### Session Management")
         
@@ -260,6 +257,81 @@ def render_sidebar():
                 mime="text/plain",
                 use_container_width=True
             )
+        
+        # Previous Sessions
+        with st.expander("📜 Previous Sessions"):
+            sessions = st.session_state.session_manager.list_sessions(st.session_state.user_id)
+            
+            # Sort by last interaction (most recent first)
+            sessions.sort(key=lambda s: s.last_interaction, reverse=True)
+            
+            if len(sessions) > 1:
+                st.markdown("**Switch to a previous session:**")
+                
+                for session in sessions:
+                    # Skip current session
+                    if session.session_id == st.session_state.current_session.session_id:
+                        continue
+                    
+                    # Get session name from first message
+                    history = st.session_state.session_manager.load_conversation_history(session.session_id)
+                    
+                    if history and len(history) > 0:
+                        # Find first user message
+                        first_user_msg = next((msg for msg in history if msg.role == "user"), None)
+                        
+                        if first_user_msg:
+                            # Create short summary (first 30 chars)
+                            summary = first_user_msg.content[:30].strip()
+                            if len(first_user_msg.content) > 30:
+                                summary += "..."
+                        else:
+                            summary = "Empty session"
+                    else:
+                        summary = "Empty session"
+                    
+                    # Format date
+                    date_str = session.last_interaction.strftime("%b %d")
+                    session_name = f"{summary} ({date_str})"
+                    
+                    col1, col2 = st.columns([3, 1])
+                    
+                    with col1:
+                        if st.button(
+                            f"📅 {session_name}",
+                            key=f"load_session_{session.session_id}",
+                            use_container_width=True
+                        ):
+                            # Load the selected session
+                            st.session_state.current_session = Session(
+                                session_id=session.session_id,
+                                user_id=session.user_id,
+                                created_at=session.created_at,
+                                last_interaction=session.last_interaction,
+                                message_count=session.message_count
+                            )
+                            
+                            # Load conversation history
+                            history = st.session_state.session_manager.load_conversation_history(
+                                session.session_id
+                            )
+                            st.session_state.messages = [
+                                {"role": msg.role, "content": msg.content} for msg in history
+                            ]
+                            st.session_state.last_places = []
+                            
+                            set_session_id(session.session_id)
+                            logger.info(f"Switched to session: {session.session_id}")
+                            st.rerun()
+                    
+                    with col2:
+                        if st.button("🗑️", key=f"delete_session_{session.session_id}"):
+                            # Delete the session
+                            st.session_state.session_manager.delete_session(session.session_id)
+                            logger.info(f"Deleted session: {session.session_id}")
+                            st.rerun()
+            else:
+                st.info("No previous sessions yet. Click 'New Session' to create more.")
         
         st.markdown("---")
         

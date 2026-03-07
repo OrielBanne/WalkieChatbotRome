@@ -321,3 +321,46 @@ class SessionManager:
         lines.append("=" * 60)
         
         return "\n".join(lines)
+    
+    def delete_session(self, session_id: str) -> None:
+        """
+        Delete a session and its conversation history.
+        
+        Args:
+            session_id: The session identifier
+        """
+        # Find the session file
+        session_files = list(self.storage_dir.glob(f"*_{session_id}.json"))
+        
+        if not session_files:
+            return  # Session doesn't exist
+        
+        # Delete the file
+        try:
+            session_files[0].unlink()
+        except (IOError, OSError) as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error deleting session file {session_files[0]}: {e}", exc_info=True)
+            raise IOError(f"Failed to delete session: {e}") from e
+    def delete_session(self, session_id: str) -> None:
+        """
+        Delete a session and its conversation history.
+
+        Args:
+            session_id: The session identifier
+        """
+        # Find the session file
+        session_files = list(self.storage_dir.glob(f"*_{session_id}.json"))
+
+        if not session_files:
+            return  # Session doesn't exist
+
+        # Delete the file
+        try:
+            session_files[0].unlink()
+        except (IOError, OSError) as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error deleting session file {session_files[0]}: {e}", exc_info=True)
+            raise IOError(f"Failed to delete session: {e}") from e
