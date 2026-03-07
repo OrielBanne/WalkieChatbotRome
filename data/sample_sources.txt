@@ -1,0 +1,21 @@
+# Sample data sources for Rome Places Chatbot
+# Format: type: value (where type is youtube, web, or pdf)
+
+# YouTube videos about Rome
+# youtube: https://www.youtube.com/watch?v=example1
+# youtube: https://www.youtube.com/watch?v=example2
+youtube: https://youtu.be/EpH0lucZfTs?list=TLGGmomH1WSV7UMwNTAzMjAyNg
+youtube: https://youtu.be/l_vfTEQtNj0?list=TLGGcJVFze4Qnb0wNTAzMjAyNg
+youtube: https://youtu.be/VYZW5IDWXfw?list=TLGGbc31wEFZrHcwNTAzMjAyNg
+youtube: https://youtu.be/b1B4bNSlc9s?list=TLGG_gmNKHSWVngwNTAzMjAyNg
+youtube: https://youtu.be/m5He9UeCp64?list=TLGGbHkNdlsP0ekwNTAzMjAyNg
+
+# Web pages about Rome places
+# web: https://example.com/rome-guide
+# web: https://example.com/colosseum-info
+
+# PDF documents
+# pdf: data/rome_guide.pdf
+# pdf: data/places_of_interest.pdf
+
+# Uncomment the lines above and replace with actual sources

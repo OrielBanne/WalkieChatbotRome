@@ -1,0 +1,329 @@
+2026-03-06 00:46:13 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:46:52 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:47:41 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:47:41 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:47:41 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:47:42 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 00:47:42 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 00:47:43 - ERROR - [no-session] - __main__ - Failed to initialize components: "VectorStoreRetriever" object has no field "vector_store"
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\app.py", line 146, in initialize_components
+    retriever = VectorStoreRetriever(st.session_state.vector_store, k=5)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\src\app.py", line 91, in __init__
+    self.vector_store = vector_store
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\pydantic\main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\pydantic\main.py", line 1079, in _setattr_handler
+    raise ValueError(f'"{cls.__name__}" object has no field "{name}"')
+ValueError: "VectorStoreRetriever" object has no field "vector_store"
+2026-03-06 00:47:43 - ERROR - [no-session] - __main__ - Failed to initialize components: "VectorStoreRetriever" object has no field "vector_store"
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\app.py", line 146, in initialize_components
+    retriever = VectorStoreRetriever(st.session_state.vector_store, k=5)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\src\app.py", line 91, in __init__
+    self.vector_store = vector_store
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\pydantic\main.py", line 1032, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\pydantic\main.py", line 1079, in _setattr_handler
+    raise ValueError(f'"{cls.__name__}" object has no field "{name}"')
+ValueError: "VectorStoreRetriever" object has no field "vector_store"
+2026-03-06 00:50:03 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:50:04 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 00:50:04 - ERROR - [no-session] - __main__ - Failed to initialize components: BaseModel.__init__() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\app.py", line 147, in initialize_components
+    retriever = VectorStoreRetriever(st.session_state.vector_store, k=5)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\langchain_core\load\serializable.py", line 118, in __init__
+    super().__init__(*args, **kwargs)
+TypeError: BaseModel.__init__() takes 1 positional argument but 2 were given
+2026-03-06 00:51:04 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:51:05 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 00:51:05 - ERROR - [no-session] - __main__ - Failed to initialize components: BaseModel.__init__() takes 1 positional argument but 2 were given
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\app.py", line 147, in initialize_components
+    retriever = VectorStoreRetriever(st.session_state.vector_store, k=5)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\langchain_core\load\serializable.py", line 118, in __init__
+    super().__init__(*args, **kwargs)
+TypeError: BaseModel.__init__() takes 1 positional argument but 2 were given
+2026-03-06 00:51:48 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:51:49 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 00:51:49 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-06 00:51:49 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-06 00:51:49 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-06 00:51:49 - INFO - [no-session] - __main__ - Created new session: c1fbebc4-83e1-4eb3-b5e2-485c24aec2dd
+2026-03-06 00:51:49 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-06 00:52:21 - INFO - [c1fbebc4-83e1-4eb3-b5e2-485c24aec2dd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:52:21 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 1/3): 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+2026-03-06 00:52:22 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 2/3): 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+2026-03-06 00:52:24 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 3/3): 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+2026-03-06 00:52:24 - ERROR - [no-session] - src.rag_chain - RAG chain streaming failed after 3 attempts: 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+2026-03-06 00:52:24 - ERROR - [no-session] - __main__ - Error generating response - Error: RAGChainError: I'm having trouble connecting to my knowledge base. Please try again in a moment.
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\rag_chain.py", line 192, in stream
+    docs = self.retriever.get_relevant_documents(query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\pydantic\main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'VectorStoreRetriever' object has no attribute 'get_relevant_documents'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\app.py", line 329, in render_chat_interface
+    for chunk in st.session_state.rag_chain.stream(prompt, context):
+  File "C:\Users\Oriel\chatbots\src\rag_chain.py", line 234, in stream
+    raise RAGChainError(
+src.rag_chain.RAGChainError: I'm having trouble connecting to my knowledge base. Please try again in a moment.
+2026-03-06 00:54:47 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:54:48 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 00:54:48 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-06 00:54:48 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-06 00:54:48 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-06 00:54:48 - INFO - [no-session] - __main__ - Created new session: 1de6fefb-38be-4b92-a308-af3daafb9b49
+2026-03-06 00:54:48 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-06 00:56:02 - INFO - [1de6fefb-38be-4b92-a308-af3daafb9b49] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:56:02 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 1/3): Vector store is empty or not initialized
+2026-03-06 00:56:03 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 2/3): Vector store is empty or not initialized
+2026-03-06 00:56:05 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 3/3): Vector store is empty or not initialized
+2026-03-06 00:56:05 - ERROR - [no-session] - src.rag_chain - RAG chain streaming failed after 3 attempts: Vector store is empty or not initialized
+2026-03-06 00:56:05 - ERROR - [no-session] - __main__ - Error generating response - Error: RAGChainError: I'm having trouble connecting to my knowledge base. Please try again in a moment.
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\rag_chain.py", line 192, in stream
+    docs = self.retriever.get_relevant_documents(query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\src\app.py", line 105, in get_relevant_documents
+    return self._get_relevant_documents(query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\src\app.py", line 97, in _get_relevant_documents
+    return self.vector_store.similarity_search(query, k=self.k)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\src\vector_store.py", line 135, in similarity_search
+    raise VectorStoreError("Vector store is empty or not initialized")
+src.vector_store.VectorStoreError: Vector store is empty or not initialized
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\app.py", line 333, in render_chat_interface
+    for chunk in st.session_state.rag_chain.stream(prompt, context):
+  File "C:\Users\Oriel\chatbots\src\rag_chain.py", line 234, in stream
+    raise RAGChainError(
+src.rag_chain.RAGChainError: I'm having trouble connecting to my knowledge base. Please try again in a moment.
+2026-03-06 00:57:31 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:57:32 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 00:57:32 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-06 00:57:32 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-06 00:57:32 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-06 00:57:32 - INFO - [no-session] - __main__ - Created new session: fbcdb2ea-a192-4e1d-8f38-350233ba3236
+2026-03-06 00:57:32 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-06 00:57:51 - INFO - [fbcdb2ea-a192-4e1d-8f38-350233ba3236] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 00:57:51 - WARNING - [no-session] - src.rag_chain - Document retrieval failed, using LLM without context: Vector store is empty or not initialized
+2026-03-06 00:57:52 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:57:52 - INFO - [no-session] - openai._base_client - Retrying request to /chat/completions in 0.413973 seconds
+2026-03-06 00:57:54 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:57:54 - INFO - [no-session] - openai._base_client - Retrying request to /chat/completions in 0.832619 seconds
+2026-03-06 00:57:55 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:57:55 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 1/3): Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-06 00:57:56 - WARNING - [no-session] - src.rag_chain - Document retrieval failed, using LLM without context: Vector store is empty or not initialized
+2026-03-06 00:57:57 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:57:57 - INFO - [no-session] - openai._base_client - Retrying request to /chat/completions in 0.402368 seconds
+2026-03-06 00:57:59 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:57:59 - INFO - [no-session] - openai._base_client - Retrying request to /chat/completions in 0.901014 seconds
+2026-03-06 00:58:01 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:58:01 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 2/3): Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-06 00:58:03 - WARNING - [no-session] - src.rag_chain - Document retrieval failed, using LLM without context: Vector store is empty or not initialized
+2026-03-06 00:58:04 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:58:04 - INFO - [no-session] - openai._base_client - Retrying request to /chat/completions in 0.443213 seconds
+2026-03-06 00:58:05 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:58:05 - INFO - [no-session] - openai._base_client - Retrying request to /chat/completions in 0.960168 seconds
+2026-03-06 00:58:06 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-03-06 00:58:06 - WARNING - [no-session] - src.rag_chain - RAG chain streaming failed (attempt 3/3): Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-06 00:58:06 - ERROR - [no-session] - src.rag_chain - RAG chain streaming failed after 3 attempts: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2026-03-06 00:58:06 - ERROR - [no-session] - __main__ - Error generating response - Error: RAGChainError: I'm having trouble connecting to my knowledge base. Please try again in a moment.
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\rag_chain.py", line 211, in stream
+    for chunk in self.llm.stream(prompt_text):
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\langchain_core\language_models\chat_models.py", line 540, in stream
+    for chunk in self._stream(input_messages, stop=stop, **kwargs):
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\langchain_openai\chat_models\base.py", line 1418, in _stream
+    _handle_openai_api_error(e)
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\langchain_openai\chat_models\base.py", line 1391, in _stream
+    response = self.client.create(**payload)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1211, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\app.py", line 333, in render_chat_interface
+    for chunk in st.session_state.rag_chain.stream(prompt, context):
+  File "C:\Users\Oriel\chatbots\src\rag_chain.py", line 238, in stream
+    raise RAGChainError(
+src.rag_chain.RAGChainError: I'm having trouble connecting to my knowledge base. Please try again in a moment.
+2026-03-06 01:04:51 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:04:52 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 01:04:52 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-06 01:04:52 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-06 01:04:52 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-06 01:04:52 - INFO - [no-session] - __main__ - Created new session: dee8a6b7-b949-4bbd-b823-bb40432a1ea4
+2026-03-06 01:04:52 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-06 01:05:08 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:05:09 - WARNING - [no-session] - __main__ - Could not load vector store: Failed to load vector store: Documents file not found: data/vector_store\documents.pkl
+2026-03-06 01:05:09 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-06 01:05:09 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-06 01:05:09 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-06 01:05:09 - INFO - [no-session] - __main__ - Created new session: e63b8c60-21d0-4f1d-9b47-46c7c62c4709
+2026-03-06 01:05:09 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-06 01:52:55 - INFO - [no-session] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:52:56 - INFO - [no-session] - __main__ - Loaded vector store with 40 documents
+2026-03-06 01:52:57 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-06 01:52:57 - INFO - [no-session] - src.map_builder - MapBuilder initialized
+2026-03-06 01:52:57 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-06 01:52:57 - INFO - [no-session] - __main__ - Created new session: 3f192b1b-cb66-49e5-946c-bd4227870cc2
+2026-03-06 01:52:57 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-06 01:53:18 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:53:18 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 403 Forbidden"
+2026-03-06 01:53:18 - WARNING - [no-session] - src.vector_store - Query embedding failed (attempt 1/3): Error code: 403 - {'error': {'message': 'Project `proj_pyVCJbCIUjLENLSuiVmn45jA` does not have access to model `text-embedding-3-small`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-03-06 01:53:20 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-06 01:53:21 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 01:53:22 - INFO - [no-session] - __main__ - Generated response with 6 places extracted
+2026-03-06 01:53:23 - INFO - [no-session] - src.geocoder - Geocoded 'Rome' to (41.893320, 12.482932)
+2026-03-06 01:53:23 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Pantheon'
+2026-03-06 01:53:23 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:53:23 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:53:23 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:53:23 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:53:23 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:53:27 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:53:27 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:53:27 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:53:27 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:53:27 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:53:27 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:54:32 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:54:32 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:54:32 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:54:32 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:54:32 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:54:32 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:54:33 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:54:33 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:54:33 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:54:33 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:54:33 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:54:34 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:54:34 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:54:34 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:54:34 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:54:34 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:54:34 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:54:34 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:54:59 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:54:59 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:54:59 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:54:59 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:54:59 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:54:59 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:54:59 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:54:59 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:00 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:55:00 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:00 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:55:00 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:55:00 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:00 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:55:05 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:55:05 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:55:05 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:55:05 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:55:05 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:05 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:55:07 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:55:07 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:55:07 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:55:07 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:55:07 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:07 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:55:08 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:55:08 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8933203, 12.4829321) with zoom 13
+2026-03-06 01:55:08 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:55:08 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:55:08 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:08 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:55:28 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:55:29 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 403 Forbidden"
+2026-03-06 01:55:29 - WARNING - [no-session] - src.vector_store - Query embedding failed (attempt 1/3): Error code: 403 - {'error': {'message': 'Project `proj_pyVCJbCIUjLENLSuiVmn45jA` does not have access to model `text-embedding-3-small`', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-03-06 01:55:30 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-06 01:55:31 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-06 01:55:33 - INFO - [no-session] - __main__ - Generated response with 6 places extracted
+2026-03-06 01:55:33 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Piazza Navona'
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8986, 12.4768) with zoom 13
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:33 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 01:55:33 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8986, 12.4768) with zoom 13
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 01:55:33 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 01:55:33 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 09:02:38 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8986, 12.4768) with zoom 13
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 09:02:38 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 09:02:38 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8986, 12.4768) with zoom 13
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 09:02:38 - INFO - [no-session] - __main__ - Rendered map with 6 markers
+2026-03-06 09:02:38 - INFO - [3f192b1b-cb66-49e5-946c-bd4227870cc2] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.8986, 12.4768) with zoom 13
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Adding 6 markers to map
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Adding route with 6 points
+2026-03-06 09:02:38 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-06 09:02:38 - INFO - [no-session] - __main__ - Rendered map with 6 markers

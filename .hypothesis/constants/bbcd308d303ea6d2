@@ -1,0 +1,4 @@
+# file: C:\Users\Oriel\chatbots\src\loaders.py
+# hypothesis_version: 6.151.9
+
+['User-Agent', '\\s+', 'article', 'aside', 'body', 'content_type', 'div[role="main"]', 'file_path', 'footer', 'header', 'html.parser', 'main', 'nav', 'page', 'pdf', 'script', 'source', 'style', 'text', 'timestamp', 'title', 'total_pages', 'transcript', 'url', 'v', 'video_id', 'web', 'webpage', 'youtube', 'youtube.com']

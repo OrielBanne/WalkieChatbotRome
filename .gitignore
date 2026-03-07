@@ -1,0 +1,45 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# API Keys and Secrets
+*.key
+*.pem
+secrets/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data
+data/*.json
+data/*.csv
+data/*.pdf
+
+# Sessions
+sessions/*.json
+
+# Vector Store
+*.faiss
+*.index
