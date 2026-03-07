@@ -81,10 +81,11 @@ class PlaceExtractor:
     def __init__(self):
         """Initialize the PlaceExtractor."""
         # Create regex pattern from gazetteer
-        escaped_places = [re.escape(place) for place in self.ROME_GAZETTEER]
+        # Sort by length (longest first) to match longer phrases first
+        sorted_places = sorted(self.ROME_GAZETTEER, key=len, reverse=True)
+        escaped_places = [re.escape(place) for place in sorted_places]
         self.pattern = re.compile(
-            r'\b(' + '|'.join(escaped_places) + r')\b',
-            re.IGNORECASE
+            r'(?i)\b(' + '|'.join(escaped_places) + r')\b'
         )
     
     def extract_places(self, text: str) -> List[PlaceMention]:

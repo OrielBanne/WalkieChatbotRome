@@ -577,6 +577,11 @@ def render_map_visualization():
     st.markdown("---")
     st.markdown("### 🗺️ Places on Map")
     
+    # Debug: Show extracted places
+    st.write(f"DEBUG: Found {len(st.session_state.last_places)} places")
+    for p in st.session_state.last_places:
+        st.write(f"- {p.name}")
+    
     try:
         # Geocode extracted places
         place_markers = []
@@ -597,8 +602,10 @@ def render_map_visualization():
                         icon="star"
                     )
                     place_markers.append(marker)
+                    st.write(f"✓ Geocoded: {place_mention.name}")
             except Exception as e:
                 logger.warning(f"Failed to geocode place '{place_mention.name}': {e}")
+                st.write(f"✗ Failed: {place_mention.name} - {e}")
                 continue
         
         if place_markers:
@@ -621,6 +628,7 @@ def render_map_visualization():
             st.session_state.current_session.session_id
         )
         st.warning(get_user_friendly_error("geocoding_unavailable"))
+        st.error(f"DEBUG Error: {str(e)}")
 
 
 def main():
