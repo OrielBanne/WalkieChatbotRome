@@ -2,6 +2,8 @@
 
 An interactive conversational AI system that helps users discover and learn about places of interest in Rome. The chatbot provides information, recommendations, and answers questions about Roman landmarks, restaurants, attractions, and other points of interest, while maintaining conversation context across sessions.
 
+![Rome Places Chatbot in Action](screenshot%20of%20the%20App%20at%20work.jpg)
+
 ## Features
 
 - **Conversational AI**: Natural language interaction powered by OpenAI GPT models
