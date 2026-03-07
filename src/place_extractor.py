@@ -75,9 +75,6 @@ class PlaceExtractor:
         "via del corso",
         "via veneto",
         "via condotti",
-        
-        # General
-        "rome", "roma",
     }
     
     def __init__(self):
