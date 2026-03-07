@@ -359,7 +359,8 @@ def render_sidebar():
                             ydl_opts = {
                                 'quiet': True,
                                 'no_warnings': True,
-                                'extract_flat': True,
+                                'extract_flat': False,
+                                'skip_download': True,
                             }
                             with YoutubeDL(ydl_opts) as ydl:
                                 info = ydl.extract_info(url, download=False)
@@ -377,6 +378,7 @@ def render_sidebar():
                                 display_text = f"{i}. {title} ({duration_str})"
                         except Exception as e:
                             # Fallback to URL if fetching fails
+                            logger.warning(f"Failed to fetch video info: {str(e)}")
                             display_text = f"{i}. {url[:50]}..."
 
                         col1, col2 = st.columns([4, 1])
