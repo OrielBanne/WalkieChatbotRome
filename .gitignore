@@ -50,4 +50,5 @@ sessions/*.json
 
 # Vector Store
 *.faiss
-*.index
+# Allow FAISS index in vector_store directory
+!data/vector_store/faiss.index

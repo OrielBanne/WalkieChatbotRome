@@ -8,6 +8,7 @@ manual coordinate database for major Rome landmarks.
 from typing import Optional, Dict, Tuple
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
+from geopy.adapters import RequestsAdapter
 import logging
 
 from src.models import Coordinates
@@ -71,7 +72,10 @@ class Geocoder:
         if user_agent is None:
             user_agent = GEOCODING_USER_AGENT
         
-        self.geocoder = Nominatim(user_agent=user_agent)
+        self.geocoder = Nominatim(
+            user_agent=user_agent,
+            adapter_factory=RequestsAdapter,
+        )
         self.cache: Dict[str, Optional[Coordinates]] = {}
         logger.info("Geocoder initialized with user_agent: %s", user_agent)
     
