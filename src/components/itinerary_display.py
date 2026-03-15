@@ -16,16 +16,30 @@ def render_itinerary_stop(stop: ItineraryStop, index: int, stop_id: str):
         index: Stop number (1-indexed)
         stop_id: Unique identifier for this stop (for button keys)
     """
-    with st.expander(
-        f"**{index}. {stop.place.name}** - {stop.time.strftime('%H:%M')} ({stop.duration_minutes} min)",
-        expanded=True
-    ):
+    # Build a compact summary line for the header
+    header_parts = [f"**{index}. {stop.place.name}**"]
+    header_parts.append(f"🕐 {stop.time.strftime('%H:%M')}")
+    
+    if stop.ticket_info and stop.ticket_info.ticket_required:
+        header_parts.append(f"💳 €{stop.ticket_info.price:.2f}")
+        if stop.ticket_info.reservation_required:
+            header_parts.append("⚠️ Book ahead")
+            if stop.ticket_info.booking_url:
+                header_parts.append(f"🔗")
+    else:
+        header_parts.append("✅ Free")
+    
+    header = " · ".join(header_parts)
+    
+    with st.expander(header, expanded=False):
         col1, col2 = st.columns([2, 1])
         
         with col1:
             # Place description
             if stop.place.description:
                 st.write(stop.place.description)
+            
+            st.caption(f"Duration: {stop.duration_minutes} min")
             
             # Notes
             if stop.notes:
@@ -34,14 +48,14 @@ def render_itinerary_stop(stop: ItineraryStop, index: int, stop_id: str):
                     st.markdown(f"- {note}")
         
         with col2:
-            # Ticket info
+            # Ticket info (full details)
             if stop.ticket_info:
                 if stop.ticket_info.ticket_required:
                     st.markdown(f"**💳 Ticket:** €{stop.ticket_info.price:.2f}")
                     if stop.ticket_info.reservation_required:
                         st.warning("⚠️ Advance booking required")
                     if stop.ticket_info.booking_url:
-                        st.markdown(f"[Book tickets]({stop.ticket_info.booking_url})")
+                        st.markdown(f"[🎟️ Book tickets]({stop.ticket_info.booking_url})")
                 else:
                     st.success("✅ Free entry")
             
