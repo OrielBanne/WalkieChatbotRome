@@ -22,10 +22,12 @@ PLACE_TYPE_COLORS = {
     "restaurant": "orange",
     "attraction": "blue",
     "museum": "purple",
-    "church": "pink",
+    "church": "darkpurple",
     "park": "green",
     "hotel": "lightblue",
-    "default": "gray"
+    "meal": "orange",
+    "picnic": "lightgreen",
+    "default": "cadetblue"
 }
 
 # Custom marker icons for different place types
@@ -37,7 +39,37 @@ PLACE_TYPE_ICONS = {
     "church": "home",
     "park": "tree",
     "hotel": "bed",
+    "meal": "cutlery",
+    "picnic": "leaf",
     "default": "info-sign"
+}
+
+# Actual CSS colors that Folium renders for each named color
+PLACE_TYPE_CSS_COLORS = {
+    "landmark": "#CB2B3E",
+    "restaurant": "#F69730",
+    "attraction": "#2A81CB",
+    "museum": "#9C2BCB",
+    "church": "#593869",
+    "park": "#2AAD27",
+    "hotel": "#3CAED5",
+    "meal": "#F69730",
+    "picnic": "#72B026",
+    "default": "#436978"
+}
+
+# Human-readable labels for the legend
+PLACE_TYPE_LABELS = {
+    "landmark": "Landmark",
+    "restaurant": "Restaurant",
+    "attraction": "Attraction",
+    "museum": "Museum",
+    "church": "Church",
+    "park": "Park / Garden",
+    "hotel": "Hotel",
+    "meal": "Meal Break",
+    "picnic": "Picnic Spot",
+    "default": "Other"
 }
 
 
@@ -288,5 +320,19 @@ class MapBuilder:
                 self.add_route(map_obj, waypoints, color=route_color, weight=3, opacity=0.7)
         
         logger.info("Created map with %d places", len(places))
+        
+        # Auto-fit map bounds to show ALL markers (must be last to override zoom_start)
+        if len(places) >= 1:
+            all_coords = [place.coordinates for place in places]
+            min_lat = min(c[0] for c in all_coords)
+            max_lat = max(c[0] for c in all_coords)
+            min_lon = min(c[1] for c in all_coords)
+            max_lon = max(c[1] for c in all_coords)
+            # Add ~10% geographic padding so edge markers aren't cut off
+            lat_pad = max((max_lat - min_lat) * 0.15, 0.005)
+            lon_pad = max((max_lon - min_lon) * 0.15, 0.005)
+            sw = [min_lat - lat_pad, min_lon - lon_pad]
+            ne = [max_lat + lat_pad, max_lon + lon_pad]
+            map_obj.fit_bounds([sw, ne])
         
         return map_obj

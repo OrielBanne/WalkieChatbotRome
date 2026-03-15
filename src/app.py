@@ -62,7 +62,7 @@ st.set_page_config(
 )
 
 # Custom CSS for better styling
-st.markdown("""
+_custom_css = """
 <style>
     .stChatMessage {
         padding: 1rem;
@@ -80,8 +80,23 @@ st.markdown("""
         color: #666;
         margin-bottom: 2rem;
     }
+    /* Plan My Day button - larger, no brown banner */
+    div[data-testid="stButton"] > button[kind="secondary"] {
+        font-size: 1.3rem;
+        padding: 0.8rem 2rem;
+        border-radius: 0.5rem;
+        border: 2px solid #8B4513;
+        color: #8B4513;
+        background-color: #FFF8F0;
+        font-weight: bold;
+    }
+    div[data-testid="stButton"] > button[kind="secondary"]:hover {
+        background-color: #8B4513;
+        color: white;
+    }
 </style>
-""", unsafe_allow_html=True)
+"""
+st.markdown(_custom_css, unsafe_allow_html=True)
 
 
 class VectorStoreRetriever(BaseRetriever):
@@ -342,7 +357,7 @@ def render_sidebar():
         st.markdown("---")
 
         # Data Management section
-        st.markdown("#### 📚 Knowledge Base")
+        st.markdown("#### 📚 Knowledge Base Management")
 
         # Show current sources
         sources_file = "data/sample_sources.txt"
@@ -358,7 +373,7 @@ def render_sidebar():
             st.text(f"Videos: {len(youtube_sources)} | Websites: {len(web_sources)} | PDFs: {len(pdf_sources)}")
 
             # Manage Videos
-            with st.expander("📹 Manage Videos"):
+            with st.expander("📹 YouTube"):
                 # Initialize video info cache
                 if "video_info_cache" not in st.session_state:
                     st.session_state.video_info_cache = {}
@@ -411,7 +426,7 @@ def render_sidebar():
                         st.error("Please enter a URL")
 
             # Manage Websites
-            with st.expander("🌐 Manage Websites"):
+            with st.expander("🌐 Websites"):
                 # Display current websites
                 st.markdown("**Current Websites:**")
                 if web_sources:
@@ -453,7 +468,7 @@ def render_sidebar():
                         st.error("Please enter a URL")
 
             # Manage PDFs
-            with st.expander("📄 Manage PDFs"):
+            with st.expander("📄 PDFs"):
                 # Display current PDFs
                 st.markdown("**Current PDFs:**")
                 if pdf_sources:
@@ -660,9 +675,11 @@ def render_chat_interface():
     st.markdown('<div class="main-header">🏛️ Rome Places Chatbot</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-header">Discover the Eternal City through conversation</div>', unsafe_allow_html=True)
     
-    # Plan My Day button (prominent placement)
-    if st.button("🗓️ Plan My Day", type="primary", use_container_width=True):
-        plan_my_day()
+    # Plan My Day button
+    col1, col2, col3 = st.columns([2, 1, 2])
+    with col2:
+        if st.button("🗓️ Plan My Day", key="plan_my_day_btn"):
+            plan_my_day()
     
     st.markdown("---")
     
@@ -960,9 +977,10 @@ def main():
         st.markdown("---")
         from src.components.itinerary_display import render_itinerary
         render_itinerary(st.session_state.planned_itinerary)
-    
-    # Render map visualization
-    render_map_visualization()
+    else:
+        # Only show the standalone places map when there's no itinerary
+        # (the itinerary already includes its own route map)
+        render_map_visualization()
     
     # Fetch video info AFTER everything else is rendered (deferred)
     fetch_video_info_deferred()

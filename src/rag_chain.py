@@ -79,17 +79,6 @@ Helpful Answer:"""
             template=self.ROME_PROMPT_TEMPLATE,
             input_variables=["context", "chat_history", "question"]
         )
-        
-        # Create RetrievalQA chain
-        self.chain = RetrievalQA.from_chain_type(
-            llm=self.llm,
-            chain_type="stuff",  # Stuff all retrieved docs into prompt
-            retriever=self.retriever,
-            return_source_documents=True,
-            chain_type_kwargs={
-                "prompt": self.prompt_template
-            }
-        )
 
     def invoke(self, query: str, context: str = "") -> str:
         """
@@ -113,22 +102,30 @@ Helpful Answer:"""
         
         for attempt in range(max_retries):
             try:
-                # Prepare input with conversation context
-                input_data = {
-                    "query": query,
-                    "chat_history": context
-                }
+                # Retrieve relevant documents
+                try:
+                    docs = self.retriever.get_relevant_documents(query)
+                    context_text = "\n\n".join([doc.page_content for doc in docs[:5]])
+                except Exception as retrieval_error:
+                    logger.warning(f"Document retrieval failed: {retrieval_error}")
+                    docs = []
+                    context_text = "No specific documents available."
                 
-                # Invoke the chain
-                result = self.chain.invoke(input_data)
+                # Format the prompt directly
+                prompt_text = self.prompt_template.format(
+                    context=context_text,
+                    chat_history=context,
+                    question=query
+                )
+                
+                # Invoke the LLM directly
+                result = self.llm.invoke(prompt_text)
                 
                 # Extract the answer
-                if isinstance(result, dict):
-                    answer = result.get("result", "")
+                if hasattr(result, "content"):
+                    return result.content
                 else:
-                    answer = str(result)
-                
-                return answer
+                    return str(result)
                 
             except Exception as e:
                 logger.warning(

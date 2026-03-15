@@ -249,7 +249,20 @@ def place_discovery_agent(state: PlannerState) -> PlannerState:
         return state
     
     # Initialize dependencies
-    # Note: In production, these should be passed in or cached
+    # Try to use Streamlit session state first (app context), then fall back to creating new instances
+    try:
+        import streamlit as st
+        rag_chain = st.session_state.get("rag_chain")
+        geocoder = st.session_state.get("geocoder")
+        
+        if rag_chain and geocoder:
+            logger.info("Using RAG chain and geocoder from Streamlit session state")
+            agent = PlaceDiscoveryAgent(rag_chain, geocoder)
+            return agent.discover_places(state)
+    except Exception as e:
+        logger.debug(f"Could not access Streamlit session state: {e}")
+    
+    # Fallback: try to create new instances
     try:
         from src.rag_chain import RAGChain
         from src.geocoder import Geocoder

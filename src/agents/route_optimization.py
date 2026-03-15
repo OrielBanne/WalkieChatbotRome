@@ -70,6 +70,41 @@ def solve_tsp_greedy(distance_matrix: np.ndarray, start_index: int = 0) -> List[
     return route
 
 
+def solve_tsp_greedy_coords(places: List[Place], start_index: int = 0) -> List[int]:
+    """
+    Solve TSP using greedy nearest neighbor on raw coordinates.
+    Fallback when travel_times are unavailable.
+    
+    Args:
+        places: List of places with coordinates
+        start_index: Starting place index
+        
+    Returns:
+        List of place indices in visit order
+    """
+    import math
+    n = len(places)
+    unvisited = set(range(n))
+    route = [start_index]
+    unvisited.remove(start_index)
+    current = start_index
+
+    while unvisited:
+        lat1, lon1 = places[current].coordinates
+        nearest = min(
+            unvisited,
+            key=lambda j: math.sqrt(
+                (lat1 - places[j].coordinates[0]) ** 2 +
+                (lon1 - places[j].coordinates[1]) ** 2
+            )
+        )
+        route.append(nearest)
+        unvisited.remove(nearest)
+        current = nearest
+
+    return route
+
+
 def check_opening_hours_feasibility(
     route: List[str],
     places: List[Place],
@@ -206,11 +241,18 @@ def optimize_route(
     if len(places) <= 1:
         return [p.name for p in places]
     
-    # Build distance matrix
-    dist_matrix = build_distance_matrix(places, travel_times)
+    # Check if we have enough travel_times to use the distance matrix approach
+    has_travel_data = len(travel_times) > 0
     
-    # Solve TSP using greedy algorithm
-    route_indices = solve_tsp_greedy(dist_matrix, start_index=0)
+    if has_travel_data:
+        # Build distance matrix
+        dist_matrix = build_distance_matrix(places, travel_times)
+        # Solve TSP using greedy algorithm
+        route_indices = solve_tsp_greedy(dist_matrix, start_index=0)
+    else:
+        # Fallback: use coordinate-based nearest neighbor
+        logger.info("No travel times available, using coordinate-based route optimization")
+        route_indices = solve_tsp_greedy_coords(places, start_index=0)
     
     # Convert indices to place names
     optimized_route = [places[i].name for i in route_indices]

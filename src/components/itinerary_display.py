@@ -58,9 +58,11 @@ def render_itinerary_stop(stop: ItineraryStop, index: int, stop_id: str):
                     f"{stop.crowd_level.value.replace('_', ' ').title()}"
                 )
         
-        # Remove stop button
-        if st.button("🗑️ Remove Stop", key=f"remove_stop_{stop_id}", use_container_width=True):
-            return "remove"
+        # Remove stop button - compact, right-aligned
+        col_spacer, col_btn = st.columns([4, 1])
+        with col_btn:
+            if st.button("🗑️", key=f"remove_stop_{stop_id}", help="Remove this stop"):
+                return "remove"
         
         return None
 
@@ -118,7 +120,7 @@ def render_itinerary_map(itinerary: Itinerary):
     Args:
         itinerary: Itinerary to display on map
     """
-    from src.map_builder import MapBuilder
+    from src.map_builder import MapBuilder, PLACE_TYPE_LABELS, PLACE_TYPE_CSS_COLORS
     from src.models import PlaceMarker
     import streamlit.components.v1 as components
     
@@ -127,6 +129,7 @@ def render_itinerary_map(itinerary: Itinerary):
     
     # Convert itinerary stops to PlaceMarkers with numbered icons
     markers = []
+    seen_types = set()
     for i, stop in enumerate(itinerary.stops, 1):
         # Create popup content with stop details
         popup_html = f"<b>{i}. {stop.place.name}</b><br>"
@@ -150,17 +153,19 @@ def render_itinerary_map(itinerary: Itinerary):
             }
             popup_html += f"<br>{crowd_emoji.get(stop.crowd_level, '⚪')} Crowds: {stop.crowd_level.value.replace('_', ' ').title()}"
         
+        place_type = stop.place.place_type or "default"
+        seen_types.add(place_type)
+        
         marker = PlaceMarker(
             name=f"{i}. {stop.place.name}",
             coordinates=stop.place.coordinates,
-            place_type=stop.place.place_type,
+            place_type=place_type,
             description=popup_html,
             icon="info-sign"
         )
         markers.append(marker)
     
     # Determine transport mode from itinerary (default to pedestrian)
-    # We'll use pedestrian as default since most Rome itineraries involve walking
     transport_mode = "pedestrian"
     
     # Create map with markers and route
@@ -172,9 +177,88 @@ def render_itinerary_map(itinerary: Itinerary):
         numbered_markers=True
     )
     
-    # Render map to HTML and display in Streamlit
+    # Add "Show My Location" control to the map
+    from folium.plugins import LocateControl
+    LocateControl(
+        auto_start=False,
+        strings={"title": "Show my location", "popup": "You are here"},
+        flyTo=True,
+        keepCurrentZoomLevel=True
+    ).add_to(map_obj)
+    
+    # Build native HTML legend on the map itself
+    from branca.element import MacroElement, Template
+    
+    # Collect unique legend entries (skip "default"/"Other" if real types exist)
+    legend_entries = []
+    seen_labels = set()
+    for ptype in seen_types:
+        label = PLACE_TYPE_LABELS.get(ptype, PLACE_TYPE_LABELS.get("default", "Other"))
+        css_color = PLACE_TYPE_CSS_COLORS.get(ptype, PLACE_TYPE_CSS_COLORS.get("default", "#436978"))
+        # Skip "Other" if we already have meaningful types
+        if ptype == "default" and len(seen_types) > 1:
+            continue
+        if label not in seen_labels:
+            seen_labels.add(label)
+            legend_entries.append((css_color, label))
+    
+    # Build native HTML legend overlay inside the map
+    if legend_entries:
+        legend_rows = ""
+        for color, label in sorted(legend_entries, key=lambda x: x[1]):
+            legend_rows += (
+                f'<div style="display:flex;align-items:center;margin:2px 0;">'
+                f'<span style="background:{color};width:12px;height:12px;border-radius:50%;'
+                f'display:inline-block;margin-right:5px;border:1px solid #999;"></span>'
+                f'<span style="font-size:11px;">{label}</span></div>'
+            )
+        
+        legend_html = f'''
+        {{% macro html(this, kwargs) %}}
+        <div style="
+            position: absolute;
+            bottom: 20px; right: 10px;
+            background: rgba(255,255,255,0.92);
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            padding: 6px 10px;
+            z-index: 9999;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        ">
+            <div style="font-weight:bold;font-size:11px;margin-bottom:3px;">Legend</div>
+            {legend_rows}
+            <div style="margin-top:4px;border-top:1px solid #ddd;padding-top:3px;">
+                <div style="display:flex;align-items:center;margin:2px 0;">
+                    <span style="background:#2A81CB;width:20px;height:3px;display:inline-block;margin-right:5px;border-radius:1px;"></span>
+                    <span style="font-size:11px;">Walking route</span>
+                </div>
+            </div>
+        </div>
+        {{% endmacro %}}
+        '''
+        
+        legend_element = MacroElement()
+        legend_element._template = Template(legend_html)
+        map_obj.get_root().html.add_child(legend_element)
+    
+    # Render map as square (height=width) so fit_bounds works well for all marker spreads
     map_html = map_obj._repr_html_()
-    components.html(map_html, height=500, scrolling=False)
+    components.html(map_html, height=600, scrolling=False)
+    
+    # Legend is also shown below the map for accessibility
+    if legend_entries:
+        legend_items_html = []
+        for color, label in sorted(legend_entries, key=lambda x: x[1]):
+            dot = f'<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:{color};margin-right:3px;vertical-align:middle;border:1px solid #999;"></span>'
+            legend_items_html.append(f"{dot}{label}")
+        # Add route line indicator
+        route_line = '<span style="display:inline-block;width:18px;height:3px;background:#2A81CB;margin-right:3px;vertical-align:middle;border-radius:1px;"></span>Walking route'
+        legend_items_html.append(route_line)
+        st.markdown(
+            f'<p style="font-size:0.82em;color:#555;">Legend: {" &nbsp;·&nbsp; ".join(legend_items_html)}</p>',
+            unsafe_allow_html=True
+        )
 
 
 def render_itinerary(itinerary: Optional[Itinerary]):
@@ -306,6 +390,15 @@ def generate_text_itinerary(itinerary: Itinerary) -> str:
             lines.append(f"   Ticket: €{stop.ticket_info.price:.2f}")
             if stop.ticket_info.reservation_required:
                 lines.append("   ⚠️ Advance booking required")
+        
+        if stop.crowd_level:
+            crowd_labels = {
+                CrowdLevel.LOW: "Low",
+                CrowdLevel.MEDIUM: "Medium",
+                CrowdLevel.HIGH: "High - expect crowds",
+                CrowdLevel.VERY_HIGH: "Very High - arrive early"
+            }
+            lines.append(f"   Crowds: {crowd_labels.get(stop.crowd_level, stop.crowd_level.value)}")
         
         if stop.notes:
             lines.append("   Notes:")

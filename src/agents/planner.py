@@ -2,7 +2,7 @@
 
 import logging
 from datetime import datetime, timedelta
-from typing import List
+from typing import List, Optional, Tuple
 
 from .models import (
     PlannerState,
@@ -12,6 +12,125 @@ from .models import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+# Curated lunch spots near popular Rome areas with real coordinates
+ROME_LUNCH_SPOTS = [
+    {
+        "name": "Roscioli Salumeria con Cucina",
+        "coordinates": (41.8937, 12.4733),
+        "area": "Campo de' Fiori",
+        "cuisine": "Roman traditional, cured meats & cheese",
+        "price_range": "€€-€€€",
+        "hours": "12:30-16:00",
+        "description": "Renowned Roman deli-restaurant near Campo de' Fiori. Famous for carbonara, cured meats, and an exceptional wine cellar."
+    },
+    {
+        "name": "Trattoria Da Enzo al 29",
+        "coordinates": (41.8882, 12.4740),
+        "area": "Trastevere",
+        "cuisine": "Classic Roman trattoria",
+        "price_range": "€€",
+        "hours": "12:00-15:00",
+        "description": "Beloved Trastevere trattoria serving authentic Roman dishes. Try the cacio e pepe and artichokes. Expect a queue."
+    },
+    {
+        "name": "Armando al Pantheon",
+        "coordinates": (41.8984, 12.4756),
+        "area": "Pantheon",
+        "cuisine": "Traditional Roman",
+        "price_range": "€€-€€€",
+        "hours": "12:00-15:00",
+        "description": "Family-run trattoria steps from the Pantheon since 1961. Classic Roman cuisine with seasonal specials."
+    },
+    {
+        "name": "Picnic at Villa Borghese Gardens",
+        "coordinates": (41.9122, 12.4854),
+        "area": "Villa Borghese",
+        "cuisine": "Picnic spot",
+        "price_range": "€",
+        "hours": "All day",
+        "description": "Beautiful gardens perfect for a picnic. Grab supplies from a nearby alimentari and enjoy under the pine trees by the lake."
+    },
+    {
+        "name": "Picnic at Orange Garden (Giardino degli Aranci)",
+        "coordinates": (41.8833, 12.4797),
+        "area": "Aventine Hill",
+        "cuisine": "Picnic spot with panoramic view",
+        "price_range": "€",
+        "hours": "7:00-sunset",
+        "description": "Stunning hilltop garden with orange trees and a panoramic terrace overlooking Rome. Perfect for a scenic lunch break."
+    },
+    {
+        "name": "Trattoria Luzzi",
+        "coordinates": (41.8893, 12.4952),
+        "area": "Colosseum",
+        "cuisine": "Roman pizza & pasta",
+        "price_range": "€-€€",
+        "hours": "12:00-15:30",
+        "description": "Popular no-frills trattoria near the Colosseum. Great pizza, generous portions, and honest prices for the area."
+    },
+    {
+        "name": "Picnic at Parco degli Acquedotti",
+        "coordinates": (41.8558, 12.5558),
+        "area": "Appia Antica",
+        "cuisine": "Picnic among ancient aqueducts",
+        "price_range": "€",
+        "hours": "All day",
+        "description": "Sprawling park with ancient Roman aqueducts. A peaceful, off-the-beaten-path spot for a picnic lunch."
+    },
+]
+
+
+def _find_nearest_lunch_spot(
+    prev_coords: Tuple[float, float],
+    used_names: List[str]
+) -> dict:
+    """Find the nearest curated lunch spot to the given coordinates."""
+    import math
+    
+    best = None
+    best_dist = float("inf")
+    
+    for spot in ROME_LUNCH_SPOTS:
+        if spot["name"] in used_names:
+            continue
+        lat1, lon1 = prev_coords
+        lat2, lon2 = spot["coordinates"]
+        # Simple Euclidean distance (good enough for same-city)
+        dist = math.sqrt((lat1 - lat2) ** 2 + (lon1 - lon2) ** 2)
+        if dist < best_dist:
+            best_dist = dist
+            best = spot
+    
+    return best or ROME_LUNCH_SPOTS[0]
+
+
+def _try_rag_lunch_suggestion(
+    prev_place_name: str,
+    prev_coords: Tuple[float, float]
+) -> Optional[dict]:
+    """Try to get a lunch suggestion from the RAG knowledge base."""
+    try:
+        import streamlit as st
+        rag_chain = st.session_state.get("rag_chain")
+        if not rag_chain:
+            return None
+        
+        query = (
+            f"Recommend a good restaurant or trattoria near {prev_place_name} in Rome "
+            f"for lunch. Include the cuisine style, price range, and opening hours."
+        )
+        response = rag_chain.invoke(query)
+        
+        if response and len(response) > 20:
+            # We got a useful response - use it as the description
+            # but still use curated coordinates for accuracy
+            return {"rag_description": response}
+    except Exception as e:
+        logger.debug(f"RAG lunch suggestion failed: {e}")
+    
+    return None
 
 
 def should_iterate(state: PlannerState) -> bool:
@@ -200,19 +319,46 @@ def build_itinerary(state: PlannerState) -> Itinerary:
     for i, place_name in enumerate(state.optimized_route):
         # Handle lunch break
         if place_name == "LUNCH_BREAK":
-            # Create a special lunch stop
+            # Find a good lunch spot near the previous stop
+            prev_coords = (41.9028, 12.4964)  # Rome center default
+            prev_name = "Rome center"
+            used_names = [s.place.name for s in stops]
+            
+            if stops:
+                prev_coords = stops[-1].place.coordinates
+                prev_name = stops[-1].place.name
+            
+            # Find nearest curated lunch spot
+            lunch_spot = _find_nearest_lunch_spot(prev_coords, used_names)
+            
+            # Try to enrich with RAG suggestion
+            rag_info = _try_rag_lunch_suggestion(prev_name, prev_coords)
+            
+            # Build description
+            description = lunch_spot["description"]
+            if rag_info and rag_info.get("rag_description"):
+                description += f"\n\n💡 From our knowledge base:\n{rag_info['rag_description'][:300]}"
+            
             lunch_place = Place(
-                name="Lunch Break",
+                name=lunch_spot["name"],
                 place_type="meal",
-                coordinates=(0.0, 0.0),
+                coordinates=lunch_spot["coordinates"],
                 visit_duration=60,
-                description="Time for lunch"
+                description=description
             )
+            
+            notes = [
+                f"🍽️ Cuisine: {lunch_spot['cuisine']}",
+                f"💰 Price range: {lunch_spot['price_range']}",
+                f"🕐 Hours: {lunch_spot['hours']}",
+                f"📍 Area: {lunch_spot['area']}"
+            ]
+            
             stop = ItineraryStop(
                 time=current_time,
                 place=lunch_place,
                 duration_minutes=60,
-                notes=["Recommended lunch time: 12:30-14:00"]
+                notes=notes
             )
             stops.append(stop)
             current_time += timedelta(minutes=60)
@@ -236,18 +382,11 @@ def build_itinerary(state: PlannerState) -> Itinerary:
             if hours.last_entry_time:
                 notes.append(f"Last entry: {hours.last_entry_time.strftime('%H:%M')}")
         
-        # Add crowd warning
+        # Crowd level is displayed separately on the stop card, not in notes
         crowd = state.crowd_predictions.get(place_name)
-        if crowd:
-            if crowd.value == "very_high":
-                notes.append("⚠️ Very crowded - arrive early")
-            elif crowd.value == "high":
-                notes.append("Expect crowds")
         
-        # Add ticket note
+        # Get ticket info (displayed separately, not in notes to avoid duplication)
         ticket = state.ticket_info.get(place_name)
-        if ticket and ticket.reservation_required:
-            notes.append("⚠️ Advance booking required")
         
         # Add travel note for next place
         if i < len(state.optimized_route) - 1:

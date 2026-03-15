@@ -11,7 +11,7 @@ from src.agents.route_optimization import route_optimization_agent
 from src.agents.crowd_prediction import crowd_prediction_agent
 from src.agents.cost import cost_agent
 from src.agents.feasibility import feasibility_agent
-from src.agents.planner import planner_agent, should_iterate
+from src.agents.planner import planner_agent, should_iterate, build_itinerary
 
 logger = logging.getLogger(__name__)
 
@@ -63,6 +63,47 @@ def create_test_workflow() -> StateGraph:
     return app
 
 
+def _finalize_itinerary(state: PlannerState) -> PlannerState:
+    """Final node that always runs to build the itinerary if not already built."""
+    if state.itinerary:
+        return state
+    
+    if state.optimized_route:
+        logger.info("Finalizing: Building itinerary from optimized route")
+        itinerary = build_itinerary(state)
+        state.itinerary = itinerary
+        
+        if state.is_feasible:
+            state.explanation += f"\n\n✅ Itinerary is feasible (score: {state.feasibility_score:.0f}/100)"
+        else:
+            state.explanation += f"\n\n⚠️ Itinerary has some issues (score: {state.feasibility_score:.0f}/100)"
+    elif state.candidate_places:
+        # We have places but no optimized route - run coordinate-based optimization
+        logger.info("Finalizing: Optimizing route from candidate places using coordinates")
+        if not state.selected_places:
+            state.selected_places = state.candidate_places
+        
+        # Use coordinate-based nearest-neighbor instead of arbitrary order
+        from src.agents.route_optimization import optimize_route
+        from datetime import time as dt_time
+        start_time = state.user_preferences.start_time if state.user_preferences.start_time else dt_time(9, 0)
+        state.optimized_route = optimize_route(
+            state.selected_places,
+            state.travel_times,
+            state.opening_hours,
+            start_time
+        )
+        
+        itinerary = build_itinerary(state)
+        state.itinerary = itinerary
+        state.explanation += f"\n\n📋 Generated itinerary with {len(itinerary.stops)} stops"
+    else:
+        logger.warning("Finalizing: No places available to build itinerary")
+        state.explanation += "\n\n❌ No places found to build an itinerary"
+    
+    return state
+
+
 def create_planner_workflow() -> StateGraph:
     """
     Create the complete planner workflow with all agents.
@@ -108,12 +149,16 @@ def create_planner_workflow() -> StateGraph:
         should_continue,
         {
             "continue": "planner",
-            "end": END
+            "end": "finalize"
         }
     )
     
     # After planner modifies the plan, re-optimize
     workflow.add_edge("planner", "route_optimization")
+    
+    # Finalize node always builds the itinerary before ending
+    workflow.add_node("finalize", error_handling_wrapper("FinalizeItinerary")(_finalize_itinerary))
+    workflow.add_edge("finalize", END)
     
     # Compile the workflow
     app = workflow.compile()

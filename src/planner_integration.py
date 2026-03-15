@@ -63,17 +63,34 @@ def plan_itinerary(
         logger.info("Executing planning workflow...")
         result = workflow.invoke(initial_state)
         
+        # LangGraph returns a dict, not a PlannerState object
+        if isinstance(result, dict):
+            errors = result.get("errors", [])
+            itinerary = result.get("itinerary")
+            candidate_places = result.get("candidate_places", [])
+            selected_places = result.get("selected_places", [])
+        else:
+            errors = getattr(result, "errors", [])
+            itinerary = getattr(result, "itinerary", None)
+            candidate_places = getattr(result, "candidate_places", [])
+            selected_places = getattr(result, "selected_places", [])
+        
         # Check for errors
-        if result.errors:
-            logger.error(f"Planning completed with errors: {result.errors}")
+        if errors:
+            logger.error(f"Planning completed with errors: {errors}")
+        
+        # Log discovery results
+        logger.info(f"Place discovery found {len(candidate_places)} candidates, {len(selected_places)} selected")
         
         # Return itinerary
-        if result.itinerary:
+        if itinerary:
+            if isinstance(itinerary, dict):
+                itinerary = Itinerary(**itinerary)
             logger.info(
-                f"Successfully planned itinerary with {len(result.itinerary.stops)} stops, "
-                f"feasibility score: {result.itinerary.feasibility_score:.0f}/100"
+                f"Successfully planned itinerary with {len(itinerary.stops)} stops, "
+                f"feasibility score: {itinerary.feasibility_score:.0f}/100"
             )
-            return result.itinerary
+            return itinerary
         else:
             logger.warning("Planning completed but no itinerary was generated")
             return None
@@ -109,6 +126,10 @@ def get_planning_state(
         )
         
         result = workflow.invoke(initial_state)
+        
+        # LangGraph returns a dict
+        if isinstance(result, dict):
+            return PlannerState(**result)
         return result
         
     except Exception as e:
@@ -247,17 +268,27 @@ def modify_itinerary(
         logger.info("Re-optimizing itinerary...")
         result = workflow.invoke(initial_state)
         
+        # LangGraph returns a dict
+        if isinstance(result, dict):
+            errors = result.get("errors", [])
+            itinerary = result.get("itinerary")
+        else:
+            errors = getattr(result, "errors", [])
+            itinerary = getattr(result, "itinerary", None)
+        
         # Check for errors
-        if result.errors:
-            logger.error(f"Re-optimization completed with errors: {result.errors}")
+        if errors:
+            logger.error(f"Re-optimization completed with errors: {errors}")
         
         # Return modified itinerary
-        if result.itinerary:
+        if itinerary:
+            if isinstance(itinerary, dict):
+                itinerary = Itinerary(**itinerary)
             logger.info(
-                f"Successfully re-optimized itinerary with {len(result.itinerary.stops)} stops, "
-                f"feasibility score: {result.itinerary.feasibility_score:.0f}/100"
+                f"Successfully re-optimized itinerary with {len(itinerary.stops)} stops, "
+                f"feasibility score: {itinerary.feasibility_score:.0f}/100"
             )
-            return result.itinerary
+            return itinerary
         else:
             logger.warning("Re-optimization completed but no itinerary was generated")
             return None
