@@ -1,6 +1,7 @@
 """Itinerary display component for Streamlit."""
 
 import streamlit as st
+import folium
 from datetime import datetime
 from typing import Optional
 
