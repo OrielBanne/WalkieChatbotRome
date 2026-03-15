@@ -36,7 +36,7 @@ def calculate_travel_time(
         distance_km = calculate_route_distance(route_coords)
         
         return TravelTime(
-            duration_minutes=duration_seconds / 60,
+            duration_minutes=max(duration_seconds / 60, 0.1),
             distance_km=distance_km,
             mode=mode
         )
@@ -46,7 +46,7 @@ def calculate_travel_time(
         distance_km = calculate_haversine_distance(start_coords, end_coords)
         
         # Estimate walking time: 5 km/h average pace
-        duration_minutes = (distance_km / 5.0) * 60
+        duration_minutes = max((distance_km / 5.0) * 60, 0.1)
         
         return TravelTime(
             duration_minutes=duration_minutes,
@@ -172,8 +172,10 @@ def travel_time_agent(state: PlannerState) -> PlannerState:
                 if result:
                     route_coords, duration_seconds = result
                     distance_km = calculate_route_distance(route_coords)
+                    # Ensure minimum values for same-location pairs
+                    dur_min = max(duration_seconds / 60, 0.1)
                     travel_time = TravelTime(
-                        duration_minutes=duration_seconds / 60,
+                        duration_minutes=dur_min,
                         distance_km=distance_km,
                         mode="pedestrian"
                     )
@@ -181,8 +183,9 @@ def travel_time_agent(state: PlannerState) -> PlannerState:
                     distance = calculate_haversine_distance(
                         place_a.coordinates, place_b.coordinates
                     )
+                    dur_min = max((distance / 5.0) * 60, 0.1)
                     travel_time = TravelTime(
-                        duration_minutes=(distance / 5.0) * 60,
+                        duration_minutes=dur_min,
                         distance_km=distance,
                         mode="pedestrian"
                     )
@@ -197,8 +200,9 @@ def travel_time_agent(state: PlannerState) -> PlannerState:
                     place_a.coordinates,
                     place_b.coordinates
                 )
+                dur_min = max((distance / 5.0) * 60, 0.1)
                 fallback_time = TravelTime(
-                    duration_minutes=(distance / 5.0) * 60,
+                    duration_minutes=dur_min,
                     distance_km=distance,
                     mode="pedestrian"
                 )

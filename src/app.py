@@ -68,17 +68,14 @@ _custom_css = """
         padding: 1rem;
         border-radius: 0.5rem;
     }
+    .block-container {
+        padding-top: 3rem !important;
+    }
     .main-header {
-        font-size: 2.5rem;
+        font-size: 1.3rem;
         font-weight: bold;
         color: #8B4513;
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    .sub-header {
-        text-align: center;
-        color: #666;
-        margin-bottom: 2rem;
+        margin-bottom: 0.2rem;
     }
     /* Plan My Day button - larger, no brown banner */
     div[data-testid="stButton"] > button[kind="secondary"] {
@@ -93,6 +90,35 @@ _custom_css = """
     div[data-testid="stButton"] > button[kind="secondary"]:hover {
         background-color: #8B4513;
         color: white;
+    }
+    /* Sticky right column for map (desktop) */
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:last-child > div[data-testid="stVerticalBlockBorderWrapper"] > div {
+        position: sticky;
+        top: 0;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    /* Mobile: stack columns, map on top, no sticky */
+    @media (max-width: 768px) {
+        div[data-testid="stHorizontalBlock"] {
+            flex-direction: column-reverse;
+        }
+        div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+        div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"]:last-child > div[data-testid="stVerticalBlockBorderWrapper"] > div {
+            position: static;
+            max-height: none;
+            overflow-y: visible;
+        }
+        .main-header {
+            font-size: 1.1rem;
+        }
+        div[data-testid="stButton"] > button[kind="secondary"] {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
     }
 </style>
 """
@@ -622,6 +648,21 @@ def render_sidebar():
 
 
 
+def _persist_state():
+    """Save current app state to disk so it survives refresh/battery death."""
+    try:
+        from src.state_persistence import save_app_state
+        user_id = st.session_state.get("user_id", "default_user")
+        save_app_state(
+            user_id=user_id,
+            planned_itinerary=st.session_state.get("planned_itinerary"),
+            visited_places=st.session_state.get("visited_places", []),
+            messages=st.session_state.get("messages", []),
+        )
+    except Exception as e:
+        logger.warning(f"State persistence failed: {e}")
+
+
 def plan_my_day():
     """Execute the planning workflow and display the itinerary."""
     try:
@@ -646,40 +687,20 @@ def plan_my_day():
                 if len(last_message) < 200:
                     query = last_message
         
-        # Show loading spinner
-        with st.spinner("🔄 Planning your perfect day in Rome... This may take a moment."):
+        # Show minimal spinner next to button
+        with st.spinner(""):
             from src.planner_integration import plan_itinerary
             
             logger.info(f"Starting itinerary planning with query: {query}")
-            
-            # Execute planning workflow
             itinerary = plan_itinerary(query, user_preferences)
             
             if itinerary:
-                # Store itinerary in session state
                 st.session_state.planned_itinerary = itinerary
-                
-                # Add success message to chat
-                success_msg = f"✅ I've planned your day! Check out your personalized itinerary below with {len(itinerary.stops)} stops."
-                st.session_state.messages.append({"role": "assistant", "content": success_msg})
-                
-                # Save to conversation history
-                try:
-                    st.session_state.context_manager.add_to_history(
-                        st.session_state.current_session.session_id,
-                        "assistant",
-                        success_msg
-                    )
-                except Exception as e:
-                    logger.warning(f"Failed to save planning message to history: {e}")
-                
                 logger.info(f"Successfully planned itinerary with {len(itinerary.stops)} stops")
-                st.success("✅ Your itinerary is ready!")
+                _persist_state()
                 st.rerun()
             else:
-                error_msg = "❌ I couldn't create an itinerary. Please try adjusting your preferences or ask me about specific places you'd like to visit."
-                st.error(error_msg)
-                st.session_state.messages.append({"role": "assistant", "content": error_msg})
+                st.error("❌ Couldn't create an itinerary. Try adjusting your preferences.")
                 logger.warning("Planning workflow returned no itinerary")
                 
     except Exception as e:
@@ -762,13 +783,11 @@ def _detect_itinerary_command(prompt: str) -> bool:
 def render_chat_interface():
     """Render the main chat interface."""
     
-    # Header
-    st.markdown('<div class="main-header">🏛️ Rome Places Chatbot</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">Discover the Eternal City through conversation</div>', unsafe_allow_html=True)
-    
-    # Plan My Day button
-    col1, col2, col3 = st.columns([2, 1, 2])
-    with col2:
+    # Header row: title + Plan My Day button
+    hdr_left, hdr_right = st.columns([3, 1])
+    with hdr_left:
+        st.markdown('<div class="main-header">🏛️ Rome Tour</div>', unsafe_allow_html=True)
+    with hdr_right:
         if st.button("🗓️ Plan My Day", key="plan_my_day_btn"):
             plan_my_day()
     
@@ -838,6 +857,7 @@ def render_chat_interface():
                 
                 # Add assistant message to session state
                 st.session_state.messages.append({"role": "assistant", "content": full_response})
+                _persist_state()
                 
                 # If itinerary exists, check if the response mentions new places
                 # and rerun to update the map with discovered places
@@ -864,171 +884,6 @@ def render_chat_interface():
                 error_message = get_user_friendly_error("api_error")
                 message_placeholder.markdown(error_message)
                 st.session_state.messages.append({"role": "assistant", "content": error_message})
-
-
-def render_map_visualization():
-    """Render the map visualization for extracted places from entire conversation."""
-    
-    # Always show the map section
-    st.markdown("---")
-    st.markdown("### 🗺️ Places on Map")
-    
-    # Extract places from ALL messages in the conversation
-    all_places = []
-    
-    try:
-        for message in st.session_state.messages:
-            # Extract places from both user and assistant messages
-            places = st.session_state.place_extractor.extract_places(message["content"])
-            rome_places = st.session_state.place_extractor.filter_rome_places(places)
-            all_places.extend(rome_places)
-        
-        if not all_places:
-            st.info("💡 Ask about places in Rome to see them on the map!")
-            return
-        
-        # Remove duplicate places (by name)
-        unique_places = {}
-        for place in all_places:
-            if place.name not in unique_places:
-                unique_places[place.name] = place
-        
-        # Geocode extracted places
-        place_markers = []
-        
-        for place_mention in unique_places.values():
-            try:
-                coords = st.session_state.geocoder.geocode_place(
-                    place_mention.name,
-                    bias_location=(41.9028, 12.4964)  # Rome center
-                )
-                
-                if coords:
-                    marker = PlaceMarker(
-                        name=place_mention.name,
-                        coordinates=(coords.latitude, coords.longitude),
-                        place_type="landmark",  # Default type
-                        description=None,
-                        icon="star"
-                    )
-                    place_markers.append(marker)
-            except Exception as e:
-                logger.warning(f"Failed to geocode place '{place_mention.name}': {e}")
-                continue
-        
-        if place_markers:
-            # Add transport mode selector if multiple places
-            transport_mode = None
-            if len(place_markers) > 1:
-                col1, col2 = st.columns([3, 1])
-                with col1:
-                    mode_option = st.radio(
-                        "Route Type:",
-                        options=["Auto (Smart)", "🚶 Walking", "🚗 Driving", "🚌 Public Transport"],
-                        horizontal=True,
-                        index=0,
-                        key="transport_mode"
-                    )
-                    
-                    # Map display option to actual mode
-                    mode_map = {
-                        "Auto (Smart)": None,  # None triggers auto-selection
-                        "🚶 Walking": "pedestrian",
-                        "🚗 Driving": "car",
-                        "🚌 Public Transport": "public_transport"
-                    }
-                    transport_mode = mode_map[mode_option]
-                
-                with col2:
-                    if transport_mode is None:
-                        st.caption("_Auto: Walking <30min, else transit_")
-            
-            # Create map with places
-            map_obj = st.session_state.map_builder.create_map_with_places(
-                places=place_markers,
-                add_route=len(place_markers) > 1,
-                transport_mode=transport_mode
-            )
-            
-            # Add native HTML legend overlay
-            from src.map_builder import PLACE_TYPE_LABELS, PLACE_TYPE_CSS_COLORS
-            from branca.element import MacroElement, Template
-            
-            seen_types = set(m.place_type for m in place_markers)
-            legend_entries = []
-            seen_labels = set()
-            for ptype in seen_types:
-                label = PLACE_TYPE_LABELS.get(ptype, PLACE_TYPE_LABELS.get("default", "Other"))
-                css_color = PLACE_TYPE_CSS_COLORS.get(ptype, PLACE_TYPE_CSS_COLORS.get("default", "#436978"))
-                if ptype == "default" and len(seen_types) > 1:
-                    continue
-                if label not in seen_labels:
-                    seen_labels.add(label)
-                    legend_entries.append((css_color, label))
-            
-            # Route color
-            route_mode_labels = {
-                None: ("Auto route", "#2A81CB"),
-                "pedestrian": ("Walking route", "#2A81CB"),
-                "car": ("Driving route", "#CB2B3E"),
-                "public_transport": ("Public transport", "#2AAD27"),
-            }
-            route_label, route_color_css = route_mode_labels.get(transport_mode, ("Route", "#2A81CB"))
-            
-            if legend_entries:
-                legend_rows = ""
-                for color, label in sorted(legend_entries, key=lambda x: x[1]):
-                    legend_rows += (
-                        f'<div style="display:flex;align-items:center;margin:2px 0;">'
-                        f'<span style="background:{color};width:12px;height:12px;border-radius:50%;'
-                        f'display:inline-block;margin-right:5px;border:1px solid #999;"></span>'
-                        f'<span style="font-size:11px;">{label}</span></div>'
-                    )
-                if len(place_markers) > 1:
-                    legend_rows += (
-                        f'<div style="margin-top:4px;border-top:1px solid #ddd;padding-top:3px;">'
-                        f'<div style="display:flex;align-items:center;margin:2px 0;">'
-                        f'<span style="background:{route_color_css};width:20px;height:3px;display:inline-block;margin-right:5px;border-radius:1px;"></span>'
-                        f'<span style="font-size:11px;">{route_label}</span></div></div>'
-                    )
-                
-                legend_html = f'''
-                {{% macro html(this, kwargs) %}}
-                <div style="
-                    position: absolute;
-                    bottom: 20px; right: 10px;
-                    background: rgba(255,255,255,0.92);
-                    border: 1px solid #aaa;
-                    border-radius: 5px;
-                    padding: 6px 10px;
-                    z-index: 9999;
-                    font-family: Arial, sans-serif;
-                    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-                ">
-                    <div style="font-weight:bold;font-size:11px;margin-bottom:3px;">Legend</div>
-                    {legend_rows}
-                </div>
-                {{% endmacro %}}
-                '''
-                legend_element = MacroElement()
-                legend_element._template = Template(legend_html)
-                map_obj.get_root().html.add_child(legend_element)
-            
-            # Render map using components.html for consistent rendering with legend
-            import streamlit.components.v1 as components
-            map_html = map_obj._repr_html_()
-            components.html(map_html, height=600, scrolling=False)
-            
-            logger.info(f"Rendered map with {len(place_markers)} markers from conversation")
-        else:
-            st.info("ℹ️ No places could be mapped from the conversation.")
-    
-    except Exception as e:
-        log_error_with_context(
-            logger, e, "Error rendering map",
-            st.session_state.current_session.session_id
-        )
-        st.warning(get_user_friendly_error("geocoding_unavailable"))
 
 
 def fetch_video_info_deferred():
@@ -1160,6 +1015,20 @@ def main():
     if "planned_itinerary" not in st.session_state:
         st.session_state.planned_itinerary = None
     
+    # Restore persisted state on fresh load (survives refresh / battery death)
+    if not st.session_state.get("_state_restored"):
+        from src.state_persistence import load_app_state
+        saved = load_app_state(st.session_state.user_id)
+        if saved:
+            if saved.get("planned_itinerary") and not st.session_state.planned_itinerary:
+                st.session_state.planned_itinerary = saved["planned_itinerary"]
+            if saved.get("visited_places") and not st.session_state.get("visited_places"):
+                st.session_state.visited_places = saved["visited_places"]
+            if saved.get("messages") and not st.session_state.get("messages"):
+                st.session_state.messages = saved["messages"]
+            logger.info("Restored app state from disk")
+        st.session_state._state_restored = True
+    
     # Initialize itinerary action tracker
     if "itinerary_action" not in st.session_state:
         st.session_state.itinerary_action = None
@@ -1193,14 +1062,14 @@ def main():
                 from src.agents.workflow import create_planner_workflow
                 from src.agents.models import PlannerState as _PS
                 
-                current_places = [stop.place for stop in st.session_state.planned_itinerary.stops]
+                current_places = [stop.place.model_dump() for stop in st.session_state.planned_itinerary.stops]
                 for pname in action["place_names"]:
-                    current_places.append(Place(
-                        name=pname,
-                        place_type="attraction",
-                        coordinates=(41.9028, 12.4964),
-                        visit_duration=60
-                    ))
+                    current_places.append({
+                        "name": pname,
+                        "place_type": "attraction",
+                        "coordinates": (41.9028, 12.4964),
+                        "visit_duration": 60
+                    })
                 
                 workflow = create_planner_workflow()
                 initial_state = _PS(
@@ -1227,8 +1096,13 @@ def main():
             
             if modified_itinerary:
                 st.session_state.planned_itinerary = modified_itinerary
+                # Invalidate map cache so the new itinerary triggers a fresh map render
+                st.session_state.pop("_map_cache_key", None)
+                st.session_state.pop("_map_cache_obj", None)
+                st.session_state.pop("_map_cache_seen_types", None)
                 st.success("✅ Itinerary updated!")
                 logger.info(f"Itinerary modified: {action['type']}")
+                _persist_state()
             else:
                 st.error("❌ Failed to update itinerary. Please try again.")
                 logger.warning(f"Failed to modify itinerary: {action}")
@@ -1239,22 +1113,29 @@ def main():
     # Render sidebar
     render_sidebar()
     
-    # Render planned itinerary ABOVE chat (so chat appears below)
+    # Two-column layout: left = content, right = sticky map
+    left_col, right_col = st.columns([55, 45], gap="medium")
+    
+    # Extract discovered places once (used by both columns)
+    discovered_places = None
     if st.session_state.planned_itinerary:
-        st.markdown("---")
-        from src.components.itinerary_display import render_itinerary
-        
-        # Extract chat-discovered places (places mentioned in chat but not in itinerary)
         discovered_places = _extract_chat_discovered_places()
+    
+    with left_col:
+        # Render itinerary content (stops, summary, add stop, etc.)
+        if st.session_state.planned_itinerary:
+            st.markdown("---")
+            from src.components.itinerary_display import render_itinerary_content
+            render_itinerary_content(st.session_state.planned_itinerary, discovered_places=discovered_places)
         
-        render_itinerary(st.session_state.planned_itinerary, discovered_places=discovered_places)
+        # Render main chat interface
+        render_chat_interface()
     
-    # Render main chat interface
-    render_chat_interface()
-    
-    # Only show the standalone places map when there's no itinerary
-    if not st.session_state.planned_itinerary:
-        render_map_visualization()
+    with right_col:
+        # Render map (sticky on right side)
+        if st.session_state.planned_itinerary:
+            from src.components.itinerary_display import render_itinerary_map
+            render_itinerary_map(st.session_state.planned_itinerary, discovered_places=discovered_places)
     
     # Fetch video info AFTER everything else is rendered (deferred)
     fetch_video_info_deferred()

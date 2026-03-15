@@ -37,11 +37,26 @@ class Router:
     
     Supports multiple transportation modes: pedestrian, car, and public transport.
     Uses OSRM (Open Source Routing Machine) for routing.
+    Caches route results to avoid redundant API calls.
     """
+    
+    # Class-level route cache shared across instances
+    _route_cache: dict = {}
     
     def __init__(self):
         """Initialize the Router."""
         logger.info("Router initialized with multi-mode support")
+    
+    @classmethod
+    def clear_cache(cls):
+        """Clear the route cache."""
+        cls._route_cache.clear()
+    
+    def _cache_key(self, start, end, mode, prefer_shortest):
+        """Generate a cache key for a route request."""
+        return (round(start[0], 6), round(start[1], 6),
+                round(end[0], 6), round(end[1], 6),
+                mode, prefer_shortest)
     
     def get_route(
         self,
@@ -63,6 +78,12 @@ class Router:
             Tuple of (route coordinates, duration in seconds) or None if routing fails
         """
         try:
+            # Check cache first
+            key = self._cache_key(start, end, mode, prefer_shortest)
+            if key in self._route_cache:
+                logger.debug(f"Cache hit for {mode} route {start} -> {end}")
+                return self._route_cache[key]
+            
             # Get the appropriate endpoint for the mode
             base_url = OSRM_ENDPOINTS.get(mode, OSRM_ENDPOINTS["pedestrian"])
             
@@ -122,7 +143,14 @@ class Router:
             duration = selected_route.get("duration", 0)
             logger.info(f"Got {mode} route with {len(route_coords)} points, distance: {distance:.0f}m, duration: {duration/60:.1f}min")
             
-            return (route_coords, duration)
+            result = (route_coords, duration)
+            # Cache the result (and the reverse direction too for symmetric routes)
+            self._route_cache[key] = result
+            reverse_key = self._cache_key(end, start, mode, prefer_shortest)
+            if reverse_key not in self._route_cache:
+                self._route_cache[reverse_key] = (list(reversed(route_coords)), duration)
+            
+            return result
             
         except requests.exceptions.RequestException as e:
             logger.error(f"Error requesting route from OSRM: {e}")
@@ -170,7 +198,7 @@ class Router:
         self,
         waypoints: List[Tuple[float, float]],
         mode: Optional[TransportMode] = None,
-        delay_between_requests: float = 0.5,
+        delay_between_requests: float = 0.0,
         prefer_shortest: bool = True
     ) -> List[Tuple[float, float]]:
         """

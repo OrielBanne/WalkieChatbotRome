@@ -20,10 +20,14 @@ def error_handling_wrapper(agent_name: str) -> Callable:
     def decorator(agent_func: Callable[[PlannerState], PlannerState]) -> Callable:
         @wraps(agent_func)
         def wrapper(state: PlannerState) -> PlannerState:
+            import time as _time
             try:
-                logger.info(f"Executing {agent_name}")
+                logger.info(f"▶ {agent_name} starting...")
+                t0 = _time.perf_counter()
                 result = agent_func(state)
-                logger.info(f"{agent_name} completed successfully")
+                elapsed = _time.perf_counter() - t0
+                logger.info(f"✓ {agent_name} completed in {elapsed:.2f}s")
+                result.profile_timings[agent_name] = elapsed
                 return result
             except Exception as e:
                 error_msg = f"{agent_name} failed: {str(e)}"

@@ -71,7 +71,10 @@ def plan_itinerary(
         
         # Execute workflow
         logger.info("Executing planning workflow...")
+        import time as _time
+        t_start = _time.perf_counter()
         result = workflow.invoke(initial_state)
+        t_total = _time.perf_counter() - t_start
         
         # LangGraph returns a dict, not a PlannerState object
         if isinstance(result, dict):
@@ -88,6 +91,20 @@ def plan_itinerary(
         # Check for errors
         if errors:
             logger.error(f"Planning completed with errors: {errors}")
+        
+        # === PROFILING SUMMARY ===
+        profile = result.get("profile_timings", {}) if isinstance(result, dict) else getattr(result, "profile_timings", {})
+        if profile:
+            logger.info("=" * 60)
+            logger.info("PROFILING SUMMARY")
+            logger.info("=" * 60)
+            for agent_name, elapsed in sorted(profile.items(), key=lambda x: -x[1]):
+                bar = "█" * int(elapsed * 2)
+                logger.info(f"  {agent_name:<30} {elapsed:6.2f}s  {bar}")
+            logger.info(f"  {'TOTAL':<30} {t_total:6.2f}s")
+            logger.info("=" * 60)
+        else:
+            logger.info(f"Planning workflow completed in {t_total:.2f}s (no per-agent profiling data)")
         
         # Log discovery results
         logger.info(f"Place discovery found {len(candidate_places)} candidates, {len(selected_places)} selected")
@@ -226,8 +243,8 @@ def modify_itinerary(
     try:
         logger.info(f"Modifying itinerary: action={action_type}, place={place_name}, index={stop_index}")
         
-        # Extract current places from itinerary
-        current_places = [stop.place for stop in current_itinerary.stops]
+        # Extract current places from itinerary (use dicts to avoid Pydantic re-validation issues)
+        current_places = [stop.place.model_dump() for stop in current_itinerary.stops]
         
         # Modify the places list based on action
         if action_type == "remove":
@@ -236,7 +253,7 @@ def modify_itinerary(
                 return None
             
             removed_place = current_places.pop(stop_index)
-            logger.info(f"Removed place: {removed_place.name}")
+            logger.info(f"Removed place: {removed_place['name']}")
             
             if len(current_places) == 0:
                 logger.warning("Cannot remove last stop from itinerary")
@@ -247,14 +264,14 @@ def modify_itinerary(
                 logger.error("place_name is required for 'add' action")
                 return None
             
-            # Create a new Place object for the added place
+            # Create a new Place dict for the added place
             # We'll let the workflow geocode and enrich it
-            new_place = Place(
-                name=place_name,
-                place_type="attraction",
-                coordinates=(41.9028, 12.4964),  # Default Rome center
-                visit_duration=60  # Default 1 hour
-            )
+            new_place = {
+                "name": place_name,
+                "place_type": "attraction",
+                "coordinates": (41.9028, 12.4964),
+                "visit_duration": 60
+            }
             current_places.append(new_place)
             logger.info(f"Added place: {place_name}")
         

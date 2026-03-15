@@ -255,6 +255,7 @@ class PlannerState(BaseModel):
     is_feasible: bool = False
     itinerary: Optional[Itinerary] = None
     explanation: str = ""
+    profile_timings: Dict[str, float] = Field(default_factory=dict)
     
     @field_validator("feasibility_score")
     @classmethod
