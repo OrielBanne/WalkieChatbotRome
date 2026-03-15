@@ -839,6 +839,23 @@ def render_chat_interface():
                 # Add assistant message to session state
                 st.session_state.messages.append({"role": "assistant", "content": full_response})
                 
+                # If itinerary exists, check if the response mentions new places
+                # and rerun to update the map with discovered places
+                if st.session_state.get("planned_itinerary"):
+                    combined_text = prompt + " " + full_response
+                    new_places = st.session_state.place_extractor.extract_places(combined_text)
+                    if new_places:
+                        itinerary_names = {
+                            stop.place.name.lower()
+                            for stop in st.session_state.planned_itinerary.stops
+                        }
+                        new_rome = st.session_state.place_extractor.filter_rome_places(new_places)
+                        has_new = any(
+                            p.name.lower() not in itinerary_names for p in new_rome
+                        )
+                        if has_new:
+                            st.rerun()
+                
             except Exception as e:
                 log_error_with_context(
                     logger, e, "Error generating response",
