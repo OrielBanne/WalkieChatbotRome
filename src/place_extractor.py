@@ -77,6 +77,68 @@ class PlaceExtractor:
         "via condotti",
     }
     
+    # Map aliases to a single canonical name so duplicates are suppressed.
+    # Keys and values must be lowercase. Every alias (including the canonical
+    # form itself) should appear as a key.
+    CANONICAL_NAMES = {
+        "colosseum": "colosseum",
+        "colosseo": "colosseum",
+        "roman colosseum": "colosseum",
+        "trevi fountain": "trevi fountain",
+        "fontana di trevi": "trevi fountain",
+        "vatican": "vatican",
+        "vatican city": "vatican",
+        "vatican museums": "vatican museums",
+        "st peter's basilica": "st peter's basilica",
+        "st. peter's basilica": "st peter's basilica",
+        "saint peter's basilica": "st peter's basilica",
+        "sistine chapel": "sistine chapel",
+        "spanish steps": "spanish steps",
+        "piazza di spagna": "spanish steps",
+        "roman forum": "roman forum",
+        "foro romano": "roman forum",
+        "palatine hill": "palatine hill",
+        "palatino": "palatine hill",
+        "castel sant'angelo": "castel sant'angelo",
+        "castel sant angelo": "castel sant'angelo",
+        "castle of the holy angel": "castel sant'angelo",
+        "villa borghese": "villa borghese",
+        "borghese gallery": "villa borghese",
+        "campo de' fiori": "campo de' fiori",
+        "campo de fiori": "campo de' fiori",
+        "circus maximus": "circus maximus",
+        "circo massimo": "circus maximus",
+        "capitoline hill": "capitoline hill",
+        "campidoglio": "capitoline hill",
+        "baths of caracalla": "baths of caracalla",
+        "terme di caracalla": "baths of caracalla",
+        "appian way": "appian way",
+        "via appia antica": "appian way",
+        "mouth of truth": "mouth of truth",
+        "bocca della verità": "mouth of truth",
+        "bocca della verita": "mouth of truth",
+        "vittoriano": "vittoriano",
+        "altare della patria": "vittoriano",
+        "tiber river": "tiber river",
+        "fiume tevere": "tiber river",
+        "janiculum hill": "janiculum hill",
+        "gianicolo": "janiculum hill",
+        "aventine hill": "aventine hill",
+        "aventino": "aventine hill",
+        "esquiline hill": "esquiline hill",
+        "esquilino": "esquiline hill",
+        "quirinal hill": "quirinal hill",
+        "quirinale": "quirinal hill",
+        "viminal hill": "viminal hill",
+        "viminale": "viminal hill",
+        "caelian hill": "caelian hill",
+        "celio": "caelian hill",
+        "capitoline museums": "capitoline museums",
+        "musei capitolini": "capitoline museums",
+        "galleria borghese": "villa borghese",
+        "santa maria in trastevere": "santa maria in trastevere",
+    }
+    
     def __init__(self):
         """Initialize the PlaceExtractor."""
         # Create regex pattern from gazetteer
@@ -96,40 +158,42 @@ class PlaceExtractor:
             
         Returns:
             List of PlaceMention objects with extracted places and metadata.
+            Aliases of the same place are deduplicated using CANONICAL_NAMES.
         """
         if not text or not text.strip():
             return []
         
         places = []
-        seen = set()
+        seen_canonical = set()
         text_lower = text.lower()
         
         # Check each place in gazetteer
         for place in self.ROME_GAZETTEER:
-            # Simple substring search (case-insensitive)
             if place in text_lower:
-                # Find the actual text (preserving case)
                 start = text_lower.find(place)
                 if start != -1:
                     end = start + len(place)
-                    actual_text = text[start:end]
-                    place_lower = place.lower()
                     
-                    # Get context (50 chars before and after)
+                    # Resolve canonical name for dedup
+                    canonical = self.CANONICAL_NAMES.get(place, place)
+                    if canonical in seen_canonical:
+                        continue
+                    seen_canonical.add(canonical)
+                    
+                    # Use the canonical name (title-cased) as the output name
+                    display_name = canonical.title()
+                    
                     context_start = max(0, start - 50)
                     context_end = min(len(text), end + 50)
                     context = text[context_start:context_end]
                     
-                    # Avoid duplicates
-                    if place_lower not in seen:
-                        seen.add(place_lower)
-                        places.append(PlaceMention(
-                            name=actual_text.title(),  # Capitalize properly
-                            entity_type="GPE",
-                            confidence=1.0,
-                            span=(start, end),
-                            context=context
-                        ))
+                    places.append(PlaceMention(
+                        name=display_name,
+                        entity_type="GPE",
+                        confidence=1.0,
+                        span=(start, end),
+                        context=context
+                    ))
         
         return places
     
