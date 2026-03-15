@@ -27,24 +27,24 @@ def timeout(seconds: int):
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs) -> Any:
-            # Only use signal-based timeout on Unix systems
-            if platform.system() != "Windows":
+            import threading
+            # Only use signal-based timeout on Unix AND in the main thread.
+            # Streamlit Cloud (and other WSGI/ASGI servers) run handlers in
+            # worker threads where signal.alarm() is not allowed.
+            if platform.system() != "Windows" and threading.current_thread() is threading.main_thread():
                 import signal
                 
                 def handler(signum, frame):
                     raise TimeoutError(f"{func.__name__} exceeded {seconds}s timeout")
                 
-                # Set the signal handler and alarm
                 signal.signal(signal.SIGALRM, handler)
                 signal.alarm(seconds)
                 try:
                     result = func(*args, **kwargs)
                 finally:
-                    # Disable the alarm
                     signal.alarm(0)
                 return result
             else:
-                # On Windows, just execute the function without timeout
                 return func(*args, **kwargs)
         return wrapper
     return decorator
