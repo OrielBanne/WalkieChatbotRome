@@ -268,6 +268,52 @@ def render_itinerary_map(itinerary: Itinerary, discovered_places=None):
         st.session_state["_map_cache_obj"] = map_obj
         st.session_state["_map_cache_seen_types"] = seen_types
     
+    # --- Nearby suggestions (ghost markers) ---
+    # Generate once per itinerary, refresh on each new plan
+    suggestions_cache_key = f"suggestions_{map_cache_key}"
+    if st.session_state.get("_suggestions_cache_key") != suggestions_cache_key:
+        try:
+            from src.nearby_suggestions import get_nearby_suggestions
+            stop_names = {stop.place.name for stop in itinerary.stops}
+            stop_coords = [stop.place.coordinates for stop in itinerary.stops]
+            visited = st.session_state.get("visited_places", [])
+            geocoder = st.session_state.get("geocoder")
+            vector_store = st.session_state.get("vector_store")
+            if geocoder:
+                suggestions = get_nearby_suggestions(
+                    itinerary_stop_names=stop_names,
+                    itinerary_stop_coords=stop_coords,
+                    visited_places=visited,
+                    geocoder=geocoder,
+                    vector_store=vector_store,
+                    count=10,
+                )
+            else:
+                suggestions = []
+            st.session_state["_nearby_suggestions"] = suggestions
+            st.session_state["_suggestions_cache_key"] = suggestions_cache_key
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).warning(f"Nearby suggestions failed: {e}")
+            st.session_state["_nearby_suggestions"] = []
+            st.session_state["_suggestions_cache_key"] = suggestions_cache_key
+    
+    suggestions = st.session_state.get("_nearby_suggestions", [])
+    
+    # Add ghost markers to the map object for suggestions
+    if suggestions:
+        for sug in suggestions:
+            folium.CircleMarker(
+                location=sug["coordinates"],
+                radius=8,
+                color="#2ECC71",
+                fill=True,
+                fill_color="#2ECC71",
+                fill_opacity=0.5,
+                weight=1,
+                tooltip=f"💡 {sug['name']}",
+            ).add_to(map_obj)
+    
     # Render using st_folium for native height control (no iframe sizing issues)
     from streamlit_folium import st_folium as _st_folium
     _st_folium(map_obj, use_container_width=True, height=700, returned_objects=[])
@@ -295,11 +341,31 @@ def render_itinerary_map(itinerary: Itinerary, discovered_places=None):
             legend_items_html.append(f"{dot}{label}")
     route_line = f'<span style="display:inline-block;width:18px;height:3px;background:{route_color_css};margin-right:3px;vertical-align:middle;border-radius:1px;"></span>{route_label}'
     legend_items_html.append(route_line)
+    if suggestions:
+        sug_dot = '<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:#2ECC71;opacity:0.7;margin-right:3px;vertical-align:middle;border:1px solid #27AE60;"></span>'
+        legend_items_html.append(f"{sug_dot}Suggestion")
     if legend_items_html:
         st.markdown(
             f'<p style="font-size:0.82em;color:#555;margin-top:0.3rem;">Legend: {" &nbsp;·&nbsp; ".join(legend_items_html)}</p>',
             unsafe_allow_html=True
         )
+    
+    # Nearby suggestions list with "+" buttons
+    if suggestions:
+        st.markdown(
+            '<p style="font-size:0.85em;font-weight:600;color:#27AE60;margin-bottom:0.2rem;">💡 Nearby suggestions</p>',
+            unsafe_allow_html=True
+        )
+        for sug in suggestions:
+            col_name, col_btn = st.columns([4, 1])
+            with col_name:
+                st.caption(sug["name"])
+            with col_btn:
+                if st.button("➕", key=f"suggest_add_{sug['name']}", help=f"Add {sug['name']}"):
+                    st.session_state.itinerary_action = {
+                        "type": "add", "place_name": sug["name"]
+                    }
+                    st.rerun()
 
 
 def render_itinerary(itinerary: Optional[Itinerary], discovered_places=None):

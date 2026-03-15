@@ -95,9 +95,12 @@ def ticket_agent(state: PlannerState) -> PlannerState:
     """
     logger.info("Ticket Agent: Checking ticket requirements for candidate places")
     
-    ticket_info = {}
+    # Reuse existing data — only fetch for new places
+    ticket_info = dict(state.ticket_info) if state.ticket_info else {}
     
     for place in state.candidate_places:
+        if place.name in ticket_info:
+            continue  # Already have data for this place
         info = get_ticket_info(place.name)
         
         if info:

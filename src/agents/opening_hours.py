@@ -139,9 +139,12 @@ def opening_hours_agent(state: PlannerState) -> PlannerState:
     """
     logger.info("Opening Hours Agent: Checking opening hours for candidate places")
     
-    opening_hours = {}
+    # Reuse existing data — only fetch for new places
+    opening_hours = dict(state.opening_hours) if state.opening_hours else {}
     
     for place in state.candidate_places:
+        if place.name in opening_hours:
+            continue  # Already have data for this place
         hours = get_opening_hours(place.name, datetime.now())
         
         if hours:

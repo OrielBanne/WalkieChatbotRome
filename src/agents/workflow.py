@@ -6,7 +6,7 @@ from src.agents.models import PlannerState
 from src.agents.place_discovery import place_discovery_agent
 from src.agents.opening_hours import opening_hours_agent
 from src.agents.ticket import ticket_agent
-from src.agents.travel_time import travel_time_agent
+from src.agents.travel_time import travel_time_agent, refine_travel_times_agent
 from src.agents.route_optimization import route_optimization_agent
 from src.agents.crowd_prediction import crowd_prediction_agent
 from src.agents.cost import cost_agent
@@ -123,6 +123,7 @@ def create_planner_workflow() -> StateGraph:
     workflow.add_node("tickets", error_handling_wrapper("TicketAgent")(ticket_agent))
     workflow.add_node("travel_time", error_handling_wrapper("TravelTimeAgent")(travel_time_agent))
     workflow.add_node("route_optimization", error_handling_wrapper("RouteOptimizationAgent")(route_optimization_agent))
+    workflow.add_node("refine_travel_times", error_handling_wrapper("RefineTravelTimes")(refine_travel_times_agent))
     workflow.add_node("crowd_prediction", error_handling_wrapper("CrowdPredictionAgent")(crowd_prediction_agent))
     workflow.add_node("cost_calculation", error_handling_wrapper("CostAgent")(cost_agent))
     workflow.add_node("feasibility_check", error_handling_wrapper("FeasibilityAgent")(feasibility_agent))
@@ -134,7 +135,8 @@ def create_planner_workflow() -> StateGraph:
     workflow.add_edge("opening_hours", "tickets")
     workflow.add_edge("tickets", "travel_time")
     workflow.add_edge("travel_time", "route_optimization")
-    workflow.add_edge("route_optimization", "crowd_prediction")
+    workflow.add_edge("route_optimization", "refine_travel_times")
+    workflow.add_edge("refine_travel_times", "crowd_prediction")
     workflow.add_edge("crowd_prediction", "cost_calculation")
     workflow.add_edge("cost_calculation", "feasibility_check")
     
@@ -157,7 +159,7 @@ def create_planner_workflow() -> StateGraph:
         }
     )
     
-    # After planner modifies the plan, re-optimize
+    # After planner modifies the plan, re-optimize and refine
     workflow.add_edge("planner", "route_optimization")
     
     # Finalize node always builds the itinerary before ending

@@ -136,80 +136,128 @@ def suggest_transport_mode(distance_km: float) -> str:
         return "car"
 
 
+
 def travel_time_agent(state: PlannerState) -> PlannerState:
     """
-    Travel Time Agent - calculates travel times between all place pairs.
-    
+    Travel Time Agent - Phase 1: fast Manhattan-distance estimates for all pairs.
+    No Router calls here; just instant geometric estimates for route ordering.
+
     Args:
         state: Current planner state
-        
+
     Returns:
-        Updated state with travel_times populated
+        Updated state with estimated travel_times populated
     """
-    logger.info("Travel Time Agent: Calculating travel times between places")
-    
+    logger.info("Travel Time Agent: Computing Manhattan-distance estimates for all pairs")
+
     places = state.candidate_places
-    travel_times = {}
-    
-    # Reuse a single Router instance for all calculations
-    router = Router()
-    
-    # Calculate pairwise travel times
+    # Reuse existing estimates — only compute for new pairs
+    travel_times = dict(state.travel_times) if state.travel_times else {}
+
+    computed = 0
     for i, place_a in enumerate(places):
         for j, place_b in enumerate(places):
             if i >= j:
-                continue  # Skip same place and already calculated pairs
-            
-            logger.debug(f"Calculating travel time: {place_a.name} -> {place_b.name}")
-            
-            try:
-                result = router.get_route(
-                    place_a.coordinates,
-                    place_b.coordinates,
+                continue
+            if (place_a.name, place_b.name) in travel_times:
+                continue  # Already have data for this pair
+
+            # Manhattan distance on coordinates (cab-driver distance)
+            lat1, lon1 = place_a.coordinates
+            lat2, lon2 = place_b.coordinates
+
+            # Convert degree deltas to approximate km
+            # At Rome's latitude (~41.9°N): 1° lat ≈ 111 km, 1° lon ≈ 83 km
+            dlat_km = abs(lat2 - lat1) * 111.0
+            dlon_km = abs(lon2 - lon1) * 83.0
+            manhattan_km = dlat_km + dlon_km
+
+            # Estimate walking time: ~5 km/h, with 1.3x factor for real streets
+            duration_minutes = max((manhattan_km * 1.3 / 5.0) * 60, 0.1)
+
+            travel_time = TravelTime(
+                duration_minutes=duration_minutes,
+                distance_km=manhattan_km,
+                mode="pedestrian"
+            )
+
+            travel_times[(place_a.name, place_b.name)] = travel_time
+            travel_times[(place_b.name, place_a.name)] = travel_time
+            computed += 1
+
+    state.travel_times = travel_times
+    logger.info(f"Travel Time Agent: {computed} new pairs computed, {len(travel_times)} total")
+
+    return state
+
+
+def refine_travel_times_agent(state: PlannerState) -> PlannerState:
+    """
+    Phase 2: Refine travel times using the Router, but ONLY for sequential
+    pairs in the optimized route. This is O(n) instead of O(n²).
+
+    Args:
+        state: Current planner state (must have optimized_route set)
+
+    Returns:
+        Updated state with accurate travel_times for route pairs
+    """
+    route = state.optimized_route
+    if len(route) < 2:
+        return state
+
+    logger.info(f"Refine Travel Times: Computing exact times for {len(route)-1} sequential pairs")
+
+    place_dict = {p.name: p for p in state.candidate_places}
+    router = Router()
+
+    for i in range(len(route) - 1):
+        name_a = route[i]
+        name_b = route[i + 1]
+
+        # Skip lunch breaks
+        if name_a == "LUNCH_BREAK" or name_b == "LUNCH_BREAK":
+            continue
+
+        place_a = place_dict.get(name_a)
+        place_b = place_dict.get(name_b)
+        if not place_a or not place_b:
+            continue
+
+        try:
+            result = router.get_route(
+                place_a.coordinates,
+                place_b.coordinates,
+                mode="pedestrian"
+            )
+
+            if result:
+                route_coords, duration_seconds = result
+                distance_km = calculate_route_distance(route_coords)
+                travel_time = TravelTime(
+                    duration_minutes=max(duration_seconds / 60, 0.1),
+                    distance_km=distance_km,
                     mode="pedestrian"
                 )
-                
-                if result:
-                    route_coords, duration_seconds = result
-                    distance_km = calculate_route_distance(route_coords)
-                    # Ensure minimum values for same-location pairs
-                    dur_min = max(duration_seconds / 60, 0.1)
-                    travel_time = TravelTime(
-                        duration_minutes=dur_min,
-                        distance_km=distance_km,
-                        mode="pedestrian"
-                    )
-                else:
-                    distance = calculate_haversine_distance(
-                        place_a.coordinates, place_b.coordinates
-                    )
-                    dur_min = max((distance / 5.0) * 60, 0.1)
-                    travel_time = TravelTime(
-                        duration_minutes=dur_min,
-                        distance_km=distance,
-                        mode="pedestrian"
-                    )
-                
-                # Store both directions (symmetric)
-                travel_times[(place_a.name, place_b.name)] = travel_time
-                travel_times[(place_b.name, place_a.name)] = travel_time
-                
-            except Exception as e:
-                logger.error(f"Error calculating travel time: {e}")
+            else:
                 distance = calculate_haversine_distance(
-                    place_a.coordinates,
-                    place_b.coordinates
+                    place_a.coordinates, place_b.coordinates
                 )
-                dur_min = max((distance / 5.0) * 60, 0.1)
-                fallback_time = TravelTime(
-                    duration_minutes=dur_min,
+                travel_time = TravelTime(
+                    duration_minutes=max((distance / 5.0) * 60, 0.1),
                     distance_km=distance,
                     mode="pedestrian"
                 )
-                travel_times[(place_a.name, place_b.name)] = fallback_time
-                travel_times[(place_b.name, place_a.name)] = fallback_time
-    
-    state.travel_times = travel_times
-    logger.info(f"Travel Time Agent: Calculated {len(travel_times)} travel time pairs")
-    
+
+            # Overwrite the Manhattan estimate with the real value
+            state.travel_times[(name_a, name_b)] = travel_time
+            state.travel_times[(name_b, name_a)] = travel_time
+
+        except Exception as e:
+            logger.error(f"Error refining travel time {name_a} -> {name_b}: {e}")
+            # Keep the Manhattan estimate as fallback
+
+    logger.info("Refine Travel Times: Done")
     return state
+
+

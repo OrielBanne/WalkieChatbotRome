@@ -44,7 +44,17 @@ class Router:
     _route_cache: dict = {}
     
     def __init__(self):
-        """Initialize the Router."""
+        """Initialize the Router, restoring cache from session state if available."""
+        # Restore cache from Streamlit session state on first init
+        if not Router._route_cache:
+            try:
+                import streamlit as st
+                saved = st.session_state.get("_router_cache")
+                if saved:
+                    Router._route_cache = saved
+                    logger.info(f"Router: restored {len(saved)} cached routes from session state")
+            except Exception:
+                pass
         logger.info("Router initialized with multi-mode support")
     
     @classmethod
@@ -149,6 +159,13 @@ class Router:
             reverse_key = self._cache_key(end, start, mode, prefer_shortest)
             if reverse_key not in self._route_cache:
                 self._route_cache[reverse_key] = (list(reversed(route_coords)), duration)
+            
+            # Persist cache to session state for cross-rerun survival
+            try:
+                import streamlit as st
+                st.session_state["_router_cache"] = self._route_cache
+            except Exception:
+                pass
             
             return result
             

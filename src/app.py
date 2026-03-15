@@ -287,7 +287,36 @@ def render_sidebar():
                 )
                 st.session_state.messages = []
                 st.session_state.last_places = []
-                logger.info(f"Cleared history for session: {st.session_state.current_session.session_id}")
+                
+                # Clear itinerary and planning state
+                st.session_state.planned_itinerary = None
+                st.session_state.visited_places = []
+                
+                # Clear map and suggestions caches
+                st.session_state.pop("_map_cache_key", None)
+                st.session_state.pop("_map_cache_obj", None)
+                st.session_state.pop("_map_cache_seen_types", None)
+                st.session_state.pop("_suggestions_cache_key", None)
+                st.session_state.pop("_nearby_suggestions", None)
+                
+                # Clear router cache
+                st.session_state.pop("_router_cache", None)
+                from src.router import Router
+                Router.clear_cache()
+                
+                # Delete persisted state file on disk
+                from src.state_persistence import _state_path
+                try:
+                    path = _state_path(st.session_state.user_id)
+                    if path.exists():
+                        path.unlink()
+                except Exception:
+                    pass
+                
+                # Allow state restore to run again on next load
+                st.session_state.pop("_state_restored", None)
+                
+                logger.info(f"Full reset for session: {st.session_state.current_session.session_id}")
                 st.rerun()
 
         with col2:
@@ -1100,11 +1129,37 @@ def main():
                 st.session_state.pop("_map_cache_key", None)
                 st.session_state.pop("_map_cache_obj", None)
                 st.session_state.pop("_map_cache_seen_types", None)
+                st.session_state.pop("_suggestions_cache_key", None)
+                st.session_state.pop("_nearby_suggestions", None)
                 st.success("✅ Itinerary updated!")
                 logger.info(f"Itinerary modified: {action['type']}")
                 _persist_state()
             else:
-                st.error("❌ Failed to update itinerary. Please try again.")
+                # Fallback for remove: just drop the stop without re-optimization
+                if action["type"] == "remove" and action.get("index") is not None:
+                    from src.agents.models import Itinerary as _It
+                    old = st.session_state.planned_itinerary
+                    new_stops = [s for i, s in enumerate(old.stops) if i != action["index"]]
+                    if new_stops:
+                        st.session_state.planned_itinerary = _It(
+                            stops=new_stops,
+                            total_duration_minutes=sum(s.duration_minutes for s in new_stops),
+                            total_distance_km=old.total_distance_km,
+                            total_cost=sum((s.ticket_info.price if s.ticket_info and s.ticket_info.ticket_required else 0) for s in new_stops),
+                            feasibility_score=old.feasibility_score,
+                            explanation=old.explanation,
+                        )
+                        st.session_state.pop("_map_cache_key", None)
+                        st.session_state.pop("_map_cache_obj", None)
+                        st.session_state.pop("_map_cache_seen_types", None)
+                        st.session_state.pop("_suggestions_cache_key", None)
+                        st.session_state.pop("_nearby_suggestions", None)
+                        _persist_state()
+                        logger.info(f"Fallback remove: dropped stop {action['index']}")
+                    else:
+                        st.error("❌ Can't remove the last stop.")
+                else:
+                    st.error("❌ Failed to update itinerary. Please try again.")
                 logger.warning(f"Failed to modify itinerary: {action}")
         
         # Clear the action
