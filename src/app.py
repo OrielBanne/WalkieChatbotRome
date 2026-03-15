@@ -219,6 +219,16 @@ def render_sidebar():
     """Render the sidebar with session management controls."""
 
     with st.sidebar:
+        # User Preferences Section (at the top)
+        from src.components.itinerary_display import render_preference_form
+        
+        user_preferences = render_preference_form()
+        
+        # Store preferences in session state
+        st.session_state.user_preferences = user_preferences
+        
+        st.markdown("---")
+        
         # Session management buttons
         st.markdown("#### Session Management")
 
@@ -573,12 +583,88 @@ def render_sidebar():
 
 
 
+def plan_my_day():
+    """Execute the planning workflow and display the itinerary."""
+    try:
+        # Get user preferences from session state
+        user_preferences = st.session_state.get("user_preferences")
+        
+        if not user_preferences:
+            st.error("⚠️ Please set your preferences in the sidebar first.")
+            return
+        
+        # Build query from conversation history or use default
+        query = "Plan a day in Rome"
+        
+        # Try to extract intent from recent messages
+        if st.session_state.messages:
+            # Look for recent user messages that might indicate interests
+            recent_messages = [msg for msg in st.session_state.messages[-5:] if msg["role"] == "user"]
+            if recent_messages:
+                # Use the most recent user message as context
+                last_message = recent_messages[-1]["content"]
+                # Only use it if it's not too long and seems relevant
+                if len(last_message) < 200:
+                    query = last_message
+        
+        # Show loading spinner
+        with st.spinner("🔄 Planning your perfect day in Rome... This may take a moment."):
+            from src.planner_integration import plan_itinerary
+            
+            logger.info(f"Starting itinerary planning with query: {query}")
+            
+            # Execute planning workflow
+            itinerary = plan_itinerary(query, user_preferences)
+            
+            if itinerary:
+                # Store itinerary in session state
+                st.session_state.planned_itinerary = itinerary
+                
+                # Add success message to chat
+                success_msg = f"✅ I've planned your day! Check out your personalized itinerary below with {len(itinerary.stops)} stops."
+                st.session_state.messages.append({"role": "assistant", "content": success_msg})
+                
+                # Save to conversation history
+                try:
+                    st.session_state.context_manager.add_to_history(
+                        st.session_state.current_session.session_id,
+                        "assistant",
+                        success_msg
+                    )
+                except Exception as e:
+                    logger.warning(f"Failed to save planning message to history: {e}")
+                
+                logger.info(f"Successfully planned itinerary with {len(itinerary.stops)} stops")
+                st.success("✅ Your itinerary is ready!")
+                st.rerun()
+            else:
+                error_msg = "❌ I couldn't create an itinerary. Please try adjusting your preferences or ask me about specific places you'd like to visit."
+                st.error(error_msg)
+                st.session_state.messages.append({"role": "assistant", "content": error_msg})
+                logger.warning("Planning workflow returned no itinerary")
+                
+    except Exception as e:
+        error_msg = f"❌ An error occurred while planning: {str(e)}"
+        st.error(error_msg)
+        log_error_with_context(
+            logger, e, "Error in plan_my_day",
+            st.session_state.current_session.session_id
+        )
+        st.session_state.messages.append({"role": "assistant", "content": error_msg})
+
+
 def render_chat_interface():
     """Render the main chat interface."""
     
     # Header
     st.markdown('<div class="main-header">🏛️ Rome Places Chatbot</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-header">Discover the Eternal City through conversation</div>', unsafe_allow_html=True)
+    
+    # Plan My Day button (prominent placement)
+    if st.button("🗓️ Plan My Day", type="primary", use_container_width=True):
+        plan_my_day()
+    
+    st.markdown("---")
     
     # Display chat messages
     for message in st.session_state.messages:
@@ -818,11 +904,62 @@ def main():
     # Initialize session state
     initialize_session_state()
     
+    # Initialize planned itinerary in session state
+    if "planned_itinerary" not in st.session_state:
+        st.session_state.planned_itinerary = None
+    
+    # Initialize itinerary action tracker
+    if "itinerary_action" not in st.session_state:
+        st.session_state.itinerary_action = None
+    
+    # Handle itinerary modifications
+    if st.session_state.itinerary_action and st.session_state.planned_itinerary:
+        action = st.session_state.itinerary_action
+        
+        with st.spinner("🔄 Re-optimizing your itinerary..."):
+            from src.planner_integration import modify_itinerary
+            
+            user_preferences = st.session_state.get("user_preferences")
+            
+            if action["type"] == "remove":
+                modified_itinerary = modify_itinerary(
+                    current_itinerary=st.session_state.planned_itinerary,
+                    user_preferences=user_preferences,
+                    action_type="remove",
+                    stop_index=action["index"]
+                )
+            elif action["type"] == "add":
+                modified_itinerary = modify_itinerary(
+                    current_itinerary=st.session_state.planned_itinerary,
+                    user_preferences=user_preferences,
+                    action_type="add",
+                    place_name=action["place_name"]
+                )
+            else:
+                modified_itinerary = None
+            
+            if modified_itinerary:
+                st.session_state.planned_itinerary = modified_itinerary
+                st.success("✅ Itinerary updated!")
+                logger.info(f"Itinerary modified: {action['type']}")
+            else:
+                st.error("❌ Failed to update itinerary. Please try again.")
+                logger.warning(f"Failed to modify itinerary: {action}")
+        
+        # Clear the action
+        st.session_state.itinerary_action = None
+    
     # Render sidebar
     render_sidebar()
     
     # Render main chat interface
     render_chat_interface()
+    
+    # Render planned itinerary if available
+    if st.session_state.planned_itinerary:
+        st.markdown("---")
+        from src.components.itinerary_display import render_itinerary
+        render_itinerary(st.session_state.planned_itinerary)
     
     # Render map visualization
     render_map_visualization()

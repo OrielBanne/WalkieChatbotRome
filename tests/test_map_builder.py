@@ -233,7 +233,7 @@ def test_create_map_with_places():
         PlaceMarker("Trevi Fountain", (41.9009, 12.4833), "landmark", "Famous fountain", "star")
     ]
     
-    map_obj = builder.create_map_with_places(places)
+    map_obj = builder.create_map_with_places(places, show_center_marker=False)
     
     assert isinstance(map_obj, folium.Map)
     
@@ -253,7 +253,7 @@ def test_create_map_with_places_and_route():
         PlaceMarker("Pantheon", (41.8986, 12.4768), "landmark", "Ancient temple", "star")
     ]
     
-    map_obj = builder.create_map_with_places(places, add_route=True)
+    map_obj = builder.create_map_with_places(places, add_route=True, show_center_marker=False)
     
     assert isinstance(map_obj, folium.Map)
     

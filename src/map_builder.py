@@ -91,7 +91,8 @@ class MapBuilder:
     def add_markers(
         self, 
         map_obj: folium.Map, 
-        places: List[PlaceMarker]
+        places: List[PlaceMarker],
+        numbered: bool = False
     ) -> None:
         """
         Add markers to the map for each place.
@@ -99,30 +100,57 @@ class MapBuilder:
         Args:
             map_obj: The Folium map to add markers to
             places: List of PlaceMarker objects to add to the map
+            numbered: If True, use numbered markers (1, 2, 3...) instead of icons
         """
         if not places:
             logger.warning("No places provided to add_markers")
             return
         
-        logger.info("Adding %d markers to map", len(places))
+        logger.info("Adding %d markers to map (numbered=%s)", len(places), numbered)
         
-        for place in places:
+        for i, place in enumerate(places, 1):
             # Get color and icon for this place type
             color = PLACE_TYPE_COLORS.get(place.place_type, PLACE_TYPE_COLORS["default"])
             icon_name = PLACE_TYPE_ICONS.get(place.place_type, PLACE_TYPE_ICONS["default"])
             
             # Create popup content
-            popup_html = f"<b>{place.name}</b>"
             if place.description:
-                popup_html += f"<br>{place.description}"
-            popup_html += f"<br><i>Type: {place.place_type}</i>"
+                # If description already contains HTML (from itinerary), use it directly
+                popup_html = place.description
+            else:
+                popup_html = f"<b>{place.name}</b>"
+                popup_html += f"<br><i>Type: {place.place_type}</i>"
+            
+            # Create marker with numbered icon if requested
+            if numbered:
+                # Use DivIcon for numbered markers
+                icon = folium.DivIcon(
+                    html=f'''
+                    <div style="
+                        background-color: {color};
+                        border: 2px solid white;
+                        border-radius: 50%;
+                        width: 30px;
+                        height: 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: bold;
+                        font-size: 14px;
+                        color: white;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                    ">{i}</div>
+                    '''
+                )
+            else:
+                icon = Icon(color=color, icon=icon_name, prefix="fa")
             
             # Create marker
             folium.Marker(
                 location=place.coordinates,
                 popup=Popup(popup_html, max_width=300),
                 tooltip=place.name,
-                icon=Icon(color=color, icon=icon_name, prefix="fa")
+                icon=icon
             ).add_to(map_obj)
             
             logger.debug("Added marker for '%s' at %s", place.name, place.coordinates)
@@ -186,7 +214,8 @@ class MapBuilder:
         zoom: int = None,
         add_route: bool = False,
         transport_mode: Optional[str] = None,
-        show_center_marker: bool = True
+        show_center_marker: bool = True,
+        numbered_markers: bool = False
     ) -> folium.Map:
         """
         Convenience method to create a complete map with places and optional route.
@@ -198,6 +227,7 @@ class MapBuilder:
             add_route: Whether to add a route connecting all places (default: False)
             transport_mode: Transportation mode - "pedestrian", "car", "public_transport", or None for auto (default: None)
             show_center_marker: Whether to show a marker at the map center (default: True)
+            numbered_markers: Whether to use numbered markers (1, 2, 3...) instead of icons (default: False)
         
         Returns:
             A Folium Map object with markers and optional route
@@ -233,7 +263,7 @@ class MapBuilder:
             ).add_to(map_obj)
         
         # Add place markers
-        self.add_markers(map_obj, places)
+        self.add_markers(map_obj, places, numbered=numbered_markers)
         
         # Add route if requested and multiple places exist
         # Route only connects the actual places, not the center marker

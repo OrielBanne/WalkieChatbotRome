@@ -47,3 +47,6 @@ sessions/*.json
 # Vector Store
 *.faiss
 *.index
+
+# Hypothesis test cache
+.hypothesis/
