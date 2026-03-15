@@ -861,8 +861,74 @@ def render_map_visualization():
                 transport_mode=transport_mode
             )
             
-            # Render map using st-folium
-            st_folium(map_obj, width=700, height=500)
+            # Add native HTML legend overlay
+            from src.map_builder import PLACE_TYPE_LABELS, PLACE_TYPE_CSS_COLORS
+            from branca.element import MacroElement, Template
+            
+            seen_types = set(m.place_type for m in place_markers)
+            legend_entries = []
+            seen_labels = set()
+            for ptype in seen_types:
+                label = PLACE_TYPE_LABELS.get(ptype, PLACE_TYPE_LABELS.get("default", "Other"))
+                css_color = PLACE_TYPE_CSS_COLORS.get(ptype, PLACE_TYPE_CSS_COLORS.get("default", "#436978"))
+                if ptype == "default" and len(seen_types) > 1:
+                    continue
+                if label not in seen_labels:
+                    seen_labels.add(label)
+                    legend_entries.append((css_color, label))
+            
+            # Route color
+            route_mode_labels = {
+                None: ("Auto route", "#2A81CB"),
+                "pedestrian": ("Walking route", "#2A81CB"),
+                "car": ("Driving route", "#CB2B3E"),
+                "public_transport": ("Public transport", "#2AAD27"),
+            }
+            route_label, route_color_css = route_mode_labels.get(transport_mode, ("Route", "#2A81CB"))
+            
+            if legend_entries:
+                legend_rows = ""
+                for color, label in sorted(legend_entries, key=lambda x: x[1]):
+                    legend_rows += (
+                        f'<div style="display:flex;align-items:center;margin:2px 0;">'
+                        f'<span style="background:{color};width:12px;height:12px;border-radius:50%;'
+                        f'display:inline-block;margin-right:5px;border:1px solid #999;"></span>'
+                        f'<span style="font-size:11px;">{label}</span></div>'
+                    )
+                if len(place_markers) > 1:
+                    legend_rows += (
+                        f'<div style="margin-top:4px;border-top:1px solid #ddd;padding-top:3px;">'
+                        f'<div style="display:flex;align-items:center;margin:2px 0;">'
+                        f'<span style="background:{route_color_css};width:20px;height:3px;display:inline-block;margin-right:5px;border-radius:1px;"></span>'
+                        f'<span style="font-size:11px;">{route_label}</span></div></div>'
+                    )
+                
+                legend_html = f'''
+                {{% macro html(this, kwargs) %}}
+                <div style="
+                    position: absolute;
+                    bottom: 20px; right: 10px;
+                    background: rgba(255,255,255,0.92);
+                    border: 1px solid #aaa;
+                    border-radius: 5px;
+                    padding: 6px 10px;
+                    z-index: 9999;
+                    font-family: Arial, sans-serif;
+                    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+                ">
+                    <div style="font-weight:bold;font-size:11px;margin-bottom:3px;">Legend</div>
+                    {legend_rows}
+                </div>
+                {{% endmacro %}}
+                '''
+                legend_element = MacroElement()
+                legend_element._template = Template(legend_html)
+                map_obj.get_root().html.add_child(legend_element)
+            
+            # Render map using components.html for consistent rendering with legend
+            import streamlit.components.v1 as components
+            map_html = map_obj._repr_html_()
+            components.html(map_html, height=600, scrolling=False)
             
             logger.info(f"Rendered map with {len(place_markers)} markers from conversation")
         else:

@@ -4282,3 +4282,383 @@ duration_minutes
 2026-03-15 10:47:11 - INFO - [no-session] - src.map_builder - Adding route with 395 points
 2026-03-15 10:47:11 - INFO - [no-session] - src.map_builder - Added route with 395 points
 2026-03-15 10:47:11 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 10:47:31 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 10:47:31 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 10:47:31 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 10:47:31 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 10:47:31 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=True)
+2026-03-15 10:47:31 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 10:47:31 - INFO - [no-session] - src.router - Got pedestrian route with 208 points, distance: 2098m, duration: 28.0min
+2026-03-15 10:47:31 - INFO - [no-session] - src.router - Auto-selected pedestrian mode (walking time: 28.0 min)
+2026-03-15 10:47:31 - INFO - [no-session] - src.router - Calculating pedestrian route through 4 waypoints (prefer_shortest=True)
+2026-03-15 10:47:32 - INFO - [no-session] - src.router - Got pedestrian route with 65 points, distance: 758m, duration: 10.1min
+2026-03-15 10:47:33 - INFO - [no-session] - src.router - Got pedestrian route with 93 points, distance: 1032m, duration: 13.8min
+2026-03-15 10:47:34 - INFO - [no-session] - src.router - Got pedestrian route with 239 points, distance: 2316m, duration: 30.9min
+2026-03-15 10:47:34 - INFO - [no-session] - src.router - Complete pedestrian route has 395 points
+2026-03-15 10:47:34 - INFO - [no-session] - src.map_builder - Adding route with 395 points
+2026-03-15 10:47:34 - INFO - [no-session] - src.map_builder - Added route with 395 points
+2026-03-15 10:47:34 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 12:59:18 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 12:59:19 - INFO - [no-session] - __main__ - Loaded vector store with 271 documents
+2026-03-15 12:59:19 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-15 12:59:19 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:19 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 12:59:19 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-15 12:59:19 - INFO - [no-session] - __main__ - Created new session: ccdcb2a1-9284-4d28-a618-93dd2eed2878
+2026-03-15 12:59:19 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-15 12:59:20 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 12:59:20 - INFO - [no-session] - __main__ - Starting itinerary planning with query: Plan a day in Rome
+2026-03-15 12:59:20 - INFO - [no-session] - src.planner_integration - Planning itinerary for query: Plan a day in Rome
+2026-03-15 12:59:20 - INFO - [no-session] - src.planner_integration - Preferences: {'interests': ['art', 'food', 'history'], 'available_hours': 8.0, 'max_budget': 100.0, 'max_walking_km': 10.0, 'crowd_tolerance': 'neutral', 'start_time': datetime.time(9, 0)}
+2026-03-15 12:59:20 - INFO - [no-session] - src.agents.workflow - Complete planner workflow created successfully
+2026-03-15 12:59:20 - INFO - [no-session] - src.planner_integration - Executing planning workflow...
+2026-03-15 12:59:20 - INFO - [no-session] - src.agents.workflow - Executing PlaceDiscoveryAgent
+2026-03-15 12:59:20 - INFO - [no-session] - src.agents.place_discovery - Using RAG chain and geocoder from Streamlit session state
+2026-03-15 12:59:20 - INFO - [no-session] - src.agents.place_discovery - Discovering places for query: Plan a day in Rome
+2026-03-15 12:59:23 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 12:59:25 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 12:59:26 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Colosseum'
+2026-03-15 12:59:26 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Trevi Fountain'
+2026-03-15 12:59:26 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Trastevere'
+2026-03-15 12:59:26 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Pantheon'
+2026-03-15 12:59:26 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Roman Forum'
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.place_discovery - Discovered 5 candidate places
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.workflow - PlaceDiscoveryAgent completed successfully
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.workflow - Executing OpeningHoursAgent
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Checking opening hours for candidate places
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Processed 5 places
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.workflow - OpeningHoursAgent completed successfully
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.workflow - Executing TicketAgent
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Checking ticket requirements for candidate places
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.ticket - Reservation required for Colosseum
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.ticket - Colosseum has high ticket price: €18.0
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.ticket - Reservation required for Roman Forum
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.ticket - Roman Forum has high ticket price: €18.0
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Processed 5 places
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.workflow - TicketAgent completed successfully
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.workflow - Executing TravelTimeAgent
+2026-03-15 12:59:26 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculating travel times between places
+2026-03-15 12:59:26 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:27 - INFO - [no-session] - src.router - Got pedestrian route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 12:59:27 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:28 - INFO - [no-session] - src.router - Got pedestrian route with 208 points, distance: 2098m, duration: 28.0min
+2026-03-15 12:59:28 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:29 - INFO - [no-session] - src.router - Got pedestrian route with 65 points, distance: 758m, duration: 10.1min
+2026-03-15 12:59:29 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:29 - INFO - [no-session] - src.router - Got pedestrian route with 259 points, distance: 2619m, duration: 35.0min
+2026-03-15 12:59:29 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:30 - INFO - [no-session] - src.router - Got pedestrian route with 50 points, distance: 679m, duration: 9.1min
+2026-03-15 12:59:30 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:30 - INFO - [no-session] - src.router - Got pedestrian route with 88 points, distance: 1291m, duration: 17.3min
+2026-03-15 12:59:30 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:31 - INFO - [no-session] - src.router - Got pedestrian route with 149 points, distance: 2182m, duration: 29.1min
+2026-03-15 12:59:31 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:32 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 1495m, duration: 20.0min
+2026-03-15 12:59:32 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:32 - INFO - [no-session] - src.router - Got pedestrian route with 107 points, distance: 1576m, duration: 21.1min
+2026-03-15 12:59:32 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:33 - INFO - [no-session] - src.router - Got pedestrian route with 196 points, distance: 2001m, duration: 26.7min
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculated 20 travel time pairs
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - TravelTimeAgent completed successfully
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - Executing RouteOptimizationAgent
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimizing route order
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimized route with 5 places, total distance: 4.30 km
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - RouteOptimizationAgent completed successfully
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - Executing CrowdPredictionAgent
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicting crowd levels
+2026-03-15 12:59:33 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Roman Forum will be very crowded at 11:00
+2026-03-15 12:59:33 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Trevi Fountain will be very crowded at 14:00
+2026-03-15 12:59:33 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Pantheon will be very crowded at 14:30
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicted crowds for 5 places
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - CrowdPredictionAgent completed successfully
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - Executing CostAgent
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.cost - Cost Agent: Calculating itinerary costs
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.cost - Cost Agent: Total cost €56.00
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - CostAgent completed successfully
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - Executing FeasibilityAgent
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.feasibility - Feasibility Agent: Validating itinerary feasibility
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.feasibility - Total walking distance: 3.01 km
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.feasibility - Total time: 8.9 hours
+2026-03-15 12:59:33 - WARNING - [no-session] - src.agents.feasibility - Total time (8.9h) exceeds available time (8.0h)
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.feasibility - Feasibility score: 85.4/100, Feasible: True
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - FeasibilityAgent completed successfully
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - Workflow complete
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - Executing FinalizeItinerary
+2026-03-15 12:59:33 - INFO - [no-session] - src.agents.workflow - Finalizing: Building itinerary from optimized route
+2026-03-15 12:59:36 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 12:59:38 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 12:59:39 - INFO - [no-session] - src.agents.workflow - FinalizeItinerary completed successfully
+2026-03-15 12:59:39 - INFO - [no-session] - src.planner_integration - Place discovery found 5 candidates, 0 selected
+2026-03-15 12:59:39 - INFO - [no-session] - src.planner_integration - Successfully planned itinerary with 6 stops, feasibility score: 85/100
+2026-03-15 12:59:39 - INFO - [no-session] - __main__ - Successfully planned itinerary with 6 stops
+2026-03-15 12:59:39 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 12:59:39 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 12:59:39 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 12:59:39 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 12:59:39 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 12:59:39 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 12:59:40 - INFO - [no-session] - src.router - Got pedestrian route with 259 points, distance: 2619m, duration: 35.0min
+2026-03-15 12:59:40 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 35.0 min)
+2026-03-15 12:59:40 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 12:59:40 - INFO - [no-session] - src.router - Got public_transport route with 65 points, distance: 758m, duration: 10.1min
+2026-03-15 12:59:41 - INFO - [no-session] - src.router - Got public_transport route with 93 points, distance: 1032m, duration: 13.8min
+2026-03-15 12:59:43 - INFO - [no-session] - src.router - Got public_transport route with 147 points, distance: 1974m, duration: 26.3min
+2026-03-15 12:59:44 - INFO - [no-session] - src.router - Got public_transport route with 50 points, distance: 679m, duration: 9.1min
+2026-03-15 12:59:45 - INFO - [no-session] - src.router - Got public_transport route with 107 points, distance: 1576m, duration: 21.1min
+2026-03-15 12:59:45 - INFO - [no-session] - src.router - Complete public_transport route has 458 points
+2026-03-15 12:59:45 - INFO - [no-session] - src.map_builder - Adding route with 458 points
+2026-03-15 12:59:45 - INFO - [no-session] - src.map_builder - Added route with 458 points
+2026-03-15 12:59:45 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:00:07 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:00:07 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:00:07 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:00:07 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:00:07 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:00:07 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:00:08 - INFO - [no-session] - src.router - Got pedestrian route with 259 points, distance: 2619m, duration: 35.0min
+2026-03-15 13:00:08 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 35.0 min)
+2026-03-15 13:00:08 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:00:08 - INFO - [no-session] - src.router - Got public_transport route with 65 points, distance: 758m, duration: 10.1min
+2026-03-15 13:00:09 - INFO - [no-session] - src.router - Got public_transport route with 93 points, distance: 1032m, duration: 13.8min
+2026-03-15 13:00:10 - INFO - [no-session] - src.router - Got public_transport route with 147 points, distance: 1974m, duration: 26.3min
+2026-03-15 13:00:12 - INFO - [no-session] - src.router - Got public_transport route with 50 points, distance: 679m, duration: 9.1min
+2026-03-15 13:00:13 - INFO - [no-session] - src.router - Got public_transport route with 107 points, distance: 1576m, duration: 21.1min
+2026-03-15 13:00:13 - INFO - [no-session] - src.router - Complete public_transport route has 458 points
+2026-03-15 13:00:13 - INFO - [no-session] - src.map_builder - Adding route with 458 points
+2026-03-15 13:00:13 - INFO - [no-session] - src.map_builder - Added route with 458 points
+2026-03-15 13:00:13 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:11:43 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:11:43 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:11:43 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:11:43 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:11:43 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:11:43 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:11:44 - INFO - [no-session] - src.router - Got pedestrian route with 259 points, distance: 2619m, duration: 35.0min
+2026-03-15 13:11:44 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 35.0 min)
+2026-03-15 13:11:44 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:11:45 - INFO - [no-session] - src.router - Got public_transport route with 65 points, distance: 758m, duration: 10.1min
+2026-03-15 13:11:47 - INFO - [no-session] - src.router - Got public_transport route with 93 points, distance: 1032m, duration: 13.8min
+2026-03-15 13:11:48 - INFO - [no-session] - src.router - Got public_transport route with 147 points, distance: 1974m, duration: 26.3min
+2026-03-15 13:11:50 - INFO - [no-session] - src.router - Got public_transport route with 50 points, distance: 679m, duration: 9.1min
+2026-03-15 13:11:51 - INFO - [no-session] - src.router - Got public_transport route with 107 points, distance: 1576m, duration: 21.1min
+2026-03-15 13:11:51 - INFO - [no-session] - src.router - Complete public_transport route has 458 points
+2026-03-15 13:11:51 - INFO - [no-session] - src.map_builder - Adding route with 458 points
+2026-03-15 13:11:51 - INFO - [no-session] - src.map_builder - Added route with 458 points
+2026-03-15 13:11:51 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:11:52 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 13:11:53 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:12:38 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:12:38 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Villa Borghese'
+2026-03-15 13:12:38 - INFO - [no-session] - src.geocoder - Geocoded 'Galleria Borghese' to (41.914113, 12.492105)
+2026-03-15 13:12:38 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:12:38 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:12:38 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:12:38 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:12:38 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:12:40 - INFO - [no-session] - src.router - Got pedestrian route with 259 points, distance: 2619m, duration: 35.0min
+2026-03-15 13:12:40 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 35.0 min)
+2026-03-15 13:12:40 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:12:41 - INFO - [no-session] - src.router - Got public_transport route with 65 points, distance: 758m, duration: 10.1min
+2026-03-15 13:12:42 - INFO - [no-session] - src.router - Got public_transport route with 93 points, distance: 1032m, duration: 13.8min
+2026-03-15 13:12:44 - INFO - [no-session] - src.router - Got public_transport route with 147 points, distance: 1974m, duration: 26.3min
+2026-03-15 13:12:46 - INFO - [no-session] - src.router - Got public_transport route with 50 points, distance: 679m, duration: 9.1min
+2026-03-15 13:12:47 - INFO - [no-session] - src.router - Got public_transport route with 107 points, distance: 1576m, duration: 21.1min
+2026-03-15 13:12:47 - INFO - [no-session] - src.router - Complete public_transport route has 458 points
+2026-03-15 13:12:47 - INFO - [no-session] - src.map_builder - Adding route with 458 points
+2026-03-15 13:12:47 - INFO - [no-session] - src.map_builder - Added route with 458 points
+2026-03-15 13:12:47 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:16:18 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:16:19 - INFO - [no-session] - __main__ - Loaded vector store with 271 documents
+2026-03-15 13:16:20 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-15 13:16:20 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:16:20 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:16:20 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-15 13:16:20 - INFO - [no-session] - __main__ - Created new session: b645385b-7a6b-4241-83f3-540c46940cb2
+2026-03-15 13:16:20 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-15 13:16:40 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:16:40 - INFO - [no-session] - __main__ - Switched to session: a7dfac10-23ee-4e2d-b660-39bd958aaf9a
+2026-03-15 13:16:40 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:16:40 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Colosseum'
+2026-03-15 13:16:40 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Trevi Fountain'
+2026-03-15 13:16:41 - INFO - [no-session] - src.geocoder - Geocoded 'Capitoline Museums' to (41.892666, 12.482201)
+2026-03-15 13:16:41 - INFO - [no-session] - src.geocoder - Geocoded 'Galleria Borghese' to (41.914113, 12.492105)
+2026-03-15 13:16:41 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:16:41 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:16:41 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:16:43 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:16:43 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:16:43 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:16:44 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:16:46 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:16:47 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:16:47 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:16:47 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:16:47 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:16:47 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:16:47 - INFO - [no-session] - __main__ - Rendered map with 4 markers from conversation
+2026-03-15 13:16:48 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:16:48 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:16:48 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:16:48 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:16:48 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:16:49 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:16:49 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:16:49 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:16:50 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:16:50 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:16:50 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:16:50 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:16:50 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:16:50 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:16:51 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:16:51 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:16:52 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:16:53 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:16:54 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:16:54 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:16:54 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:16:54 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:16:54 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:16:55 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:16:55 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:16:55 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:16:55 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:16:55 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:16:55 - INFO - [no-session] - __main__ - Rendered map with 4 markers from conversation
+2026-03-15 13:16:56 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:16:57 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:16:57 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:16:57 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:16:58 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:16:58 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:16:58 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:16:58 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:16:58 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:16:58 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:16:58 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:00 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:00 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:00 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:00 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:01 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:01 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:02 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:03 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:03 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:03 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:03 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:03 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:04 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:04 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:04 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:04 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:04 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:04 - INFO - [no-session] - __main__ - Rendered map with 4 markers from conversation
+2026-03-15 13:17:06 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:06 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:06 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:06 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:07 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:08 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:08 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:08 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:08 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:08 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:08 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:09 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:09 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:10 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:10 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:10 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:10 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:10 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:10 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:10 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:11 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:11 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:11 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:11 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:11 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:11 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:11 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:11 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:12 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:12 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:12 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:12 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:12 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:12 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:12 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:13 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:14 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:14 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:14 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:14 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:14 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:14 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:14 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:14 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:14 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:14 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:15 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:15 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:16 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:16 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:16 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:16 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:16 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:16 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:17 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:17 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:17 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:17 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:17 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:17 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:18 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:18 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:18 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:18 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:18 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:19 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:19 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:19 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:19 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:19 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:19 - INFO - [no-session] - __main__ - Rendered map with 4 markers from conversation
+2026-03-15 13:17:33 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:33 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:33 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:33 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:33 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:34 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:34 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:34 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:35 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:35 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:35 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:35 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:35 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:35 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:36 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:36 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:36 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:36 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:36 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:36 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:36 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:36 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:36 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:36 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:37 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:37 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:37 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:37 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:37 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:38 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:38 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:38 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:38 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:38 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:38 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:38 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:39 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min

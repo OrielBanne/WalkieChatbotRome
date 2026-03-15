@@ -249,7 +249,6 @@ class PlannerState(BaseModel):
     total_cost: Optional[float] = None
     feasibility_score: Optional[float] = None
     feasibility_issues: List[str] = Field(default_factory=list)
-    visited_places: List[str] = Field(default_factory=list)
     errors: List[str] = Field(default_factory=list)
     iteration_count: int = 0
     max_iterations: int = 3
