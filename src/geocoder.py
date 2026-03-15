@@ -3,12 +3,13 @@ Geocoder module for converting place names to geographic coordinates.
 
 This module provides geocoding functionality with caching and fallback to a
 manual coordinate database for major Rome landmarks.
+
+Uses direct HTTP requests to the Nominatim API instead of geopy to avoid
+signal-based timeout issues in threaded environments (e.g., Streamlit Cloud).
 """
 
 from typing import Optional, Dict, Tuple
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut, GeocoderServiceError
-from geopy.adapters import RequestsAdapter
+import requests
 import logging
 
 from src.models import Coordinates
@@ -21,6 +22,10 @@ from src.config import (
 )
 
 logger = logging.getLogger(__name__)
+
+# Nominatim API endpoint
+NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
+NOMINATIM_REVERSE_URL = "https://nominatim.openstreetmap.org/reverse"
 
 # Manual coordinate database for major Rome landmarks
 MANUAL_COORDINATES = {
@@ -51,6 +56,32 @@ MANUAL_COORDINATES = {
     "terme di caracalla": Coordinates(41.8797, 12.4925, "exact", "manual"),
     "capitoline hill": Coordinates(41.8931, 12.4828, "exact", "manual"),
     "campidoglio": Coordinates(41.8931, 12.4828, "exact", "manual"),
+    "borghese gallery": Coordinates(41.9142, 12.4922, "exact", "manual"),
+    "galleria borghese": Coordinates(41.9142, 12.4922, "exact", "manual"),
+    "palatine hill": Coordinates(41.8892, 12.4874, "exact", "manual"),
+    "palatino": Coordinates(41.8892, 12.4874, "exact", "manual"),
+    "piazza venezia": Coordinates(41.8964, 12.4827, "exact", "manual"),
+    "vittoriano": Coordinates(41.8946, 12.4833, "exact", "manual"),
+    "altare della patria": Coordinates(41.8946, 12.4833, "exact", "manual"),
+    "mouth of truth": Coordinates(41.8882, 12.4815, "exact", "manual"),
+    "bocca della verita": Coordinates(41.8882, 12.4815, "exact", "manual"),
+    "ara pacis": Coordinates(41.9060, 12.4754, "exact", "manual"),
+    "appian way": Coordinates(41.8422, 12.5244, "approximate", "manual"),
+    "via appia antica": Coordinates(41.8422, 12.5244, "approximate", "manual"),
+    "janiculum hill": Coordinates(41.8893, 12.4614, "exact", "manual"),
+    "gianicolo": Coordinates(41.8893, 12.4614, "exact", "manual"),
+    "santa maria maggiore": Coordinates(41.8976, 12.4984, "exact", "manual"),
+    "san giovanni in laterano": Coordinates(41.8859, 12.5057, "exact", "manual"),
+    "santa maria in trastevere": Coordinates(41.8895, 12.4694, "exact", "manual"),
+    "san clemente": Coordinates(41.8893, 12.4976, "exact", "manual"),
+    "capitoline museums": Coordinates(41.8931, 12.4828, "exact", "manual"),
+    "musei capitolini": Coordinates(41.8931, 12.4828, "exact", "manual"),
+    "maxxi": Coordinates(41.9280, 12.4672, "exact", "manual"),
+    "vatican museums": Coordinates(41.9065, 12.4536, "exact", "manual"),
+    "catacombs": Coordinates(41.8578, 12.5147, "approximate", "manual"),
+    "testaccio": Coordinates(41.8764, 12.4756, "approximate", "manual"),
+    "monti": Coordinates(41.8953, 12.4942, "approximate", "manual"),
+    "prati": Coordinates(41.9078, 12.4600, "approximate", "manual"),
 }
 
 
@@ -58,13 +89,13 @@ class Geocoder:
     """
     Geocoder for converting place names to coordinates with caching.
     
-    Uses Geopy with Nominatim geocoder, biased to Rome's bounding box.
+    Uses direct HTTP requests to the Nominatim API (no geopy) to avoid
+    signal-based timeout issues in threaded environments like Streamlit Cloud.
     Implements in-memory caching and fallback to manual coordinate database.
     """
     
     def __init__(self, user_agent: str = None):
-        """
-        Initialize the geocoder.
+        """Initialize the geocoder.
         
         Args:
             user_agent: User agent string for Nominatim API (uses config default if None)
@@ -72,12 +103,11 @@ class Geocoder:
         if user_agent is None:
             user_agent = GEOCODING_USER_AGENT
         
-        self.geocoder = Nominatim(
-            user_agent=user_agent,
-            adapter_factory=RequestsAdapter,
-        )
+        self.user_agent = user_agent
+        self.session = requests.Session()
+        self.session.headers.update({"User-Agent": user_agent})
         self.cache: Dict[str, Optional[Coordinates]] = {}
-        logger.info("Geocoder initialized with user_agent: %s", user_agent)
+        logger.info("Geocoder initialized with user_agent: %s (direct HTTP)", user_agent)
     
     def geocode_place(
         self, 
@@ -85,8 +115,7 @@ class Geocoder:
         bias_location: Optional[Tuple[float, float]] = None,
         max_retries: int = None
     ) -> Optional[Coordinates]:
-        """
-        Geocode a place name to coordinates with retry logic and fallback.
+        """Geocode a place name to coordinates with retry logic and fallback.
         
         Args:
             place_name: Name of the place to geocode
@@ -103,7 +132,6 @@ class Geocoder:
             logger.warning("Empty place name provided to geocode_place")
             return None
         
-        # Normalize place name for cache lookup
         normalized_name = place_name.lower().strip()
         
         # Check cache first
@@ -118,46 +146,60 @@ class Geocoder:
             logger.info("Using manual coordinates for '%s'", place_name)
             return coords
         
-        # Try geocoding with Nominatim with retry logic
+        # Try geocoding with direct Nominatim HTTP API
         for attempt in range(max_retries):
             try:
-                # Build query with Rome bias
                 query = f"{place_name}, Rome, Italy"
+                # viewbox format: left,top,right,bottom (lon,lat,lon,lat)
+                viewbox = f"{ROME_BBOX[0][1]},{ROME_BBOX[1][0]},{ROME_BBOX[1][1]},{ROME_BBOX[0][0]}"
                 
-                # Use viewbox to bias results to Rome area
-                location = self.geocoder.geocode(
-                    query,
-                    viewbox=ROME_BBOX,
-                    bounded=False,  # Allow results outside viewbox if no matches inside
-                    timeout=GEOCODING_TIMEOUT
+                params = {
+                    "q": query,
+                    "format": "json",
+                    "limit": 1,
+                    "viewbox": viewbox,
+                    "bounded": 0,
+                }
+                
+                resp = self.session.get(
+                    NOMINATIM_URL,
+                    params=params,
+                    timeout=GEOCODING_TIMEOUT,
                 )
+                resp.raise_for_status()
+                results = resp.json()
                 
-                if location:
+                if results:
+                    lat = float(results[0]["lat"])
+                    lon = float(results[0]["lon"])
                     coords = Coordinates(
-                        latitude=location.latitude,
-                        longitude=location.longitude,
+                        latitude=lat,
+                        longitude=lon,
                         accuracy="exact",
-                        source="geocoder"
+                        source="geocoder",
                     )
                     self.cache[normalized_name] = coords
-                    logger.info("Geocoded '%s' to (%f, %f)", place_name, coords.latitude, coords.longitude)
+                    logger.info("Geocoded '%s' to (%f, %f)", place_name, lat, lon)
                     return coords
                 else:
                     logger.warning("No geocoding result for: %s", place_name)
                     break  # No point retrying if no result found
             
-            except GeocoderTimedOut as e:
-                logger.warning(f"Geocoding timeout for '{place_name}' (attempt {attempt + 1}/{max_retries}): {e}")
+            except requests.exceptions.Timeout:
+                logger.warning(
+                    "Geocoding timeout for '%s' (attempt %d/%d)",
+                    place_name, attempt + 1, max_retries,
+                )
                 if attempt < max_retries - 1:
                     import time
-                    time.sleep(1 * (2 ** attempt))  # Exponential backoff
+                    time.sleep(1 * (2 ** attempt))
                     continue
                 else:
-                    logger.error(f"Geocoding failed after {max_retries} attempts for '{place_name}'")
+                    logger.error("Geocoding failed after %d attempts for '%s'", max_retries, place_name)
             
-            except GeocoderServiceError as e:
-                logger.error("Geocoding service error for '%s': %s", place_name, str(e))
-                break  # Service error, no point retrying
+            except requests.exceptions.RequestException as e:
+                logger.error("Geocoding request error for '%s': %s", place_name, str(e))
+                break
             
             except Exception as e:
                 logger.error("Unexpected error geocoding '%s': %s", place_name, str(e), exc_info=True)
@@ -169,8 +211,7 @@ class Geocoder:
         return None
     
     def batch_geocode(self, places: list[str]) -> Dict[str, Optional[Coordinates]]:
-        """
-        Geocode multiple places in batch.
+        """Geocode multiple places in batch.
         
         Args:
             places: List of place names to geocode
@@ -184,8 +225,7 @@ class Geocoder:
         return results
     
     def reverse_geocode(self, lat: float, lon: float) -> Optional[str]:
-        """
-        Reverse geocode coordinates to a place name.
+        """Reverse geocode coordinates to a place name.
         
         Args:
             lat: Latitude in decimal degrees
@@ -195,21 +235,30 @@ class Geocoder:
             Place name if successful, None otherwise
         """
         try:
-            location = self.geocoder.reverse(
-                (lat, lon),
+            params = {
+                "lat": lat,
+                "lon": lon,
+                "format": "json",
+                "accept-language": "en",
+            }
+            resp = self.session.get(
+                NOMINATIM_REVERSE_URL,
+                params=params,
                 timeout=GEOCODING_TIMEOUT,
-                language="en"
             )
+            resp.raise_for_status()
+            result = resp.json()
             
-            if location:
-                logger.info("Reverse geocoded (%f, %f) to '%s'", lat, lon, location.address)
-                return location.address
+            if "display_name" in result:
+                address = result["display_name"]
+                logger.info("Reverse geocoded (%f, %f) to '%s'", lat, lon, address)
+                return address
             else:
                 logger.warning("No reverse geocoding result for (%f, %f)", lat, lon)
                 return None
         
-        except (GeocoderTimedOut, GeocoderServiceError) as e:
-            logger.error("Reverse geocoding service error for (%f, %f): %s", lat, lon, str(e))
+        except requests.exceptions.RequestException as e:
+            logger.error("Reverse geocoding request error for (%f, %f): %s", lat, lon, str(e))
             return None
         except Exception as e:
             logger.error("Unexpected error reverse geocoding (%f, %f): %s", lat, lon, str(e))

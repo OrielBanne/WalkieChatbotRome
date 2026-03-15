@@ -21,7 +21,6 @@ pydantic-settings==2.13.1
 
 # Maps & geo
 folium==0.20.0
-geopy==2.4.1
 
 # Route optimization
 ortools==9.15.6755

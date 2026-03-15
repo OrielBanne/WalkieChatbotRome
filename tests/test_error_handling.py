@@ -23,7 +23,7 @@ from src.vector_store import VectorStore, VectorStoreError
 from src.rag_chain import RAGChain, RAGChainError
 from src.models import Message, Coordinates
 from langchain_core.documents import Document
-from geopy.exc import GeocoderTimedOut, GeocoderServiceError
+import requests
 
 
 class TestStorageErrorHandling:
@@ -166,8 +166,8 @@ class TestGeocodingErrorHandling:
         """Test that geocoder falls back to manual database on failure."""
         geocoder = Geocoder()
         
-        # Mock the geocoder to always fail
-        geocoder.geocoder.geocode = Mock(side_effect=GeocoderServiceError("Service error"))
+        # Mock the session to always fail
+        geocoder.session.get = Mock(side_effect=requests.exceptions.ConnectionError("Service error"))
         
         # Should fall back to manual database for known places
         coords = geocoder.geocode_place("Colosseum")
@@ -181,8 +181,8 @@ class TestGeocodingErrorHandling:
         """Test that geocoding failure for unknown place returns None."""
         geocoder = Geocoder()
         
-        # Mock the geocoder to always fail
-        geocoder.geocoder.geocode = Mock(side_effect=GeocoderServiceError("Service error"))
+        # Mock the session to always fail
+        geocoder.session.get = Mock(side_effect=requests.exceptions.ConnectionError("Service error"))
         
         # Should return None for unknown places
         coords = geocoder.geocode_place("Unknown Place That Doesn't Exist")
@@ -193,14 +193,14 @@ class TestGeocodingErrorHandling:
         """Test that geocoding failures are cached to avoid repeated lookups."""
         geocoder = Geocoder()
         
-        # Mock the geocoder to always fail
+        # Mock the session to always fail
         call_count = [0]
         
-        def mock_geocode(*args, **kwargs):
+        def mock_get(*args, **kwargs):
             call_count[0] += 1
-            raise GeocoderServiceError("Service error")
+            raise requests.exceptions.ConnectionError("Service error")
         
-        geocoder.geocoder.geocode = mock_geocode
+        geocoder.session.get = mock_get
         
         # First call should hit the API
         coords1 = geocoder.geocode_place("Unknown Place")
