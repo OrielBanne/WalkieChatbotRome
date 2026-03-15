@@ -86,9 +86,9 @@ class PlaceDiscoveryAgent:
             state.explanation += f"\n✓ Found {len(state.candidate_places)} places matching your interests"
             
         except Exception as e:
-            logger.error(f"Place discovery failed: {e}")
+            logger.error(f"Place discovery failed: {e}", exc_info=True)
             state.errors.append(f"Place discovery error: {str(e)}")
-            state.explanation += "\n⚠️ Had trouble discovering places, using defaults"
+            state.explanation += "\n⚠️ Had trouble discovering places"
         
         return state
     
@@ -122,6 +122,7 @@ class PlaceDiscoveryAgent:
             description=description,
             rating=None  # Could be enhanced with ratings API
         )
+    
     
     def _get_coordinates(self, place_name: str) -> tuple:
         """Get coordinates for a place.

@@ -119,7 +119,11 @@ def plan_itinerary(
             )
             return itinerary
         else:
-            logger.warning("Planning completed but no itinerary was generated")
+            logger.warning(
+                "Planning completed but no itinerary was generated. "
+                f"candidates={len(candidate_places)}, selected={len(selected_places)}, "
+                f"errors={errors}"
+            )
             return None
             
     except Exception as e:

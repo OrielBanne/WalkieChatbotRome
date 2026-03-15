@@ -19,6 +19,9 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
+# Deployment version — bump to verify Streamlit Cloud picks up new code
+__deploy_version__ = "2026.03.15a"
+
 # Import logging configuration
 from src.logging_config import (
     setup_logging, 
@@ -674,6 +677,7 @@ def render_sidebar():
         # Session info at bottom
         st.markdown("#### Current Session")
         st.text(f"Messages: {len(st.session_state.messages)}")
+        st.caption(f"v{__deploy_version__}")
 
 
 
@@ -729,8 +733,9 @@ def plan_my_day():
                 _persist_state()
                 st.rerun()
             else:
-                st.error("❌ Couldn't create an itinerary. Try adjusting your preferences.")
+                # Surface more detail about what went wrong
                 logger.warning("Planning workflow returned no itinerary")
+                st.error("❌ Couldn't create an itinerary. Check the logs for details.")
                 
     except Exception as e:
         error_msg = f"❌ An error occurred while planning: {str(e)}"
