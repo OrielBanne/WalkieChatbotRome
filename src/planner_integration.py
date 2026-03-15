@@ -59,6 +59,16 @@ def plan_itinerary(
             user_preferences=user_preferences
         )
         
+        # Pass visited places from Streamlit session state if available
+        try:
+            import streamlit as st_mod
+            visited = st_mod.session_state.get("visited_places", [])
+            if visited:
+                initial_state.visited_places = visited
+                logger.info(f"Passing {len(visited)} visited places to planner")
+        except Exception:
+            pass
+        
         # Execute workflow
         logger.info("Executing planning workflow...")
         result = workflow.invoke(initial_state)

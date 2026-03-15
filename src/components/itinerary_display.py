@@ -72,8 +72,18 @@ def render_itinerary_stop(stop: ItineraryStop, index: int, stop_id: str):
                     f"{stop.crowd_level.value.replace('_', ' ').title()}"
                 )
         
-        # Remove stop button - compact, right-aligned
-        col_spacer, col_btn = st.columns([4, 1])
+        # Action buttons - compact, right-aligned
+        col_spacer, col_visit, col_btn = st.columns([3, 1, 1])
+        with col_visit:
+            visited_places = st.session_state.get("visited_places", [])
+            if stop.place.name in visited_places:
+                st.markdown("✅ Visited")
+            else:
+                if st.button("✅", key=f"visit_{stop_id}", help="Mark as visited"):
+                    if "visited_places" not in st.session_state:
+                        st.session_state.visited_places = []
+                    st.session_state.visited_places.append(stop.place.name)
+                    st.rerun()
         with col_btn:
             if st.button("🗑️", key=f"remove_stop_{stop_id}", help="Remove this stop"):
                 return "remove"
@@ -127,12 +137,13 @@ def render_itinerary_summary(itinerary: Itinerary):
         )
 
 
-def render_itinerary_map(itinerary: Itinerary):
+def render_itinerary_map(itinerary: Itinerary, discovered_places=None):
     """
     Render an interactive map showing the itinerary route.
     
     Args:
         itinerary: Itinerary to display on map
+        discovered_places: Optional list of PlaceMarker objects from chat discovery
     """
     from src.map_builder import MapBuilder, PLACE_TYPE_LABELS, PLACE_TYPE_CSS_COLORS
     from src.models import PlaceMarker
@@ -216,6 +227,30 @@ def render_itinerary_map(itinerary: Itinerary):
         keepCurrentZoomLevel=True
     ).add_to(map_obj)
     
+    # Add chat-discovered places as star markers (not part of route)
+    if discovered_places:
+        for dp in discovered_places:
+            folium.Marker(
+                location=dp.coordinates,
+                popup=folium.Popup(dp.description or f"<b>{dp.name}</b>", max_width=300),
+                tooltip=f"⭐ {dp.name} (discovered)",
+                icon=folium.Icon(color="lightgray", icon="star", prefix="fa")
+            ).add_to(map_obj)
+            seen_types.add("discovered")
+        
+        # Re-fit bounds to include discovered places
+        all_coords = [m.coordinates for m in markers] + [dp.coordinates for dp in discovered_places]
+        min_lat = min(c[0] for c in all_coords)
+        max_lat = max(c[0] for c in all_coords)
+        min_lon = min(c[1] for c in all_coords)
+        max_lon = max(c[1] for c in all_coords)
+        lat_pad = max((max_lat - min_lat) * 0.15, 0.005)
+        lon_pad = max((max_lon - min_lon) * 0.15, 0.005)
+        map_obj.fit_bounds(
+            [[min_lat - lat_pad, min_lon - lon_pad],
+             [max_lat + lat_pad, max_lon + lon_pad]]
+        )
+    
     # Build native HTML legend on the map itself
     from branca.element import MacroElement, Template
     
@@ -223,8 +258,12 @@ def render_itinerary_map(itinerary: Itinerary):
     legend_entries = []
     seen_labels = set()
     for ptype in seen_types:
-        label = PLACE_TYPE_LABELS.get(ptype, PLACE_TYPE_LABELS.get("default", "Other"))
-        css_color = PLACE_TYPE_CSS_COLORS.get(ptype, PLACE_TYPE_CSS_COLORS.get("default", "#436978"))
+        if ptype == "discovered":
+            label = "Discovered (chat)"
+            css_color = "#A3A3A3"
+        else:
+            label = PLACE_TYPE_LABELS.get(ptype, PLACE_TYPE_LABELS.get("default", "Other"))
+            css_color = PLACE_TYPE_CSS_COLORS.get(ptype, PLACE_TYPE_CSS_COLORS.get("default", "#436978"))
         # Skip "Other" if we already have meaningful types
         if ptype == "default" and len(seen_types) > 1:
             continue
@@ -298,14 +337,38 @@ def render_itinerary_map(itinerary: Itinerary):
             f'<p style="font-size:0.82em;color:#555;">Legend: {" &nbsp;·&nbsp; ".join(legend_items_html)}</p>',
             unsafe_allow_html=True
         )
+    
+    # Discovered places: checkboxes to add to itinerary
+    if discovered_places:
+        st.markdown("#### ⭐ Discovered Places")
+        st.caption("Places mentioned in chat. Select to add to your itinerary:")
+        
+        selected_to_add = []
+        for dp in discovered_places:
+            if st.checkbox(dp.name, key=f"add_discovered_{dp.name}"):
+                selected_to_add.append(dp.name)
+        
+        if selected_to_add:
+            total_after = len(itinerary.stops) + len(selected_to_add)
+            if total_after > 7:
+                st.warning(f"Adding {len(selected_to_add)} places would make {total_after} stops — that might be too much for a single day.")
+            
+            if st.button(f"➕ Add {len(selected_to_add)} place(s) to itinerary", use_container_width=True):
+                # Queue additions via session state
+                st.session_state.itinerary_action = {
+                    "type": "add_multiple",
+                    "place_names": selected_to_add
+                }
+                st.rerun()
 
 
-def render_itinerary(itinerary: Optional[Itinerary]):
+def render_itinerary(itinerary: Optional[Itinerary], discovered_places=None):
     """
     Render complete itinerary with stops and summary.
     
     Args:
         itinerary: Itinerary to render, or None
+        discovered_places: Optional list of PlaceMarker objects from chat discovery
     """
     if not itinerary:
         st.info("No itinerary generated yet. Use the 'Plan My Day' button to create one.")
@@ -320,7 +383,7 @@ def render_itinerary(itinerary: Optional[Itinerary]):
     
     # Map
     st.markdown("### 🗺️ Route Map")
-    render_itinerary_map(itinerary)
+    render_itinerary_map(itinerary, discovered_places=discovered_places)
     
     st.markdown("---")
     

@@ -228,6 +228,10 @@ def initialize_session_state():
     # Last extracted places (for map display)
     if "last_places" not in st.session_state:
         st.session_state.last_places = []
+    
+    # Visited places tracking (multi-day trip support)
+    if "visited_places" not in st.session_state:
+        st.session_state.visited_places = []
 
 
 def render_sidebar():
@@ -355,7 +359,27 @@ def render_sidebar():
                 st.info("No previous sessions yet.")
 
         st.markdown("---")
-
+        
+        # Visited Places section (multi-day trip support)
+        st.markdown("#### ✅ Visited Places")
+        visited = st.session_state.get("visited_places", [])
+        if visited:
+            for vp in visited:
+                col_name, col_del = st.columns([4, 1])
+                with col_name:
+                    st.text(f"• {vp}")
+                with col_del:
+                    if st.button("✖", key=f"unvisit_{vp}"):
+                        st.session_state.visited_places.remove(vp)
+                        st.rerun()
+            if st.button("🗑️ Clear All Visited", use_container_width=True):
+                st.session_state.visited_places = []
+                st.rerun()
+        else:
+            st.caption("No visited places yet. Mark stops as visited from the itinerary.")
+        
+        st.markdown("---")
+        
         # Data Management section
         st.markdown("#### 📚 Knowledge Base Management")
 
@@ -912,6 +936,62 @@ def fetch_video_info_deferred():
         st.rerun()
 
 
+def _extract_chat_discovered_places():
+    """Extract places mentioned in chat that are NOT already in the itinerary.
+    
+    Returns:
+        List of PlaceMarker objects for chat-discovered places.
+    """
+    itinerary = st.session_state.get("planned_itinerary")
+    if not itinerary:
+        return []
+    
+    # Get itinerary place names (lowercase for comparison)
+    itinerary_names = {stop.place.name.lower() for stop in itinerary.stops}
+    
+    # Extract places from all chat messages
+    all_places = []
+    try:
+        for message in st.session_state.messages:
+            places = st.session_state.place_extractor.extract_places(message["content"])
+            rome_places = st.session_state.place_extractor.filter_rome_places(places)
+            all_places.extend(rome_places)
+    except Exception as e:
+        logger.warning(f"Failed to extract chat places: {e}")
+        return []
+    
+    # Deduplicate and filter out itinerary places
+    unique_discovered = {}
+    for place in all_places:
+        if place.name.lower() not in itinerary_names and place.name not in unique_discovered:
+            unique_discovered[place.name] = place
+    
+    if not unique_discovered:
+        return []
+    
+    # Geocode discovered places
+    markers = []
+    for place_mention in unique_discovered.values():
+        try:
+            coords = st.session_state.geocoder.geocode_place(
+                place_mention.name,
+                bias_location=(41.9028, 12.4964)
+            )
+            if coords:
+                marker = PlaceMarker(
+                    name=place_mention.name,
+                    coordinates=(coords.latitude, coords.longitude),
+                    place_type="attraction",
+                    description=f"<b>{place_mention.name}</b><br><i>Discovered in chat</i>",
+                    icon="star"
+                )
+                markers.append(marker)
+        except Exception as e:
+            logger.warning(f"Failed to geocode discovered place '{place_mention.name}': {e}")
+    
+    return markers
+
+
 def main():
     """Main application entry point."""
     
@@ -952,6 +1032,20 @@ def main():
                     action_type="add",
                     place_name=action["place_name"]
                 )
+            elif action["type"] == "add_multiple":
+                # Add multiple discovered places sequentially
+                modified_itinerary = st.session_state.planned_itinerary
+                for pname in action["place_names"]:
+                    result = modify_itinerary(
+                        current_itinerary=modified_itinerary,
+                        user_preferences=user_preferences,
+                        action_type="add",
+                        place_name=pname
+                    )
+                    if result:
+                        modified_itinerary = result
+                    else:
+                        logger.warning(f"Failed to add discovered place: {pname}")
             else:
                 modified_itinerary = None
             
@@ -969,17 +1063,21 @@ def main():
     # Render sidebar
     render_sidebar()
     
-    # Render main chat interface
-    render_chat_interface()
-    
-    # Render planned itinerary if available
+    # Render planned itinerary ABOVE chat (so chat appears below)
     if st.session_state.planned_itinerary:
         st.markdown("---")
         from src.components.itinerary_display import render_itinerary
-        render_itinerary(st.session_state.planned_itinerary)
-    else:
-        # Only show the standalone places map when there's no itinerary
-        # (the itinerary already includes its own route map)
+        
+        # Extract chat-discovered places (places mentioned in chat but not in itinerary)
+        discovered_places = _extract_chat_discovered_places()
+        
+        render_itinerary(st.session_state.planned_itinerary, discovered_places=discovered_places)
+    
+    # Render main chat interface
+    render_chat_interface()
+    
+    # Only show the standalone places map when there's no itinerary
+    if not st.session_state.planned_itinerary:
         render_map_visualization()
     
     # Fetch video info AFTER everything else is rendered (deferred)

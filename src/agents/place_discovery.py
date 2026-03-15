@@ -73,6 +73,12 @@ class PlaceDiscoveryAgent:
             # Rank by user preferences
             ranked_places = self._rank_by_preferences(places, state.user_preferences)
             
+            # Filter out visited places (multi-day trip support)
+            if state.visited_places:
+                visited_lower = {v.lower() for v in state.visited_places}
+                ranked_places = [p for p in ranked_places if p.name.lower() not in visited_lower]
+                logger.info(f"Filtered out {len(state.visited_places)} visited places")
+            
             # Take top 10 candidates
             state.candidate_places = ranked_places[:10]
             

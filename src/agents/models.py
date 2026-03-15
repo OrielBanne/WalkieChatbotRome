@@ -245,9 +245,11 @@ class PlannerState(BaseModel):
     travel_times: Dict[Tuple[str, str], TravelTime] = Field(default_factory=dict)
     optimized_route: Optional[List[str]] = None
     crowd_predictions: Dict[str, CrowdLevel] = Field(default_factory=dict)
+    visited_places: List[str] = Field(default_factory=list)
     total_cost: Optional[float] = None
     feasibility_score: Optional[float] = None
     feasibility_issues: List[str] = Field(default_factory=list)
+    visited_places: List[str] = Field(default_factory=list)
     errors: List[str] = Field(default_factory=list)
     iteration_count: int = 0
     max_iterations: int = 3
