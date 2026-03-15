@@ -49,29 +49,58 @@ class PlaceDiscoveryAgent:
         try:
             logger.info(f"Discovering places for query: {state.user_query}")
             
-            # Use RAG system to get relevant information
+            available_minutes = state.user_preferences.available_hours * 60
+            # Estimate how many places we need (avg ~60 min per place + travel)
+            target_count = max(5, min(10, int(available_minutes / 75)))
+            
+            all_mentions = set()  # track canonical names already seen
+            all_places: list = []
+            
+            # --- Pass 1: main user query ---
             rag_response = self.rag_chain.invoke(state.user_query)
-            
-            # Extract place mentions from response
             place_mentions = self.place_extractor.extract_places(rag_response)
+            for m in place_mentions:
+                if m.name.lower() not in all_mentions:
+                    all_mentions.add(m.name.lower())
+                    try:
+                        all_places.append(self._enrich_place(m, rag_response))
+                    except Exception as e:
+                        logger.warning(f"Failed to enrich place {m.name}: {e}")
             
-            if not place_mentions:
-                logger.warning("No places extracted from RAG response")
+            # --- Pass 2+: interest-based queries if we still need more places ---
+            if len(all_places) < target_count:
+                interest_queries = []
+                for interest in (state.user_preferences.interests or []):
+                    interest_queries.append(f"Best {interest} places to visit in Rome")
+                # Generic fallback queries
+                interest_queries += [
+                    "Must-see landmarks and monuments in Rome",
+                    "Hidden gems and local favorites in Rome",
+                ]
+                
+                for extra_query in interest_queries:
+                    if len(all_places) >= target_count:
+                        break
+                    try:
+                        extra_response = self.rag_chain.invoke(extra_query)
+                        extra_mentions = self.place_extractor.extract_places(extra_response)
+                        for m in extra_mentions:
+                            if m.name.lower() not in all_mentions:
+                                all_mentions.add(m.name.lower())
+                                try:
+                                    all_places.append(self._enrich_place(m, extra_response))
+                                except Exception as e:
+                                    logger.warning(f"Failed to enrich place {m.name}: {e}")
+                    except Exception as e:
+                        logger.warning(f"Extra discovery query failed: {e}")
+            
+            if not all_places:
+                logger.warning("No places extracted from any RAG response")
                 state.explanation += "\n⚠️ No specific places found for your query"
                 return state
             
-            # Enrich places with metadata
-            places = []
-            for mention in place_mentions:
-                try:
-                    place = self._enrich_place(mention, rag_response)
-                    places.append(place)
-                except Exception as e:
-                    logger.warning(f"Failed to enrich place {mention.name}: {e}")
-                    continue
-            
             # Rank by user preferences
-            ranked_places = self._rank_by_preferences(places, state.user_preferences)
+            ranked_places = self._rank_by_preferences(all_places, state.user_preferences)
             
             # Filter out visited places (multi-day trip support)
             if state.visited_places:
@@ -79,10 +108,10 @@ class PlaceDiscoveryAgent:
                 ranked_places = [p for p in ranked_places if p.name.lower() not in visited_lower]
                 logger.info(f"Filtered out {len(state.visited_places)} visited places")
             
-            # Take top 10 candidates
-            state.candidate_places = ranked_places[:10]
+            # Take top candidates (enough to fill the day)
+            state.candidate_places = ranked_places[:target_count]
             
-            logger.info(f"Discovered {len(state.candidate_places)} candidate places")
+            logger.info(f"Discovered {len(state.candidate_places)} candidate places (target was {target_count})")
             state.explanation += f"\n✓ Found {len(state.candidate_places)} places matching your interests"
             
         except Exception as e:
