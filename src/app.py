@@ -692,6 +692,73 @@ def plan_my_day():
         st.session_state.messages.append({"role": "assistant", "content": error_msg})
 
 
+def _detect_itinerary_command(prompt: str) -> bool:
+    """Detect if the user's chat message is an add/remove command for the itinerary.
+    
+    Patterns detected:
+      - "add Villa Borghese", "please add the Trevi Fountain"
+      - "remove Colosseum", "take out the Pantheon"
+    
+    If detected, queues the action and triggers a rerun.
+    Returns True if a command was detected and handled.
+    """
+    import re
+    prompt_lower = prompt.lower().strip()
+    
+    # Add patterns
+    add_patterns = [
+        r"(?:please\s+)?add\s+(?:the\s+)?(.+?)(?:\s+to\s+(?:the\s+)?(?:itinerary|route|plan))?$",
+        r"(?:can you\s+)?(?:include|put)\s+(?:the\s+)?(.+?)(?:\s+(?:in|on|to)\s+(?:the\s+)?(?:itinerary|route|plan))?$",
+        r"i\s+(?:want|would like)\s+to\s+(?:add|visit|see|go to)\s+(?:the\s+)?(.+?)$",
+    ]
+    
+    # Remove patterns
+    remove_patterns = [
+        r"(?:please\s+)?(?:remove|delete|drop)\s+(?:the\s+)?(.+?)(?:\s+from\s+(?:the\s+)?(?:itinerary|route|plan))?$",
+        r"(?:take out|take off)\s+(?:the\s+)?(.+?)$",
+    ]
+    
+    for pattern in add_patterns:
+        match = re.match(pattern, prompt_lower)
+        if match:
+            place_name = match.group(1).strip().rstrip(".")
+            # Capitalize properly
+            place_name = place_name.title()
+            if len(place_name) > 2:
+                msg = f"✅ Adding **{place_name}** to your itinerary..."
+                st.session_state.messages.append({"role": "assistant", "content": msg})
+                st.session_state.itinerary_action = {
+                    "type": "add",
+                    "place_name": place_name
+                }
+                st.rerun()
+                return True
+    
+    for pattern in remove_patterns:
+        match = re.match(pattern, prompt_lower)
+        if match:
+            place_name = match.group(1).strip().rstrip(".").title()
+            # Find the stop index by name
+            itinerary = st.session_state.planned_itinerary
+            for i, stop in enumerate(itinerary.stops):
+                if stop.place.name.lower() == place_name.lower():
+                    msg = f"🗑️ Removing **{stop.place.name}** from your itinerary..."
+                    st.session_state.messages.append({"role": "assistant", "content": msg})
+                    st.session_state.itinerary_action = {
+                        "type": "remove",
+                        "index": i
+                    }
+                    st.rerun()
+                    return True
+            # Place not found in itinerary
+            msg = f"⚠️ I couldn't find **{place_name}** in your current itinerary."
+            st.session_state.messages.append({"role": "assistant", "content": msg})
+            st.rerun()
+            return True
+    
+    return False
+
+
 def render_chat_interface():
     """Render the main chat interface."""
     
@@ -720,6 +787,11 @@ def render_chat_interface():
         # Display user message
         with st.chat_message("user"):
             st.markdown(prompt)
+        
+        # Check if user wants to add/remove a place from the itinerary
+        if st.session_state.get("planned_itinerary") and _detect_itinerary_command(prompt):
+            # Handle the command — response and rerun happen inside
+            return
         
         # Generate assistant response
         with st.chat_message("assistant"):
