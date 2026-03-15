@@ -1,0 +1,162 @@
+[
+  {
+    "place_name": "Colosseum",
+    "ticket_required": true,
+    "reservation_required": true,
+    "price": 18.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://www.coopculture.it/en/colosseo-e-shop.cfm"
+  },
+  {
+    "place_name": "Roman Forum",
+    "ticket_required": true,
+    "reservation_required": true,
+    "price": 18.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://www.coopculture.it/en/colosseo-e-shop.cfm"
+  },
+  {
+    "place_name": "Palatine Hill",
+    "ticket_required": true,
+    "reservation_required": true,
+    "price": 18.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://www.coopculture.it/en/colosseo-e-shop.cfm"
+  },
+  {
+    "place_name": "Vatican Museums",
+    "ticket_required": true,
+    "reservation_required": true,
+    "price": 20.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://biglietteriamusei.vatican.va/musei/tickets/do"
+  },
+  {
+    "place_name": "Sistine Chapel",
+    "ticket_required": true,
+    "reservation_required": true,
+    "price": 20.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://biglietteriamusei.vatican.va/musei/tickets/do"
+  },
+  {
+    "place_name": "St. Peter's Basilica",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://www.museivaticani.va/content/museivaticani/en.html"
+  },
+  {
+    "place_name": "St. Peter's Dome",
+    "ticket_required": true,
+    "reservation_required": false,
+    "price": 10.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Pantheon",
+    "ticket_required": true,
+    "reservation_required": false,
+    "price": 5.0,
+    "skip_the_line_available": false,
+    "booking_url": "https://www.pantheonroma.com/"
+  },
+  {
+    "place_name": "Trevi Fountain",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Spanish Steps",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Borghese Gallery",
+    "ticket_required": true,
+    "reservation_required": true,
+    "price": 15.0,
+    "skip_the_line_available": false,
+    "booking_url": "https://www.galleriaborghese.beniculturali.it/en/"
+  },
+  {
+    "place_name": "Castel Sant'Angelo",
+    "ticket_required": true,
+    "reservation_required": false,
+    "price": 14.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://www.castelsantangelo.com/"
+  },
+  {
+    "place_name": "Capitoline Museums",
+    "ticket_required": true,
+    "reservation_required": false,
+    "price": 16.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://www.museicapitolini.org/en"
+  },
+  {
+    "place_name": "Piazza Navona",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Campo de' Fiori",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Villa Borghese Gardens",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Trastevere",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Catacombs of San Callisto",
+    "ticket_required": true,
+    "reservation_required": true,
+    "price": 10.0,
+    "skip_the_line_available": false,
+    "booking_url": "https://www.catacombe.roma.it/en/"
+  },
+  {
+    "place_name": "Circus Maximus",
+    "ticket_required": false,
+    "reservation_required": false,
+    "price": 0.0,
+    "skip_the_line_available": false,
+    "booking_url": null
+  },
+  {
+    "place_name": "Ara Pacis Museum",
+    "ticket_required": true,
+    "reservation_required": false,
+    "price": 13.0,
+    "skip_the_line_available": true,
+    "booking_url": "https://www.arapacis.it/en"
+  }
+]

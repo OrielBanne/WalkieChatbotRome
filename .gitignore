@@ -36,10 +36,14 @@ secrets/
 htmlcov/
 
 # Data
-data/*.json
 data/*.csv
 data/*.pdf
 data/pdfs/*.pdf
+
+# Keep agent data files tracked
+!data/opening_hours.json
+!data/ticket_info.json
+!data/crowd_patterns.json
 
 # Sessions
 sessions/*.json
@@ -47,6 +51,3 @@ sessions/*.json
 # Vector Store
 *.faiss
 *.index
-
-# Hypothesis test cache
-.hypothesis/

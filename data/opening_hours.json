@@ -1,0 +1,162 @@
+[
+  {
+    "place_name": "Colosseum",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "19:00",
+    "last_entry_time": "18:00",
+    "closed_days": ["January 1", "December 25"]
+  },
+  {
+    "place_name": "Roman Forum",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "19:00",
+    "last_entry_time": "18:00",
+    "closed_days": ["January 1", "December 25"]
+  },
+  {
+    "place_name": "Palatine Hill",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "19:00",
+    "last_entry_time": "18:00",
+    "closed_days": ["January 1", "December 25"]
+  },
+  {
+    "place_name": "Vatican Museums",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "18:00",
+    "last_entry_time": "16:00",
+    "closed_days": ["Sunday", "January 1", "January 6", "February 11", "March 19", "Easter", "Easter Monday", "May 1", "June 29", "August 15", "November 1", "December 8", "December 25", "December 26"]
+  },
+  {
+    "place_name": "Sistine Chapel",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "18:00",
+    "last_entry_time": "16:00",
+    "closed_days": ["Sunday", "January 1", "January 6", "February 11", "March 19", "Easter", "Easter Monday", "May 1", "June 29", "August 15", "November 1", "December 8", "December 25", "December 26"]
+  },
+  {
+    "place_name": "St. Peter's Basilica",
+    "is_open_today": true,
+    "opening_time": "07:00",
+    "closing_time": "19:00",
+    "last_entry_time": "18:30",
+    "closed_days": []
+  },
+  {
+    "place_name": "St. Peter's Dome",
+    "is_open_today": true,
+    "opening_time": "08:00",
+    "closing_time": "18:00",
+    "last_entry_time": "17:00",
+    "closed_days": []
+  },
+  {
+    "place_name": "Pantheon",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "19:00",
+    "last_entry_time": "18:45",
+    "closed_days": ["January 1", "May 1", "December 25"]
+  },
+  {
+    "place_name": "Trevi Fountain",
+    "is_open_today": true,
+    "opening_time": "00:00",
+    "closing_time": "23:59",
+    "last_entry_time": null,
+    "closed_days": []
+  },
+  {
+    "place_name": "Spanish Steps",
+    "is_open_today": true,
+    "opening_time": "00:00",
+    "closing_time": "23:59",
+    "last_entry_time": null,
+    "closed_days": []
+  },
+  {
+    "place_name": "Borghese Gallery",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "19:00",
+    "last_entry_time": "17:00",
+    "closed_days": ["Monday", "January 1", "December 25"]
+  },
+  {
+    "place_name": "Castel Sant'Angelo",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "19:30",
+    "last_entry_time": "18:30",
+    "closed_days": ["Monday", "January 1", "December 25"]
+  },
+  {
+    "place_name": "Capitoline Museums",
+    "is_open_today": true,
+    "opening_time": "09:30",
+    "closing_time": "19:30",
+    "last_entry_time": "18:30",
+    "closed_days": ["Monday", "January 1", "May 1", "December 25"]
+  },
+  {
+    "place_name": "Piazza Navona",
+    "is_open_today": true,
+    "opening_time": "00:00",
+    "closing_time": "23:59",
+    "last_entry_time": null,
+    "closed_days": []
+  },
+  {
+    "place_name": "Campo de' Fiori",
+    "is_open_today": true,
+    "opening_time": "07:00",
+    "closing_time": "14:00",
+    "last_entry_time": null,
+    "closed_days": ["Sunday"]
+  },
+  {
+    "place_name": "Villa Borghese Gardens",
+    "is_open_today": true,
+    "opening_time": "00:00",
+    "closing_time": "23:59",
+    "last_entry_time": null,
+    "closed_days": []
+  },
+  {
+    "place_name": "Trastevere",
+    "is_open_today": true,
+    "opening_time": "00:00",
+    "closing_time": "23:59",
+    "last_entry_time": null,
+    "closed_days": []
+  },
+  {
+    "place_name": "Catacombs of San Callisto",
+    "is_open_today": true,
+    "opening_time": "09:00",
+    "closing_time": "17:00",
+    "last_entry_time": "16:00",
+    "closed_days": ["Wednesday", "January 1", "Easter", "December 25"]
+  },
+  {
+    "place_name": "Circus Maximus",
+    "is_open_today": true,
+    "opening_time": "00:00",
+    "closing_time": "23:59",
+    "last_entry_time": null,
+    "closed_days": []
+  },
+  {
+    "place_name": "Ara Pacis Museum",
+    "is_open_today": true,
+    "opening_time": "09:30",
+    "closing_time": "19:30",
+    "last_entry_time": "18:30",
+    "closed_days": ["Monday", "January 1", "May 1", "December 25"]
+  }
+]
