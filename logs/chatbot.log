@@ -4662,3 +4662,790 @@ duration_minutes
 2026-03-15 13:17:38 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
 2026-03-15 13:17:38 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
 2026-03-15 13:17:39 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:39 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:17:39 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:17:39 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:17:39 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:17:39 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:39 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:39 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:40 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:40 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:40 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:40 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:40 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:40 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:41 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:41 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:17:41 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:17:41 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:17:41 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:41 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:42 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:43 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:17:43 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:43 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:43 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:43 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:43 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:43 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:43 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:43 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:43 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:43 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:44 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:44 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:17:44 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:44 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:44 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:44 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:44 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:45 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:45 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:45 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:45 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:45 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:46 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:17:46 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:17:46 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:17:46 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:17:46 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:17:46 - INFO - [no-session] - __main__ - Rendered map with 4 markers from conversation
+2026-03-15 13:22:14 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:22:16 - INFO - [no-session] - __main__ - Loaded vector store with 271 documents
+2026-03-15 13:22:16 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-15 13:22:16 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:22:16 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:22:16 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-15 13:22:16 - INFO - [no-session] - __main__ - Created new session: 9c06a2b2-a355-4559-be51-68b2ac222ee9
+2026-03-15 13:22:16 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-15 13:22:23 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:22:23 - INFO - [no-session] - __main__ - Switched to session: a7dfac10-23ee-4e2d-b660-39bd958aaf9a
+2026-03-15 13:22:23 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:22:24 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Colosseum'
+2026-03-15 13:22:24 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Trevi Fountain'
+2026-03-15 13:22:24 - INFO - [no-session] - src.geocoder - Geocoded 'Capitoline Museums' to (41.892666, 12.482201)
+2026-03-15 13:22:24 - INFO - [no-session] - src.geocoder - Geocoded 'Galleria Borghese' to (41.914113, 12.492105)
+2026-03-15 13:22:24 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:22:24 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:22:24 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:22:26 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:22:26 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:22:26 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:22:27 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:22:28 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:22:30 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:22:30 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:22:30 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:22:30 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:22:30 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:22:30 - INFO - [no-session] - __main__ - Rendered map with 4 markers from conversation
+2026-03-15 13:22:56 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:22:56 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:22:56 - INFO - [no-session] - src.map_builder - Adding 4 markers to map (numbered=False)
+2026-03-15 13:22:56 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:22:57 - INFO - [no-session] - src.router - Got pedestrian route with 237 points, distance: 3402m, duration: 45.4min
+2026-03-15 13:22:57 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 45.4 min)
+2026-03-15 13:22:57 - INFO - [no-session] - src.router - Calculating public_transport route through 4 waypoints (prefer_shortest=True)
+2026-03-15 13:22:57 - INFO - [no-session] - src.router - Got public_transport route with 141 points, distance: 1811m, duration: 24.1min
+2026-03-15 13:22:59 - INFO - [no-session] - src.router - Got public_transport route with 117 points, distance: 1214m, duration: 16.2min
+2026-03-15 13:23:00 - INFO - [no-session] - src.router - Got public_transport route with 228 points, distance: 2997m, duration: 40.0min
+2026-03-15 13:23:00 - INFO - [no-session] - src.router - Complete public_transport route has 484 points
+2026-03-15 13:23:00 - INFO - [no-session] - src.map_builder - Adding route with 484 points
+2026-03-15 13:23:00 - INFO - [no-session] - src.map_builder - Added route with 484 points
+2026-03-15 13:23:00 - INFO - [no-session] - src.map_builder - Created map with 4 places
+2026-03-15 13:23:00 - INFO - [no-session] - __main__ - Rendered map with 4 markers from conversation
+2026-03-15 13:25:57 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:25:59 - INFO - [no-session] - __main__ - Loaded vector store with 271 documents
+2026-03-15 13:25:59 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-15 13:25:59 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:25:59 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:25:59 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-15 13:25:59 - INFO - [no-session] - __main__ - Created new session: 72eaa9cd-68f8-484c-91c4-0069e00d25b8
+2026-03-15 13:25:59 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-15 13:26:03 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:26:04 - INFO - [no-session] - __main__ - Starting itinerary planning with query: Plan a day in Rome
+2026-03-15 13:26:04 - INFO - [no-session] - src.planner_integration - Planning itinerary for query: Plan a day in Rome
+2026-03-15 13:26:04 - INFO - [no-session] - src.planner_integration - Preferences: {'interests': ['art', 'food', 'history'], 'available_hours': 8.0, 'max_budget': 100.0, 'max_walking_km': 10.0, 'crowd_tolerance': 'neutral', 'start_time': datetime.time(9, 0)}
+2026-03-15 13:26:04 - INFO - [no-session] - src.agents.workflow - Complete planner workflow created successfully
+2026-03-15 13:26:04 - INFO - [no-session] - src.planner_integration - Executing planning workflow...
+2026-03-15 13:26:04 - INFO - [no-session] - src.agents.workflow - Executing PlaceDiscoveryAgent
+2026-03-15 13:26:04 - INFO - [no-session] - src.agents.place_discovery - Using RAG chain and geocoder from Streamlit session state
+2026-03-15 13:26:04 - INFO - [no-session] - src.agents.place_discovery - Discovering places for query: Plan a day in Rome
+2026-03-15 13:26:05 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 13:26:06 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:26:08 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Colosseum'
+2026-03-15 13:26:09 - INFO - [no-session] - src.geocoder - Geocoded 'Piazza Venezia' to (41.896300, 12.482347)
+2026-03-15 13:26:09 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Piazza Navona'
+2026-03-15 13:26:09 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Pantheon'
+2026-03-15 13:26:10 - INFO - [no-session] - src.geocoder - Geocoded 'Altare Della Patria' to (41.894687, 12.483066)
+2026-03-15 13:26:10 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Roman Forum'
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.place_discovery - Discovered 6 candidate places
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.workflow - PlaceDiscoveryAgent completed successfully
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.workflow - Executing OpeningHoursAgent
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Checking opening hours for candidate places
+2026-03-15 13:26:10 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Piazza Venezia
+2026-03-15 13:26:10 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Altare Della Patria
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Processed 6 places
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.workflow - OpeningHoursAgent completed successfully
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.workflow - Executing TicketAgent
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Checking ticket requirements for candidate places
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.ticket - Reservation required for Colosseum
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.ticket - Colosseum has high ticket price: €18.0
+2026-03-15 13:26:10 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Piazza Venezia
+2026-03-15 13:26:10 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Altare Della Patria
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.ticket - Reservation required for Roman Forum
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.ticket - Roman Forum has high ticket price: €18.0
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Processed 6 places
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.workflow - TicketAgent completed successfully
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.workflow - Executing TravelTimeAgent
+2026-03-15 13:26:10 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculating travel times between places
+2026-03-15 13:26:10 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:11 - INFO - [no-session] - src.router - Got pedestrian route with 208 points, distance: 2098m, duration: 28.0min
+2026-03-15 13:26:11 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:13 - INFO - [no-session] - src.router - Got pedestrian route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:26:13 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:14 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:26:14 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:16 - INFO - [no-session] - src.router - Got pedestrian route with 122 points, distance: 1350m, duration: 18.0min
+2026-03-15 13:26:16 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:17 - INFO - [no-session] - src.router - Got pedestrian route with 65 points, distance: 758m, duration: 10.1min
+2026-03-15 13:26:17 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:19 - INFO - [no-session] - src.router - Got pedestrian route with 88 points, distance: 871m, duration: 11.6min
+2026-03-15 13:26:19 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:20 - INFO - [no-session] - src.router - Got pedestrian route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:26:20 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:22 - INFO - [no-session] - src.router - Got pedestrian route with 147 points, distance: 1097m, duration: 14.7min
+2026-03-15 13:26:22 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:23 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 1495m, duration: 20.0min
+2026-03-15 13:26:23 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:25 - INFO - [no-session] - src.router - Got pedestrian route with 117 points, distance: 1169m, duration: 15.6min
+2026-03-15 13:26:25 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:26 - INFO - [no-session] - src.router - Got pedestrian route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:26:26 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:28 - INFO - [no-session] - src.router - Got pedestrian route with 43 points, distance: 710m, duration: 9.5min
+2026-03-15 13:26:28 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:29 - INFO - [no-session] - src.router - Got pedestrian route with 161 points, distance: 1388m, duration: 18.5min
+2026-03-15 13:26:29 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:31 - INFO - [no-session] - src.router - Got pedestrian route with 221 points, distance: 1786m, duration: 23.8min
+2026-03-15 13:26:31 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:32 - INFO - [no-session] - src.router - Got pedestrian route with 92 points, distance: 791m, duration: 10.5min
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculated 30 travel time pairs
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - TravelTimeAgent completed successfully
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - Executing RouteOptimizationAgent
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimizing route order
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimized route with 5 places, total distance: 3.17 km
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - RouteOptimizationAgent completed successfully
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - Executing CrowdPredictionAgent
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicting crowd levels
+2026-03-15 13:26:32 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Piazza Venezia, using default
+2026-03-15 13:26:32 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Altare Della Patria, using default
+2026-03-15 13:26:32 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Pantheon will be very crowded at 13:30
+2026-03-15 13:26:32 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Piazza Navona will be very crowded at 14:15
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicted crowds for 5 places
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - CrowdPredictionAgent completed successfully
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - Executing CostAgent
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.cost - Cost Agent: Calculating itinerary costs
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.cost - Cost Agent: Total cost €38.00
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - CostAgent completed successfully
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - Executing FeasibilityAgent
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.feasibility - Feasibility Agent: Validating itinerary feasibility
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.feasibility - Total walking distance: 2.07 km
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.feasibility - Total time: 6.5 hours
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.feasibility - Feasibility score: 100.0/100, Feasible: True
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - FeasibilityAgent completed successfully
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - Workflow complete
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - Executing FinalizeItinerary
+2026-03-15 13:26:32 - INFO - [no-session] - src.agents.workflow - Finalizing: Building itinerary from optimized route
+2026-03-15 13:26:33 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 13:26:34 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:26:34 - INFO - [no-session] - src.agents.workflow - FinalizeItinerary completed successfully
+2026-03-15 13:26:34 - INFO - [no-session] - src.planner_integration - Place discovery found 6 candidates, 0 selected
+2026-03-15 13:26:34 - INFO - [no-session] - src.planner_integration - Successfully planned itinerary with 6 stops, feasibility score: 100/100
+2026-03-15 13:26:34 - INFO - [no-session] - __main__ - Successfully planned itinerary with 6 stops
+2026-03-15 13:26:35 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:26:35 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:35 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:26:35 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:26:35 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:26:35 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:26:36 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:26:36 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 31.8 min)
+2026-03-15 13:26:37 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:26:38 - INFO - [no-session] - src.router - Got public_transport route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:26:40 - INFO - [no-session] - src.router - Got public_transport route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:26:42 - INFO - [no-session] - src.router - Got public_transport route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:26:44 - INFO - [no-session] - src.router - Got public_transport route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:26:46 - INFO - [no-session] - src.router - Got public_transport route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:26:46 - INFO - [no-session] - src.router - Complete public_transport route has 299 points
+2026-03-15 13:26:46 - INFO - [no-session] - src.map_builder - Adding route with 299 points
+2026-03-15 13:26:46 - INFO - [no-session] - src.map_builder - Added route with 299 points
+2026-03-15 13:26:46 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:26:58 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:26:58 - INFO - [no-session] - __main__ - Switched to session: a7dfac10-23ee-4e2d-b660-39bd958aaf9a
+2026-03-15 13:26:59 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:26:59 - INFO - [no-session] - src.geocoder - Using manual coordinates for 'Trevi Fountain'
+2026-03-15 13:26:59 - INFO - [no-session] - src.geocoder - Geocoded 'Capitoline Museums' to (41.892666, 12.482201)
+2026-03-15 13:26:59 - INFO - [no-session] - src.geocoder - Geocoded 'Galleria Borghese' to (41.914113, 12.492105)
+2026-03-15 13:26:59 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:26:59 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:26:59 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:26:59 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:26:59 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:27:01 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:27:01 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 31.8 min)
+2026-03-15 13:27:01 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:27:02 - INFO - [no-session] - src.router - Got public_transport route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:27:04 - INFO - [no-session] - src.router - Got public_transport route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:27:06 - INFO - [no-session] - src.router - Got public_transport route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:27:08 - INFO - [no-session] - src.router - Got public_transport route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:27:10 - INFO - [no-session] - src.router - Got public_transport route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:27:10 - INFO - [no-session] - src.router - Complete public_transport route has 299 points
+2026-03-15 13:27:10 - INFO - [no-session] - src.map_builder - Adding route with 299 points
+2026-03-15 13:27:10 - INFO - [no-session] - src.map_builder - Added route with 299 points
+2026-03-15 13:27:10 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:27:29 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:27:29 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:27:29 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:27:29 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:27:29 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:27:29 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:27:30 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:27:30 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:27:30 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:27:30 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:27:30 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:27:30 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:27:32 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:27:32 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:27:32 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:27:32 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:27:32 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:27:32 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:27:32 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:27:32 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 31.8 min)
+2026-03-15 13:27:32 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:27:33 - INFO - [no-session] - src.router - Got public_transport route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:27:33 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:27:33 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 31.8 min)
+2026-03-15 13:27:33 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:27:33 - INFO - [no-session] - src.router - Got public_transport route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:27:35 - INFO - [no-session] - src.router - Got public_transport route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:27:35 - INFO - [no-session] - src.router - Got public_transport route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:27:35 - INFO - [no-session] - src.router - Got public_transport route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:27:36 - INFO - [no-session] - src.router - Got public_transport route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:27:37 - INFO - [no-session] - src.router - Got public_transport route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:27:37 - INFO - [no-session] - src.router - Got public_transport route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:27:38 - INFO - [no-session] - src.router - Got public_transport route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:27:39 - INFO - [no-session] - src.router - Got public_transport route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:27:39 - INFO - [no-session] - src.router - Got public_transport route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:27:40 - INFO - [no-session] - src.router - Got public_transport route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:27:41 - INFO - [no-session] - src.router - Got public_transport route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:27:41 - INFO - [no-session] - src.router - Complete public_transport route has 299 points
+2026-03-15 13:27:41 - INFO - [no-session] - src.map_builder - Adding route with 299 points
+2026-03-15 13:27:41 - INFO - [no-session] - src.map_builder - Added route with 299 points
+2026-03-15 13:27:41 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:27:41 - INFO - [no-session] - src.router - Got public_transport route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:27:41 - INFO - [no-session] - src.router - Complete public_transport route has 299 points
+2026-03-15 13:27:41 - INFO - [no-session] - src.map_builder - Adding route with 299 points
+2026-03-15 13:27:41 - INFO - [no-session] - src.map_builder - Added route with 299 points
+2026-03-15 13:27:41 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:27:42 - INFO - [no-session] - src.router - Got public_transport route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:27:42 - INFO - [no-session] - src.router - Complete public_transport route has 299 points
+2026-03-15 13:27:42 - INFO - [no-session] - src.map_builder - Adding route with 299 points
+2026-03-15 13:27:42 - INFO - [no-session] - src.map_builder - Added route with 299 points
+2026-03-15 13:27:42 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:27:50 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:27:51 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:27:51 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:27:51 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:27:51 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:27:51 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:27:52 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:27:52 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 31.8 min)
+2026-03-15 13:27:52 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:27:53 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:27:53 - INFO - [no-session] - src.router - Got public_transport route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:27:53 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:27:53 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:27:53 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:27:54 - INFO - [no-session] - src.map_builder - Adding 6 markers to map (numbered=True)
+2026-03-15 13:27:54 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:27:55 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:27:55 - INFO - [no-session] - src.router - Auto-selected public_transport mode (walking time: 31.8 min)
+2026-03-15 13:27:55 - INFO - [no-session] - src.router - Calculating public_transport route through 6 waypoints (prefer_shortest=True)
+2026-03-15 13:27:55 - INFO - [no-session] - src.router - Got public_transport route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:27:56 - INFO - [no-session] - src.router - Got public_transport route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:27:57 - INFO - [no-session] - src.router - Got public_transport route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:27:58 - INFO - [no-session] - src.router - Got public_transport route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:27:58 - INFO - [no-session] - src.router - Got public_transport route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:27:59 - INFO - [no-session] - src.router - Got public_transport route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:28:00 - INFO - [no-session] - src.router - Got public_transport route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:28:00 - INFO - [no-session] - src.router - Complete public_transport route has 299 points
+2026-03-15 13:28:00 - INFO - [no-session] - src.map_builder - Adding route with 299 points
+2026-03-15 13:28:00 - INFO - [no-session] - src.map_builder - Added route with 299 points
+2026-03-15 13:28:00 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:28:01 - INFO - [no-session] - src.router - Got public_transport route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:28:03 - INFO - [no-session] - src.router - Got public_transport route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:28:03 - INFO - [no-session] - src.router - Complete public_transport route has 299 points
+2026-03-15 13:28:03 - INFO - [no-session] - src.map_builder - Adding route with 299 points
+2026-03-15 13:28:03 - INFO - [no-session] - src.map_builder - Added route with 299 points
+2026-03-15 13:28:03 - INFO - [no-session] - src.map_builder - Created map with 6 places
+2026-03-15 13:28:03 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:28:03 - INFO - [no-session] - src.planner_integration - Modifying itinerary: action=add, place=Trevi Fountain, index=None
+2026-03-15 13:28:03 - INFO - [no-session] - src.planner_integration - Added place: Trevi Fountain
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - Complete planner workflow created successfully
+2026-03-15 13:28:03 - INFO - [no-session] - src.planner_integration - Re-optimizing itinerary...
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - Executing PlaceDiscoveryAgent
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.place_discovery - Skipping place discovery - using 7 pre-selected places
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - PlaceDiscoveryAgent completed successfully
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - Executing OpeningHoursAgent
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Checking opening hours for candidate places
+2026-03-15 13:28:03 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Piazza Venezia
+2026-03-15 13:28:03 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Altare Della Patria
+2026-03-15 13:28:03 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Armando al Pantheon
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Processed 7 places
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - OpeningHoursAgent completed successfully
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - Executing TicketAgent
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Checking ticket requirements for candidate places
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.ticket - Reservation required for Colosseum
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.ticket - Colosseum has high ticket price: €18.0
+2026-03-15 13:28:03 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Piazza Venezia
+2026-03-15 13:28:03 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Altare Della Patria
+2026-03-15 13:28:03 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Armando al Pantheon
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Processed 7 places
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - TicketAgent completed successfully
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.workflow - Executing TravelTimeAgent
+2026-03-15 13:28:03 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculating travel times between places
+2026-03-15 13:28:03 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:04 - INFO - [no-session] - src.router - Got pedestrian route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:28:04 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:05 - INFO - [no-session] - src.router - Got pedestrian route with 122 points, distance: 1350m, duration: 18.0min
+2026-03-15 13:28:05 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:06 - INFO - [no-session] - src.router - Got pedestrian route with 185 points, distance: 2113m, duration: 28.2min
+2026-03-15 13:28:06 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:07 - INFO - [no-session] - src.router - Got pedestrian route with 208 points, distance: 2098m, duration: 28.0min
+2026-03-15 13:28:07 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:08 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:28:08 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:10 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 2115m, duration: 28.2min
+2026-03-15 13:28:10 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:11 - INFO - [no-session] - src.router - Got pedestrian route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:28:11 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:12 - INFO - [no-session] - src.router - Got pedestrian route with 89 points, distance: 857m, duration: 11.4min
+2026-03-15 13:28:12 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:13 - INFO - [no-session] - src.router - Got pedestrian route with 87 points, distance: 871m, duration: 11.6min
+2026-03-15 13:28:13 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:14 - INFO - [no-session] - src.router - Got pedestrian route with 117 points, distance: 1169m, duration: 15.6min
+2026-03-15 13:28:14 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:15 - INFO - [no-session] - src.router - Got pedestrian route with 187 points, distance: 1699m, duration: 22.7min
+2026-03-15 13:28:15 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:16 - INFO - [no-session] - src.router - Got pedestrian route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:28:16 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:17 - INFO - [no-session] - src.router - Got pedestrian route with 146 points, distance: 1097m, duration: 14.6min
+2026-03-15 13:28:17 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:18 - INFO - [no-session] - src.router - Got pedestrian route with 161 points, distance: 1388m, duration: 18.5min
+2026-03-15 13:28:18 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:19 - INFO - [no-session] - src.router - Got pedestrian route with 218 points, distance: 1780m, duration: 23.7min
+2026-03-15 13:28:19 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:20 - INFO - [no-session] - src.router - Got pedestrian route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:28:20 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:22 - INFO - [no-session] - src.router - Got pedestrian route with 29 points, distance: 313m, duration: 4.2min
+2026-03-15 13:28:22 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:23 - INFO - [no-session] - src.router - Got pedestrian route with 154 points, distance: 2199m, duration: 29.3min
+2026-03-15 13:28:23 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:24 - INFO - [no-session] - src.router - Got pedestrian route with 28 points, distance: 414m, duration: 5.6min
+2026-03-15 13:28:24 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:25 - INFO - [no-session] - src.router - Got pedestrian route with 143 points, distance: 2081m, duration: 27.8min
+2026-03-15 13:28:25 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:26 - INFO - [no-session] - src.router - Got pedestrian route with 174 points, distance: 2427m, duration: 32.4min
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculated 42 travel time pairs
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - TravelTimeAgent completed successfully
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - Executing RouteOptimizationAgent
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimizing route order
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimized route with 7 places, total distance: 5.68 km
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - RouteOptimizationAgent completed successfully
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - Executing CrowdPredictionAgent
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicting crowd levels
+2026-03-15 13:28:26 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Piazza Venezia, using default
+2026-03-15 13:28:26 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Altare Della Patria, using default
+2026-03-15 13:28:26 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Pantheon will be very crowded at 13:30
+2026-03-15 13:28:26 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:28:26 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Piazza Navona will be very crowded at 15:15
+2026-03-15 13:28:26 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Trevi Fountain will be very crowded at 16:00
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicted crowds for 7 places
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - CrowdPredictionAgent completed successfully
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - Executing CostAgent
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.cost - Cost Agent: Calculating itinerary costs
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.cost - Cost Agent: Total cost €38.00
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - CostAgent completed successfully
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - Executing FeasibilityAgent
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.feasibility - Feasibility Agent: Validating itinerary feasibility
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.feasibility - Total walking distance: 4.59 km
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.feasibility - Total time: 9.0 hours
+2026-03-15 13:28:26 - WARNING - [no-session] - src.agents.feasibility - Total time (9.0h) exceeds available time (8.0h)
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.feasibility - Feasibility score: 84.9/100, Feasible: True
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - FeasibilityAgent completed successfully
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - Workflow complete
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - Executing FinalizeItinerary
+2026-03-15 13:28:26 - INFO - [no-session] - src.agents.workflow - Finalizing: Building itinerary from optimized route
+2026-03-15 13:28:27 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 13:28:29 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - FinalizeItinerary completed successfully
+2026-03-15 13:28:30 - INFO - [no-session] - src.planner_integration - Successfully re-optimized itinerary with 8 stops, feasibility score: 85/100
+2026-03-15 13:28:30 - INFO - [no-session] - src.planner_integration - Modifying itinerary: action=add, place=Capitoline Museums, index=None
+2026-03-15 13:28:30 - INFO - [no-session] - src.planner_integration - Added place: Capitoline Museums
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - Complete planner workflow created successfully
+2026-03-15 13:28:30 - INFO - [no-session] - src.planner_integration - Re-optimizing itinerary...
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - Executing PlaceDiscoveryAgent
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.place_discovery - Skipping place discovery - using 9 pre-selected places
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - PlaceDiscoveryAgent completed successfully
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - Executing OpeningHoursAgent
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Checking opening hours for candidate places
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Piazza Venezia
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Altare Della Patria
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Armando al Pantheon
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Armando al Pantheon
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Processed 8 places
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - OpeningHoursAgent completed successfully
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - Executing TicketAgent
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Checking ticket requirements for candidate places
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.ticket - Reservation required for Colosseum
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.ticket - Colosseum has high ticket price: €18.0
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Piazza Venezia
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Altare Della Patria
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Armando al Pantheon
+2026-03-15 13:28:30 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Armando al Pantheon
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.ticket - Capitoline Museums has high ticket price: €16.0
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Processed 8 places
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - TicketAgent completed successfully
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.workflow - Executing TravelTimeAgent
+2026-03-15 13:28:30 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculating travel times between places
+2026-03-15 13:28:30 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:31 - INFO - [no-session] - src.router - Got pedestrian route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:28:31 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:32 - INFO - [no-session] - src.router - Got pedestrian route with 122 points, distance: 1350m, duration: 18.0min
+2026-03-15 13:28:32 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:33 - INFO - [no-session] - src.router - Got pedestrian route with 185 points, distance: 2113m, duration: 28.2min
+2026-03-15 13:28:33 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:35 - INFO - [no-session] - src.router - Got pedestrian route with 208 points, distance: 2098m, duration: 28.0min
+2026-03-15 13:28:35 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:36 - INFO - [no-session] - src.router - Got pedestrian route with 185 points, distance: 2113m, duration: 28.2min
+2026-03-15 13:28:36 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:37 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:28:37 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:38 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 2115m, duration: 28.2min
+2026-03-15 13:28:38 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:39 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 2115m, duration: 28.2min
+2026-03-15 13:28:39 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:40 - INFO - [no-session] - src.router - Got pedestrian route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:28:40 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:41 - INFO - [no-session] - src.router - Got pedestrian route with 89 points, distance: 857m, duration: 11.4min
+2026-03-15 13:28:41 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:42 - INFO - [no-session] - src.router - Got pedestrian route with 87 points, distance: 871m, duration: 11.6min
+2026-03-15 13:28:42 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:44 - INFO - [no-session] - src.router - Got pedestrian route with 89 points, distance: 857m, duration: 11.4min
+2026-03-15 13:28:44 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:45 - INFO - [no-session] - src.router - Got pedestrian route with 117 points, distance: 1169m, duration: 15.6min
+2026-03-15 13:28:45 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:45 - INFO - [no-session] - src.router - Got pedestrian route with 187 points, distance: 1699m, duration: 22.7min
+2026-03-15 13:28:45 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:46 - INFO - [no-session] - src.router - Got pedestrian route with 187 points, distance: 1699m, duration: 22.7min
+2026-03-15 13:28:46 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:47 - INFO - [no-session] - src.router - Got pedestrian route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:28:47 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:48 - INFO - [no-session] - src.router - Got pedestrian route with 146 points, distance: 1097m, duration: 14.6min
+2026-03-15 13:28:48 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:49 - INFO - [no-session] - src.router - Got pedestrian route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:28:49 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:49 - INFO - [no-session] - src.router - Got pedestrian route with 161 points, distance: 1388m, duration: 18.5min
+2026-03-15 13:28:49 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:50 - INFO - [no-session] - src.router - Got pedestrian route with 218 points, distance: 1780m, duration: 23.7min
+2026-03-15 13:28:50 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:51 - INFO - [no-session] - src.router - Got pedestrian route with 218 points, distance: 1780m, duration: 23.7min
+2026-03-15 13:28:51 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:52 - INFO - [no-session] - src.router - Got pedestrian route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:28:52 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:53 - INFO - [no-session] - src.router - Got pedestrian route with 2 points, distance: 0m, duration: 0.0min
+2026-03-15 13:28:53 - ERROR - [no-session] - src.agents.travel_time - Error calculating travel time: 1 validation error for TravelTime
+duration_minutes
+  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
+2026-03-15 13:28:53 - ERROR - [no-session] - src.agents.workflow - TravelTimeAgent failed: 1 validation error for TravelTime
+duration_minutes
+  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\agents\workflow.py", line 25, in wrapper
+    result = agent_func(state)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\src\agents\travel_time.py", line 186, in travel_time_agent
+    fallback_time = TravelTime(
+                    ^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\pydantic\main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TravelTime
+duration_minutes
+  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - Executing RouteOptimizationAgent
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimizing route order
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.route_optimization - No travel times available, using coordinate-based route optimization
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimized route with 9 places, total distance: 0.00 km
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - RouteOptimizationAgent completed successfully
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - Executing CrowdPredictionAgent
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicting crowd levels
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Altare Della Patria, using default
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Piazza Venezia, using default
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Pantheon will be very crowded at 13:30
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Piazza Navona will be very crowded at 16:15
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Trevi Fountain will be very crowded at 17:00
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Capitoline Museums, using default
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicted crowds for 8 places
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - CrowdPredictionAgent completed successfully
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - Executing CostAgent
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.cost - Cost Agent: Calculating itinerary costs
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.cost - Cost Agent: Total cost €69.00
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - CostAgent completed successfully
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - Executing FeasibilityAgent
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.feasibility - Feasibility Agent: Validating itinerary feasibility
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.feasibility - Total walking distance: 0.00 km
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.feasibility - Total time: 10.0 hours
+2026-03-15 13:28:53 - WARNING - [no-session] - src.agents.feasibility - Total time (10.0h) exceeds available time (8.0h)
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.feasibility - Feasibility score: 70.0/100, Feasible: True
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - FeasibilityAgent completed successfully
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - Workflow complete
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - Executing FinalizeItinerary
+2026-03-15 13:28:53 - INFO - [no-session] - src.agents.workflow - Finalizing: Building itinerary from optimized route
+2026-03-15 13:28:53 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 13:28:54 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - FinalizeItinerary completed successfully
+2026-03-15 13:28:55 - ERROR - [no-session] - src.planner_integration - Re-optimization completed with errors: ['TravelTimeAgent failed: 1 validation error for TravelTime\nduration_minutes\n  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error']
+2026-03-15 13:28:55 - INFO - [no-session] - src.planner_integration - Successfully re-optimized itinerary with 10 stops, feasibility score: 70/100
+2026-03-15 13:28:55 - INFO - [no-session] - src.planner_integration - Modifying itinerary: action=add, place=Galleria Borghese, index=None
+2026-03-15 13:28:55 - INFO - [no-session] - src.planner_integration - Added place: Galleria Borghese
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - Complete planner workflow created successfully
+2026-03-15 13:28:55 - INFO - [no-session] - src.planner_integration - Re-optimizing itinerary...
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - Executing PlaceDiscoveryAgent
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.place_discovery - Skipping place discovery - using 11 pre-selected places
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - PlaceDiscoveryAgent completed successfully
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - Executing OpeningHoursAgent
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Checking opening hours for candidate places
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Altare Della Patria
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Piazza Venezia
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Armando al Pantheon
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Armando al Pantheon
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Armando al Pantheon
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.opening_hours - No opening hours data found for: Galleria Borghese
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.opening_hours - Opening Hours Agent: Processed 9 places
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - OpeningHoursAgent completed successfully
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - Executing TicketAgent
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Checking ticket requirements for candidate places
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.ticket - Reservation required for Colosseum
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.ticket - Colosseum has high ticket price: €18.0
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Altare Della Patria
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Piazza Venezia
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Armando al Pantheon
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Armando al Pantheon
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Armando al Pantheon
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.ticket - Capitoline Museums has high ticket price: €16.0
+2026-03-15 13:28:55 - WARNING - [no-session] - src.agents.ticket - No ticket data found for: Galleria Borghese
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.ticket - Ticket Agent: Processed 9 places
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - TicketAgent completed successfully
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.workflow - Executing TravelTimeAgent
+2026-03-15 13:28:55 - INFO - [no-session] - src.agents.travel_time - Travel Time Agent: Calculating travel times between places
+2026-03-15 13:28:55 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:56 - INFO - [no-session] - src.router - Got pedestrian route with 122 points, distance: 1350m, duration: 18.0min
+2026-03-15 13:28:56 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:57 - INFO - [no-session] - src.router - Got pedestrian route with 73 points, distance: 1269m, duration: 17.0min
+2026-03-15 13:28:57 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:58 - INFO - [no-session] - src.router - Got pedestrian route with 185 points, distance: 2113m, duration: 28.2min
+2026-03-15 13:28:58 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:59 - INFO - [no-session] - src.router - Got pedestrian route with 208 points, distance: 2098m, duration: 28.0min
+2026-03-15 13:28:59 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:28:59 - INFO - [no-session] - src.router - Got pedestrian route with 185 points, distance: 2113m, duration: 28.2min
+2026-03-15 13:28:59 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:00 - INFO - [no-session] - src.router - Got pedestrian route with 185 points, distance: 2113m, duration: 28.2min
+2026-03-15 13:29:00 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:01 - INFO - [no-session] - src.router - Got pedestrian route with 223 points, distance: 2389m, duration: 31.8min
+2026-03-15 13:29:01 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:02 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 2115m, duration: 28.2min
+2026-03-15 13:29:02 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:03 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 2115m, duration: 28.2min
+2026-03-15 13:29:03 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:04 - INFO - [no-session] - src.router - Got pedestrian route with 207 points, distance: 2115m, duration: 28.2min
+2026-03-15 13:29:04 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:04 - INFO - [no-session] - src.router - Got pedestrian route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:29:04 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:05 - INFO - [no-session] - src.router - Got pedestrian route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:29:05 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:06 - INFO - [no-session] - src.router - Got pedestrian route with 146 points, distance: 1097m, duration: 14.6min
+2026-03-15 13:29:06 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:07 - INFO - [no-session] - src.router - Got pedestrian route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:29:07 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:08 - INFO - [no-session] - src.router - Got pedestrian route with 123 points, distance: 1113m, duration: 14.8min
+2026-03-15 13:29:08 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:09 - INFO - [no-session] - src.router - Got pedestrian route with 161 points, distance: 1388m, duration: 18.5min
+2026-03-15 13:29:09 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:09 - INFO - [no-session] - src.router - Got pedestrian route with 218 points, distance: 1780m, duration: 23.7min
+2026-03-15 13:29:09 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:10 - INFO - [no-session] - src.router - Got pedestrian route with 218 points, distance: 1780m, duration: 23.7min
+2026-03-15 13:29:10 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:11 - INFO - [no-session] - src.router - Got pedestrian route with 218 points, distance: 1780m, duration: 23.7min
+2026-03-15 13:29:11 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:12 - INFO - [no-session] - src.router - Got pedestrian route with 89 points, distance: 857m, duration: 11.4min
+2026-03-15 13:29:12 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:13 - INFO - [no-session] - src.router - Got pedestrian route with 87 points, distance: 871m, duration: 11.6min
+2026-03-15 13:29:13 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:14 - INFO - [no-session] - src.router - Got pedestrian route with 89 points, distance: 857m, duration: 11.4min
+2026-03-15 13:29:14 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:14 - INFO - [no-session] - src.router - Got pedestrian route with 89 points, distance: 857m, duration: 11.4min
+2026-03-15 13:29:14 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:15 - INFO - [no-session] - src.router - Got pedestrian route with 117 points, distance: 1169m, duration: 15.6min
+2026-03-15 13:29:15 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:16 - INFO - [no-session] - src.router - Got pedestrian route with 187 points, distance: 1699m, duration: 22.7min
+2026-03-15 13:29:16 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:17 - INFO - [no-session] - src.router - Got pedestrian route with 187 points, distance: 1699m, duration: 22.7min
+2026-03-15 13:29:17 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:18 - INFO - [no-session] - src.router - Got pedestrian route with 187 points, distance: 1699m, duration: 22.7min
+2026-03-15 13:29:18 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:19 - INFO - [no-session] - src.router - Got pedestrian route with 19 points, distance: 191m, duration: 2.5min
+2026-03-15 13:29:19 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:20 - INFO - [no-session] - src.router - Got pedestrian route with 2 points, distance: 0m, duration: 0.0min
+2026-03-15 13:29:20 - ERROR - [no-session] - src.agents.travel_time - Error calculating travel time: 1 validation error for TravelTime
+duration_minutes
+  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
+2026-03-15 13:29:20 - ERROR - [no-session] - src.agents.workflow - TravelTimeAgent failed: 1 validation error for TravelTime
+duration_minutes
+  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
+Traceback (most recent call last):
+  File "C:\Users\Oriel\chatbots\src\agents\workflow.py", line 25, in wrapper
+    result = agent_func(state)
+             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\src\agents\travel_time.py", line 186, in travel_time_agent
+    fallback_time = TravelTime(
+                    ^^^^^^^^^^^
+  File "C:\Users\Oriel\chatbots\venv\Lib\site-packages\pydantic\main.py", line 250, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for TravelTime
+duration_minutes
+  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing RouteOptimizationAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimizing route order
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.route_optimization - No travel times available, using coordinate-based route optimization
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimized route with 11 places, total distance: 0.00 km
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - RouteOptimizationAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing CrowdPredictionAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicting crowd levels
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Altare Della Patria, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Piazza Venezia, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Pantheon will be very crowded at 13:30
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Piazza Navona will be very crowded at 17:15
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Trevi Fountain will be very crowded at 18:00
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Capitoline Museums, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Galleria Borghese, using default
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicted crowds for 9 places
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - CrowdPredictionAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing CostAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.cost - Cost Agent: Calculating itinerary costs
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.cost - Cost Agent: Total cost €69.00
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - CostAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing FeasibilityAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Feasibility Agent: Validating itinerary feasibility
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Total walking distance: 0.00 km
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Total time: 12.0 hours
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.feasibility - Total time (12.0h) exceeds available time (8.0h)
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Feasibility score: 50.0/100, Feasible: False
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - FeasibilityAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Continuing iteration to improve feasibility
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing PlannerAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.planner - Planner Agent: Iteration 1/3
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.planner - Itinerary not feasible, attempting to fix issues
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.planner - Removed longest visits, kept 10 places
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - PlannerAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing RouteOptimizationAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimizing route order
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.route_optimization - No travel times available, using coordinate-based route optimization
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.route_optimization - Route Optimization Agent: Optimized route with 10 places, total distance: 0.00 km
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - RouteOptimizationAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing CrowdPredictionAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicting crowd levels
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Piazza Venezia, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Altare Della Patria, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Armando al Pantheon, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Piazza Navona will be very crowded at 15:15
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - ⚠️ Trevi Fountain will be very crowded at 16:00
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Capitoline Museums, using default
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.crowd_prediction - No crowd pattern for Galleria Borghese, using default
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.crowd_prediction - Crowd Prediction Agent: Predicted crowds for 8 places
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - CrowdPredictionAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing CostAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.cost - Cost Agent: Calculating itinerary costs
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.cost - Cost Agent: Total cost €51.00
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - CostAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing FeasibilityAgent
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Feasibility Agent: Validating itinerary feasibility
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Total walking distance: 0.00 km
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Total time: 10.0 hours
+2026-03-15 13:29:20 - WARNING - [no-session] - src.agents.feasibility - Total time (10.0h) exceeds available time (8.0h)
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.feasibility - Feasibility score: 80.0/100, Feasible: True
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - FeasibilityAgent completed successfully
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Workflow complete
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Executing FinalizeItinerary
+2026-03-15 13:29:20 - INFO - [no-session] - src.agents.workflow - Finalizing: Building itinerary from optimized route
+2026-03-15 13:29:21 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-03-15 13:29:22 - INFO - [no-session] - httpx - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-03-15 13:29:23 - INFO - [no-session] - src.agents.workflow - FinalizeItinerary completed successfully
+2026-03-15 13:29:23 - ERROR - [no-session] - src.planner_integration - Re-optimization completed with errors: ['TravelTimeAgent failed: 1 validation error for TravelTime\nduration_minutes\n  Value error, duration_minutes must be positive [type=value_error, input_value=0.0, input_type=float]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error']
+2026-03-15 13:29:23 - INFO - [no-session] - src.planner_integration - Successfully re-optimized itinerary with 11 stops, feasibility score: 80/100
+2026-03-15 13:29:23 - INFO - [no-session] - __main__ - Itinerary modified: add_multiple
+2026-03-15 13:29:23 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:29:23 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:29:23 - INFO - [no-session] - src.map_builder - Creating base map centered at (41.9028, 12.4964) with zoom 13
+2026-03-15 13:29:23 - INFO - [no-session] - src.map_builder - Adding 11 markers to map (numbered=True)
+2026-03-15 13:29:23 - INFO - [no-session] - src.map_builder - Calculating route through places (mode: auto)
+2026-03-15 13:29:24 - INFO - [no-session] - src.router - Got pedestrian route with 187 points, distance: 1699m, duration: 22.7min
+2026-03-15 13:29:24 - INFO - [no-session] - src.router - Auto-selected pedestrian mode (walking time: 22.7 min)
+2026-03-15 13:29:24 - INFO - [no-session] - src.router - Calculating pedestrian route through 11 waypoints (prefer_shortest=True)
+2026-03-15 13:29:25 - INFO - [no-session] - src.router - Got pedestrian route with 60 points, distance: 392m, duration: 5.2min
+2026-03-15 13:29:26 - INFO - [no-session] - src.router - Got pedestrian route with 146 points, distance: 1097m, duration: 14.6min
+2026-03-15 13:29:27 - INFO - [no-session] - src.router - Got pedestrian route with 20 points, distance: 191m, duration: 2.6min
+2026-03-15 13:29:29 - INFO - [no-session] - src.router - Got pedestrian route with 2 points, distance: 0m, duration: 0.0min
+2026-03-15 13:29:30 - INFO - [no-session] - src.router - Got pedestrian route with 74 points, distance: 800m, duration: 10.7min
+2026-03-15 13:29:31 - INFO - [no-session] - src.router - Got pedestrian route with 74 points, distance: 800m, duration: 10.7min
+2026-03-15 13:29:33 - INFO - [no-session] - src.router - Got pedestrian route with 29 points, distance: 313m, duration: 4.2min
+2026-03-15 13:29:34 - INFO - [no-session] - src.router - Got pedestrian route with 174 points, distance: 2427m, duration: 32.4min
+2026-03-15 13:29:36 - INFO - [no-session] - src.router - Got pedestrian route with 2 points, distance: 0m, duration: 0.0min
+2026-03-15 13:29:37 - INFO - [no-session] - src.router - Got pedestrian route with 2 points, distance: 0m, duration: 0.0min
+2026-03-15 13:29:37 - INFO - [no-session] - src.router - Complete pedestrian route has 574 points
+2026-03-15 13:29:37 - INFO - [no-session] - src.map_builder - Adding route with 574 points
+2026-03-15 13:29:37 - INFO - [no-session] - src.map_builder - Added route with 574 points
+2026-03-15 13:29:37 - INFO - [no-session] - src.map_builder - Created map with 11 places
+2026-03-15 13:30:00 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:30:03 - INFO - [no-session] - __main__ - Loaded vector store with 271 documents
+2026-03-15 13:30:03 - INFO - [no-session] - src.geocoder - Geocoder initialized with user_agent: rome_places_chatbot
+2026-03-15 13:30:03 - INFO - [no-session] - src.router - Router initialized with multi-mode support
+2026-03-15 13:30:03 - INFO - [no-session] - src.map_builder - MapBuilder initialized with Router
+2026-03-15 13:30:03 - INFO - [no-session] - __main__ - All components initialized successfully
+2026-03-15 13:30:03 - INFO - [no-session] - __main__ - Created new session: 29c24b49-bd8c-4dca-adae-1ab93461008e
+2026-03-15 13:30:03 - INFO - [no-session] - __main__ - Loaded 0 messages from history
+2026-03-15 13:30:08 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:30:08 - INFO - [no-session] - __main__ - Deleted session: ccdcb2a1-9284-4d28-a618-93dd2eed2878
+2026-03-15 13:30:09 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:30:18 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:30:18 - INFO - [no-session] - __main__ - Deleted session: a7dfac10-23ee-4e2d-b660-39bd958aaf9a
+2026-03-15 13:30:19 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:30:20 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True
+2026-03-15 13:30:24 - INFO - [6f59f752-4463-44a8-b293-494efc8501bd] - root - Logging configured - Level: INFO, File: logs/chatbot.log, Console: True

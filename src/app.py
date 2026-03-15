@@ -1099,19 +1099,40 @@ def main():
                     place_name=action["place_name"]
                 )
             elif action["type"] == "add_multiple":
-                # Add multiple discovered places sequentially
-                modified_itinerary = st.session_state.planned_itinerary
+                # Batch all places into one workflow run instead of one per place
+                from src.agents.models import Place
+                from src.agents.workflow import create_planner_workflow
+                from src.agents.models import PlannerState as _PS
+                
+                current_places = [stop.place for stop in st.session_state.planned_itinerary.stops]
                 for pname in action["place_names"]:
-                    result = modify_itinerary(
-                        current_itinerary=modified_itinerary,
-                        user_preferences=user_preferences,
-                        action_type="add",
-                        place_name=pname
-                    )
-                    if result:
-                        modified_itinerary = result
-                    else:
-                        logger.warning(f"Failed to add discovered place: {pname}")
+                    current_places.append(Place(
+                        name=pname,
+                        place_type="attraction",
+                        coordinates=(41.9028, 12.4964),
+                        visit_duration=60
+                    ))
+                
+                workflow = create_planner_workflow()
+                initial_state = _PS(
+                    user_query=f"Re-optimize itinerary with {len(current_places)} places",
+                    user_preferences=user_preferences,
+                    selected_places=current_places,
+                    explanation=f"Added {len(action['place_names'])} places to itinerary."
+                )
+                result = workflow.invoke(initial_state)
+                if isinstance(result, dict):
+                    itinerary_result = result.get("itinerary")
+                else:
+                    itinerary_result = getattr(result, "itinerary", None)
+                
+                if itinerary_result:
+                    from src.agents.models import Itinerary as _It
+                    if isinstance(itinerary_result, dict):
+                        itinerary_result = _It(**itinerary_result)
+                    modified_itinerary = itinerary_result
+                else:
+                    modified_itinerary = None
             else:
                 modified_itinerary = None
             

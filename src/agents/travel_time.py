@@ -151,6 +151,9 @@ def travel_time_agent(state: PlannerState) -> PlannerState:
     places = state.candidate_places
     travel_times = {}
     
+    # Reuse a single Router instance for all calculations
+    router = Router()
+    
     # Calculate pairwise travel times
     for i, place_a in enumerate(places):
         for j, place_b in enumerate(places):
@@ -160,25 +163,36 @@ def travel_time_agent(state: PlannerState) -> PlannerState:
             logger.debug(f"Calculating travel time: {place_a.name} -> {place_b.name}")
             
             try:
-                travel_time = calculate_travel_time(
+                result = router.get_route(
                     place_a.coordinates,
                     place_b.coordinates,
                     mode="pedestrian"
                 )
                 
+                if result:
+                    route_coords, duration_seconds = result
+                    distance_km = calculate_route_distance(route_coords)
+                    travel_time = TravelTime(
+                        duration_minutes=duration_seconds / 60,
+                        distance_km=distance_km,
+                        mode="pedestrian"
+                    )
+                else:
+                    distance = calculate_haversine_distance(
+                        place_a.coordinates, place_b.coordinates
+                    )
+                    travel_time = TravelTime(
+                        duration_minutes=(distance / 5.0) * 60,
+                        distance_km=distance,
+                        mode="pedestrian"
+                    )
+                
                 # Store both directions (symmetric)
                 travel_times[(place_a.name, place_b.name)] = travel_time
                 travel_times[(place_b.name, place_a.name)] = travel_time
                 
-                logger.debug(
-                    f"Travel time {place_a.name} <-> {place_b.name}: "
-                    f"{travel_time.duration_minutes:.1f} min, "
-                    f"{travel_time.distance_km:.2f} km"
-                )
-                
             except Exception as e:
                 logger.error(f"Error calculating travel time: {e}")
-                # Use fallback estimate
                 distance = calculate_haversine_distance(
                     place_a.coordinates,
                     place_b.coordinates
