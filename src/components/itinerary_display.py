@@ -165,8 +165,24 @@ def render_itinerary_map(itinerary: Itinerary):
         )
         markers.append(marker)
     
-    # Determine transport mode from itinerary (default to pedestrian)
-    transport_mode = "pedestrian"
+    # Transport mode selector
+    mode_option = st.radio(
+        "Route Type:",
+        options=["Auto (Smart)", "🚶 Walking", "🚗 Driving", "🚌 Public Transport"],
+        horizontal=True,
+        index=0,
+        key="itinerary_transport_mode"
+    )
+    mode_map = {
+        "Auto (Smart)": None,
+        "🚶 Walking": "pedestrian",
+        "🚗 Driving": "car",
+        "🚌 Public Transport": "public_transport"
+    }
+    transport_mode = mode_map[mode_option]
+    
+    if transport_mode is None:
+        st.caption("_Auto: Walking <30min, else transit_")
     
     # Create map with markers and route
     map_obj = map_builder.create_map_with_places(
@@ -202,6 +218,15 @@ def render_itinerary_map(itinerary: Itinerary):
             seen_labels.add(label)
             legend_entries.append((css_color, label))
     
+    # Determine route label and color for legend
+    route_mode_labels = {
+        None: ("Auto route", "#2A81CB"),
+        "pedestrian": ("Walking route", "#2A81CB"),
+        "car": ("Driving route", "#CB2B3E"),
+        "public_transport": ("Public transport", "#2AAD27"),
+    }
+    route_label, route_color_css = route_mode_labels.get(transport_mode, ("Route", "#2A81CB"))
+    
     # Build native HTML legend overlay inside the map
     if legend_entries:
         legend_rows = ""
@@ -230,8 +255,8 @@ def render_itinerary_map(itinerary: Itinerary):
             {legend_rows}
             <div style="margin-top:4px;border-top:1px solid #ddd;padding-top:3px;">
                 <div style="display:flex;align-items:center;margin:2px 0;">
-                    <span style="background:#2A81CB;width:20px;height:3px;display:inline-block;margin-right:5px;border-radius:1px;"></span>
-                    <span style="font-size:11px;">Walking route</span>
+                    <span style="background:{route_color_css};width:20px;height:3px;display:inline-block;margin-right:5px;border-radius:1px;"></span>
+                    <span style="font-size:11px;">{route_label}</span>
                 </div>
             </div>
         </div>
@@ -253,7 +278,7 @@ def render_itinerary_map(itinerary: Itinerary):
             dot = f'<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:{color};margin-right:3px;vertical-align:middle;border:1px solid #999;"></span>'
             legend_items_html.append(f"{dot}{label}")
         # Add route line indicator
-        route_line = '<span style="display:inline-block;width:18px;height:3px;background:#2A81CB;margin-right:3px;vertical-align:middle;border-radius:1px;"></span>Walking route'
+        route_line = f'<span style="display:inline-block;width:18px;height:3px;background:{route_color_css};margin-right:3px;vertical-align:middle;border-radius:1px;"></span>{route_label}'
         legend_items_html.append(route_line)
         st.markdown(
             f'<p style="font-size:0.82em;color:#555;">Legend: {" &nbsp;·&nbsp; ".join(legend_items_html)}</p>',
