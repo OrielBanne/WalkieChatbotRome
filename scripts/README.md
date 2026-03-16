@@ -4,7 +4,7 @@ This directory contains the data ingestion script for the Rome Places Chatbot.
 
 ## Overview
 
-The `ingest_data.py` script ingests content from various sources (YouTube videos, web pages, PDFs), chunks the text, generates embeddings using OpenAI, and stores them in a FAISS vector store.
+The `ingest_data.py` script ingests content from various sources (YouTube videos, web pages, PDFs), chunks the text, generates embeddings using OpenAI, and stores them in a NumPy-based vector store.
 
 ## Usage
 
@@ -79,8 +79,8 @@ OPENAI_API_KEY=your_api_key_here
 
 ## Output
 
-The script creates a FAISS vector store in the specified output directory with two files:
-- `faiss.index`: The FAISS index containing embeddings
+The script creates a vector store in the specified output directory with two files:
+- `embeddings.npy`: NumPy array of document embeddings
 - `documents.pkl`: Pickled document metadata
 
 ## Progress Indicators

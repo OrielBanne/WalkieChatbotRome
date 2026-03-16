@@ -1,4 +1,0 @@
-# file: C:\Users\Oriel\chatbots\scripts\ingest_data.py
-# hypothesis_version: 6.151.9
-
-[200, 1000, '#', '+', '--append', '--chunk-size', '--output', '--overlap', '--pdf', '--sources', '--web', '--youtube', ':', '=', 'Adding documents', 'Ingestion complete!', 'PDF files', 'Web pages', 'YouTube videos', '__main__', 'chunk_id', 'data/vector_store', 'pdf', 'r', 'store_true', 'total_chunks', 'web', 'youtube']

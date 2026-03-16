@@ -50,3 +50,6 @@ sessions/*.json
 
 # Vector Store
 *.faiss
+
+# Hypothesis (property-based testing cache)
+.hypothesis/

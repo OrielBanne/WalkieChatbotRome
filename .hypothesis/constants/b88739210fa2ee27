@@ -1,4 +1,0 @@
-# file: C:\Users\Oriel\chatbots\src\loaders.py
-# hypothesis_version: 6.151.9
-
-['192', 'FFmpegExtractAudio', 'User-Agent', '\\s+', 'article', 'aside', 'base', 'bestaudio/best', 'body', 'content_type', 'div[role="main"]', 'file_path', 'footer', 'format', 'header', 'html.parser', 'key', 'main', 'mp3', 'nav', 'no_warnings', 'outtmpl', 'page', 'pdf', 'postprocessors', 'preferredcodec', 'preferredquality', 'quiet', 'script', 'source', 'style', 'text', 'timestamp', 'title', 'total_pages', 'transcript', 'transcript_method', 'url', 'v', 'video_id', 'web', 'webpage', 'whisper', 'youtube', 'youtube.com']

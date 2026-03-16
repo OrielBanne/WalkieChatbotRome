@@ -1,4 +1,0 @@
-# file: C:\Users\Oriel\chatbots\src\config.py
-# hypothesis_version: 6.151.9
-
-[12.4, 12.6, 41.8, 41.95, -180, 180, './data', './data/vector_store', './sessions', '1000', '12.4964', '200', '3', '30', '4000', '41.9028', '5', '90', '=', 'API_MAX_RETRIES', 'API_TIMEOUT', 'APP_TITLE', 'Application:', 'CHUNK_OVERLAP', 'CHUNK_SIZE', 'DATA_DIR', 'EMBEDDING_MODEL', 'File Paths:', 'GEOCODING_USER_AGENT', 'Geographic:', 'INFO', 'LLM_MODEL', 'LOG_LEVEL', 'Logging:', 'MAX_CONTEXT_TOKENS', 'Models:', 'OPENAI_API_KEY', 'RAG:', 'RAG_RETRIEVAL_K', 'RETRIEVAL_TOP_K', 'ROME_CENTER_LAT', 'ROME_CENTER_LON', 'Rome Places Chatbot', 'SESSION_STORAGE_PATH', 'SPACY_MODEL', 'Session Management:', 'Text Chunking:', 'VECTOR_STORE_PATH', 'en_core_web_sm', 'gpt-3.5-turbo', 'rome_places_chatbot']

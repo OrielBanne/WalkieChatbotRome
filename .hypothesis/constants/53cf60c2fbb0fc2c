@@ -1,4 +1,0 @@
-# file: C:\Users\Oriel\chatbots\src\session_manager.py
-# hypothesis_version: 6.151.9
-
-['%Y-%m-%d %H:%M:%S', '=', 'Assistant', 'User', 'content', 'created_at', 'last_interaction', 'messages', 'metadata', 'r', 'role', 'session_id', 'sessions', 'timestamp', 'user', 'user_id', 'w']

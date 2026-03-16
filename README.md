@@ -1,442 +1,245 @@
-# Rome Places Chatbot
+# 🏛️ WalkieChatbot Rome
 
-An interactive conversational AI system that helps users discover and learn about places of interest in Rome. The chatbot provides information, recommendations, and answers questions about Roman landmarks, restaurants, attractions, and other points of interest, while maintaining conversation context across sessions.
+An AI-powered travel companion for exploring Rome. Chat naturally about landmarks, get personalized day itineraries optimized for walking distance and opening hours, and see everything on an interactive map — all from your browser or phone.
 
-![Rome Places Chatbot in Action](screenshot%20of%20the%20App%20at%20work.jpg)
+![App in Action](screenshot%20of%20the%20App%20at%20work.jpg)
 
-## Features
+## What It Does
 
-- **Conversational AI**: Natural language interaction powered by OpenAI GPT models
-- **RAG Architecture**: Retrieval-Augmented Generation using curated content from YouTube, web sources, and PDFs
-- **Session Persistence**: Conversation history saved across sessions for continuous user experience
-- **Interactive Maps**: Visual place discovery with Folium maps integrated into the chat interface
-- **Place Extraction**: Automatic identification of Rome landmarks using regex-based gazetteer matching
-- **Geocoding**: Accurate location mapping with fallback to manual coordinates for major landmarks
-- **Context-Aware**: Maintains conversation context and references previous discussions
+- **Chat about Rome** — Ask anything about landmarks, restaurants, history. Responses are grounded in a curated knowledge base (YouTube transcripts, web articles, PDFs) via RAG.
+- **Plan My Day** — One click generates a full walking itinerary: optimized route order, opening hours, ticket prices, crowd predictions, lunch spots, and a feasibility score.
+- **Interactive Map** — Every itinerary renders on a Folium map with walking routes, color-coded markers, and nearby suggestions.
+- **Modify on the fly** — Add or remove stops from chat ("add Trevi Fountain", "remove Colosseum") and the itinerary re-optimizes automatically.
+- **Multi-day support** — Mark places as visited; the planner excludes them on subsequent days.
+- **Manage your knowledge base** — Add/remove YouTube videos, websites, and PDFs from the sidebar, then rebuild with one click.
+
+![Map View](screenshot%20of%20the%20App%20Map.jpg)
 
 ## Architecture
 
-The system uses a pipeline architecture with the following components:
+The app is built around a **multi-agent planning workflow** orchestrated with [LangGraph](https://github.com/langchain-ai/langgraph):
 
-- **Session Manager**: File-based conversation history persistence
-- **Context Manager**: Token-aware conversation context building
-- **Place Extractor**: Regex-based place name extraction with Rome landmarks gazetteer
-- **RAG Chain**: LangChain-powered retrieval and generation pipeline
-- **Vector Store**: FAISS-based document embedding storage
-- **Geocoder**: Geopy-based place name to coordinate conversion
-- **Map Builder**: Folium-based interactive map generation
-- **Streamlit UI**: User-friendly web interface
+```
+User Query
+    │
+    ▼
+┌─────────────────────┐
+│  Place Discovery     │  RAG + gazetteer extraction
+│  (multi-pass)        │  Fills available hours (~1 place / 75 min)
+└────────┬────────────┘
+         ▼
+┌─────────────────────┐
+│  Opening Hours       │  JSON data for Rome attractions
+│  Tickets             │  Prices, reservation requirements
+│  Travel Time (est.)  │  Manhattan-distance estimates (O(n²), instant)
+└────────┬────────────┘
+         ▼
+┌─────────────────────┐
+│  Route Optimization  │  Greedy nearest-neighbor TSP + meal breaks
+└────────┬────────────┘
+         ▼
+┌─────────────────────┐
+│  Travel Time (exact) │  OSRM Router for sequential pairs only (O(n))
+│  Crowd Prediction    │  Season, time-of-day, cruise-ship heuristics
+│  Cost Calculation    │  Tickets + meals + transport
+│  Feasibility Check   │  Score 0–100; iterates if < 70
+└────────┬────────────┘
+         ▼
+┌─────────────────────┐
+│  Build Itinerary     │  Curated lunch spots, final schedule
+└─────────────────────┘
+```
 
-## Prerequisites
 
-- Python 3.9 or higher
+### Key Components
+
+| Module | Purpose |
+|---|---|
+| `src/app.py` | Streamlit UI, session management, chat interface |
+| `src/rag_chain.py` | LangChain RAG pipeline (retrieve + generate) |
+| `src/vector_store.py` | NumPy-based cosine similarity search (replaced FAISS for cloud compatibility) |
+| `src/place_extractor.py` | Regex gazetteer with alias deduplication (e.g. "Piazza di Spagna" → "Spanish Steps") |
+| `src/geocoder.py` | Nominatim HTTP API + manual coordinate fallback for 50+ landmarks |
+| `src/router.py` | OSRM pedestrian routing with persistent cache |
+| `src/map_builder.py` | Folium map generation with route polylines |
+| `src/nearby_suggestions.py` | Suggests places near the current route |
+| `src/state_persistence.py` | Survives browser refresh / battery death |
+| `src/agents/` | LangGraph agent nodes (see architecture above) |
+| `src/components/itinerary_display.py` | Itinerary cards, summary, preference form |
+| `scripts/ingest_data.py` | Data ingestion pipeline (YouTube, web, PDF → embeddings) |
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11+
 - OpenAI API key
-- Internet connection for geocoding and API calls
 
-## Installation
-
-### 1. Clone the Repository
+### Install
 
 ```bash
-git clone <repository-url>
-cd rome-places-chatbot
-```
-
-### 2. Create Virtual Environment
-
-```bash
-# Windows
+git clone https://github.com/OrielBanne/WalkieChatbotRome.git
+cd WalkieChatbotRome
 python -m venv venv
-venv\Scripts\activate
-
-# macOS/Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
-
-```bash
+source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4. Configure Environment Variables
+### Set your API key
 
-**IMPORTANT: Your OpenAI API key should be set as a system environment variable, NOT in the `.env` file.**
-
-#### Option 1: PowerShell (Recommended for Windows)
-```powershell
-[System.Environment]::SetEnvironmentVariable('OPENAI_API_KEY', 'your-key-here', 'User')
-```
-
-#### Option 2: Windows GUI
-1. Open System Properties (Win + Pause/Break)
-2. Click "Advanced system settings"
-3. Click "Environment Variables"
-4. Under "User variables", click "New"
-5. Variable name: `OPENAI_API_KEY`
-6. Variable value: Your OpenAI API key
-7. Click OK
-
-#### Option 3: macOS/Linux
+**Option A — Environment variable (recommended):**
 ```bash
-# Add to ~/.bashrc or ~/.zshrc
-export OPENAI_API_KEY='your-key-here'
-
-# Then reload:
-source ~/.bashrc  # or source ~/.zshrc
+export OPENAI_API_KEY='sk-...'
 ```
 
-#### Verify It Works
+**Option B — `.env` file:**
 ```bash
-python -c "import os; print('✓ API key found' if os.getenv('OPENAI_API_KEY') else '✗ API key not found')"
+cp .env.example .env
+# Edit .env and add your key
 ```
 
-**Note:** After setting the environment variable, you may need to restart your terminal or IDE.
-
-## Data Ingestion
-
-Before running the chatbot, you need to ingest content about Rome places into the vector store.
-
-### Ingest from YouTube
+### Populate the knowledge base
 
 ```bash
-python scripts/ingest_data.py --youtube "https://www.youtube.com/watch?v=VIDEO_ID"
+python scripts/ingest_data.py --sources data/sample_sources.txt
 ```
 
-### Ingest from Web Pages
-
-```bash
-python scripts/ingest_data.py --web "https://example.com/rome-guide"
-```
-
-### Ingest from PDF Files
-
-```bash
-python scripts/ingest_data.py --pdf "path/to/rome-guide.pdf"
-```
-
-### Batch Ingestion
-
-You can ingest multiple sources at once:
-
+Or add individual sources:
 ```bash
 python scripts/ingest_data.py \
-  --youtube "https://www.youtube.com/watch?v=VIDEO1" \
-  --youtube "https://www.youtube.com/watch?v=VIDEO2" \
+  --youtube "https://www.youtube.com/watch?v=VIDEO_ID" \
   --web "https://example.com/rome-guide" \
-  --pdf "path/to/guide.pdf"
+  --pdf "data/pdfs/rome-guide.pdf"
 ```
 
-### Append to Existing Vector Store
-
-By default, ingestion appends to the existing vector store. To start fresh:
-
-```bash
-# Remove existing vector store
-rm -rf data/vector_store
-
-# Then run ingestion
-python scripts/ingest_data.py --youtube "URL"
-```
-
-### Managing Videos Through the UI
-
-You can also manage your knowledge base directly from the Streamlit app without using command-line scripts:
-
-1. **Start the app**: `streamlit run src/app.py`
-2. **Open the sidebar**: Look for the "📚 Knowledge Base" section
-3. **Manage Videos**: Click "📹 Manage Videos" to expand the panel
-4. **View current videos**: See all YouTube URLs currently in your knowledge base
-5. **Remove videos**: Click the 🗑️ button next to any video to remove it
-6. **Add new videos**: Paste a YouTube URL in the text input and click "➕ Add Video"
-7. **Rebuild**: Click "🔄 Rebuild Knowledge Base" to process all changes
-
-The rebuild process will:
-- Load transcripts from all videos in your list
-- Generate text chunks and embeddings
-- Update the vector store
-- Reload the knowledge base automatically
-
-![Managing Videos in the UI](rebuilding%20the%20knowledge%20base%20when%20adding%20youtube%20videos.jpg)
-
-## Running the Application
-
-### Start the Chatbot
+### Run
 
 ```bash
 streamlit run src/app.py
 ```
 
-The application will open in your default web browser at `http://localhost:8501`.
+Opens at `http://localhost:8501`.
 
-### Using the Chatbot
+## Deployment (Streamlit Cloud)
 
-1. **Ask Questions**: Type your question about Rome places in the chat input
-   - "Tell me about the Colosseum"
-   - "What are the best restaurants in Trastevere?"
-   - "Recommend some landmarks to visit"
+1. Push to GitHub
+2. Go to [share.streamlit.io](https://share.streamlit.io) → New app
+3. Repository: `OrielBanne/WalkieChatbotRome`, Branch: `main`, Main file: `src/app.py`
+4. Add secrets (TOML format):
+   ```toml
+   OPENAI_API_KEY = "sk-..."
+   ```
+5. Deploy — the app will be live at `https://walkiechatbotrome.streamlit.app`
 
-2. **View Maps**: Places mentioned in responses are automatically shown on an interactive map
+To use on your phone, open the URL in Safari and tap Share → "Add to Home Screen".
 
-3. **Session Management**:
-   - **New Session**: Click "New Session" in the sidebar to start fresh
-   - **Clear History**: Click "Clear History" to delete current conversation
-   - **Export History**: Click "Export History" to download conversation as text
+See [DEPLOYMENT_TO_IPHONE.md](DEPLOYMENT_TO_IPHONE.md) for the full guide.
 
-4. **Conversation Context**: The chatbot remembers previous messages in your session, so you can ask follow-up questions naturally
+## Managing the Knowledge Base
+
+You can manage sources directly from the sidebar in the running app:
+
+1. Open the **📚 Knowledge Base** section
+2. Add/remove YouTube videos, websites, or PDFs
+3. Click **🔄 Rebuild Knowledge Base**
+
+The rebuild re-ingests all sources, generates embeddings, and reloads the vector store — no restart needed.
+
+![Knowledge Base Management](rebuilding%20the%20knowledge%20base%20when%20adding%20youtube%20videos.jpg)
+
+## Configuration
+
+All settings are in `.env` (see [.env.example](.env.example)):
+
+| Variable | Default | Description |
+|---|---|---|
+| `OPENAI_API_KEY` | — | Required |
+| `LLM_MODEL` | `gpt-3.5-turbo` | Chat model |
+| `EMBEDDING_MODEL` | `text-embedding-ada-002` | Embedding model |
+| `CHUNK_SIZE` | `1000` | Text chunk size (chars) |
+| `CHUNK_OVERLAP` | `200` | Chunk overlap (chars) |
+| `MAX_CONTEXT_TOKENS` | `4000` | Max conversation context |
+| `RETRIEVAL_TOP_K` | `5` | Documents retrieved per query |
+| `LOG_LEVEL` | `INFO` | Logging level |
 
 ## Project Structure
 
 ```
-rome-places-chatbot/
-├── src/                      # Source code
-│   ├── app.py               # Streamlit application
-│   ├── config.py            # Configuration management
-│   ├── models.py            # Data models
-│   ├── session_manager.py   # Session persistence
-│   ├── context_manager.py   # Context building
-│   ├── place_extractor.py   # Place name extraction
-│   ├── rag_chain.py         # RAG pipeline
-│   ├── vector_store.py      # Vector storage
-│   ├── geocoder.py          # Geocoding
-│   ├── map_builder.py       # Map generation
-│   ├── loaders.py           # Data loaders
-│   ├── chunker.py           # Text chunking
-│   └── logging_config.py    # Logging setup
-├── scripts/                  # Utility scripts
-│   └── ingest_data.py       # Data ingestion script
-├── tests/                    # Test suite
-│   ├── test_*.py            # Unit tests
-│   └── property_test_*.py   # Property-based tests
-├── data/                     # Data directory
-│   └── vector_store/        # Vector store files
-├── sessions/                 # Session storage
-├── .env                      # Environment variables (create from .env.example)
-├── .env.example             # Environment template
-├── requirements.txt         # Python dependencies
-└── README.md               # This file
+WalkieChatbotRome/
+├── src/
+│   ├── app.py                    # Streamlit application
+│   ├── agents/                   # LangGraph planning agents
+│   │   ├── workflow.py           #   Workflow graph definition
+│   │   ├── models.py             #   Pydantic data models
+│   │   ├── place_discovery.py    #   Multi-pass RAG place finder
+│   │   ├── opening_hours.py      #   Opening hours lookup
+│   │   ├── ticket.py             #   Ticket info lookup
+│   │   ├── travel_time.py        #   Manhattan estimates + OSRM refinement
+│   │   ├── route_optimization.py #   Greedy TSP solver
+│   │   ├── crowd_prediction.py   #   Crowd level heuristics
+│   │   ├── cost.py               #   Cost calculation
+│   │   ├── feasibility.py        #   Feasibility scoring
+│   │   └── planner.py            #   Iteration logic + itinerary builder
+│   ├── components/
+│   │   └── itinerary_display.py  # UI components for itinerary
+│   ├── config.py                 # Environment config
+│   ├── models.py                 # Core data models
+│   ├── rag_chain.py              # RAG pipeline
+│   ├── vector_store.py           # NumPy vector store
+│   ├── place_extractor.py        # Gazetteer-based extraction
+│   ├── geocoder.py               # Nominatim geocoding
+│   ├── router.py                 # OSRM routing
+│   ├── map_builder.py            # Folium maps
+│   ├── nearby_suggestions.py     # Nearby place suggestions
+│   ├── planner_integration.py    # Workflow entry point
+│   ├── state_persistence.py      # App state save/restore
+│   ├── session_manager.py        # Chat session persistence
+│   ├── context_manager.py        # Token-aware context building
+│   ├── loaders.py                # YouTube/Web/PDF loaders
+│   ├── chunker.py                # Text chunking
+│   └── logging_config.py         # Logging setup
+├── scripts/
+│   └── ingest_data.py            # Data ingestion CLI
+├── data/
+│   ├── vector_store/             # Embeddings + documents
+│   ├── opening_hours.json        # Opening hours database
+│   ├── ticket_info.json          # Ticket prices database
+│   ├── crowd_patterns.json       # Crowd prediction patterns
+│   └── sample_sources.txt        # Default source URLs
+├── tests/                        # Test suite (35+ test files)
+├── .streamlit/config.toml        # Streamlit theme config
+├── requirements.txt              # Python dependencies
+└── .env.example                  # Environment template
 ```
 
 ## Testing
 
-### Run All Tests
-
 ```bash
+# All tests
 pytest
-```
 
-### Run Unit Tests Only
-
-```bash
-pytest tests/ -k "not property_test"
-```
-
-### Run Property-Based Tests
-
-```bash
-pytest tests/ -k "property_test"
-```
-
-### Run Tests with Coverage
-
-```bash
+# With coverage
 pytest --cov=src --cov-report=html
+
+# Specific module
+pytest tests/test_place_extractor.py -v
 ```
 
-View coverage report by opening `htmlcov/index.html` in your browser.
+## Tech Stack
 
-### Run Specific Test File
-
-```bash
-pytest tests/test_session_manager.py -v
-```
-
-## Configuration
-
-### Environment Variables
-
-All configuration is managed through environment variables in the `.env` file:
-
-**OpenAI Configuration:**
-- `OPENAI_API_KEY`: Your OpenAI API key (required)
-- `LLM_MODEL`: Language model (default: `gpt-3.5-turbo`)
-- `EMBEDDING_MODEL`: Embedding model (default: `text-embedding-ada-002`)
-
-**Application Settings:**
-- `APP_TITLE`: Application title (default: `Rome Places Chatbot`)
-- `MAX_CONTEXT_TOKENS`: Max conversation context tokens (default: `4000`)
-- `RETRIEVAL_TOP_K`: Number of documents to retrieve (default: `5`)
-
-**File Paths:**
-- `SESSION_STORAGE_PATH`: Session files directory (default: `./sessions`)
-- `VECTOR_STORE_PATH`: Vector store directory (default: `./data/vector_store`)
-- `DATA_DIR`: Data directory (default: `./data`)
-
-**Geographic Settings:**
-- `ROME_CENTER_LAT`: Rome center latitude (default: `41.9028`)
-- `ROME_CENTER_LON`: Rome center longitude (default: `12.4964`)
-
-**Text Processing:**
-- `CHUNK_SIZE`: Text chunk size in characters (default: `1000`)
-- `CHUNK_OVERLAP`: Chunk overlap in characters (default: `200`)
-
-**Session Management:**
-- `SESSION_RETENTION_DAYS`: Days to retain sessions (default: `90`)
-
-**RAG Settings:**
-- `RAG_RETRIEVAL_K`: Documents to retrieve for RAG (default: `5`)
-- `API_MAX_RETRIES`: Max API retry attempts (default: `3`)
-- `API_TIMEOUT`: API timeout in seconds (default: `30`)
-
-**Logging:**
-- `LOG_LEVEL`: Logging level (default: `INFO`)
-
-### Validation
-
-Configuration is automatically validated on startup. If required settings are missing or invalid, the application will display helpful error messages.
-
-To manually validate configuration:
-
-```python
-from src.config import validate_configuration, get_config_summary
-
-# Validate configuration
-validate_configuration()
-
-# Print configuration summary
-print(get_config_summary())
-```
-
-## Troubleshooting
-
-### OpenAI API Key Not Found
-
-**Error**: `OpenAI API key not found`
-
-**Solution**: Ensure your OpenAI API key is set as a system environment variable:
-
-```bash
-# Verify the key is set
-python -c "import os; print('✓ API key found' if os.getenv('OPENAI_API_KEY') else '✗ API key not found')"
-```
-
-If not found, follow the setup instructions in Step 5 above. Remember to restart your terminal or IDE after setting the environment variable.
-
-### Vector Store Empty
-
-**Error**: No relevant documents found for queries
-
-**Solution**: Run data ingestion to populate the vector store:
-```bash
-python scripts/ingest_data.py --youtube "URL" --web "URL"
-```
-
-### Geocoding Failures
-
-**Error**: Places not showing on map
-
-**Solution**: 
-- Check internet connection (geocoding requires API access)
-- Major Rome landmarks have fallback coordinates and should always work
-- Check logs for specific geocoding errors
-
-### Session Files Not Persisting
-
-**Error**: Conversation history lost between sessions
-
-**Solution**:
-- Ensure `SESSION_STORAGE_PATH` directory exists and is writable
-- Check file permissions on the sessions directory
-- Review logs for file system errors
-
-### Import Errors
-
-**Error**: `ModuleNotFoundError` or import errors
-
-**Solution**:
-```bash
-# Reinstall dependencies
-pip install -r requirements.txt
-```
-
-### Port Already in Use
-
-**Error**: Streamlit port 8501 already in use
-
-**Solution**:
-```bash
-# Use a different port
-streamlit run src/app.py --server.port 8502
-```
-
-## Development
-
-### Adding New Data Sources
-
-To add new content sources:
-
-1. Add URLs or file paths to your ingestion command
-2. Run the ingestion script
-3. Restart the application to use the new content
-
-### Extending Place Types
-
-To add new place type categories:
-
-1. Edit `src/map_builder.py` and add to `PLACE_TYPE_COLORS` and `PLACE_TYPE_ICONS`
-2. Update place extraction patterns in `src/place_extractor.py` if needed
-
-### Custom Prompts
-
-To customize the RAG prompt template:
-
-1. Edit `src/rag_chain.py`
-2. Modify the `ROME_PROMPT_TEMPLATE` constant
-3. Restart the application
-
-## Performance Optimization
-
-### Vector Store
-
-- Use FAISS for fast similarity search
-- Adjust `CHUNK_SIZE` and `CHUNK_OVERLAP` for optimal retrieval
-- Consider using GPU-accelerated FAISS for large datasets
-
-### Context Management
-
-- Adjust `MAX_CONTEXT_TOKENS` based on your model's context window
-- Use `RETRIEVAL_TOP_K` to control number of retrieved documents
-- Implement semantic similarity for better history selection
-
-### Caching
-
-- Geocoding results are cached in memory
-- Consider implementing Redis for distributed caching
-- Cache embeddings for frequently accessed documents
-
-## Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch
-3. Write tests for new functionality
-4. Ensure all tests pass
-5. Submit a pull request
+- **UI**: [Streamlit](https://streamlit.io) + [streamlit-folium](https://github.com/randyzwitch/streamlit-folium)
+- **LLM**: [OpenAI GPT-3.5-turbo](https://platform.openai.com/docs) via [LangChain](https://github.com/langchain-ai/langchain)
+- **Workflow**: [LangGraph](https://github.com/langchain-ai/langgraph) (multi-agent state graph)
+- **Embeddings**: OpenAI `text-embedding-ada-002` + NumPy cosine similarity
+- **Maps**: [Folium](https://python-visualization.github.io/folium/)
+- **Routing**: [OSRM](https://project-osrm.org/) (Open Source Routing Machine)
+- **Geocoding**: [Nominatim](https://nominatim.org/) (OpenStreetMap)
+- **Route optimization**: Greedy nearest-neighbor TSP
 
 ## License
 
-[Add your license information here]
+MIT — see [LICENSE](LICENSE).
 
-## Acknowledgments
+## Author
 
-- OpenAI for GPT and embedding models
-- LangChain for RAG framework
-- Streamlit for the web interface
-- Folium for map visualization
-- Geopy for geocoding services
-
-## Support
-
-For issues, questions, or contributions, please [open an issue](link-to-issues) on GitHub.
+**Oriel Banne** — [GitHub](https://github.com/OrielBanne)
